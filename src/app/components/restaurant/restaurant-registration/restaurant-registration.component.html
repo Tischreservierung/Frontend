@@ -4,23 +4,25 @@
     <tbody>
         <tr>
             <td><label>Restaurantname:</label></td>
-            <td><input></td>
+            <td><input [(ngModel)]="name"></td>
         </tr>
         <tr>
             <td><label>Postleitzahl:</label></td>
-            <td><input></td>
+            <td><input [(ngModel)]="zipCode"></td>
         </tr>
         <tr>
             <td><label>Ort:</label></td>
-            <td><input></td>
+            <td><input [(ngModel)]="location"></td>
         </tr>
         <tr>
             <td><label>Straße:</label></td>
-            <td><input></td>
+            <td><input [(ngModel)]="address"></td>
         </tr>
         <tr>
             <td><label>Hausnummer:</label></td>
-            <td><input></td>
+            <td><input [(ngModel)]="streetNr"></td>
         </tr>
     </tbody>
 </table>
+
+<button (click)="btnRegisterClicked()">Registrieren</button>
