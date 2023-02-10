@@ -1,26 +1,28 @@
 <h1>Restaurant eintragen</h1>
 
-<table>
+<table class="table">
     <tbody>
         <tr>
-            <td><label>Restaurantname:</label></td>
-            <td><input></td>
+            <td style="width: 40%;"><label>Restaurantname:</label></td>
+            <td><input type="text" class="form-control" [(ngModel)]="name"></td>
         </tr>
         <tr>
             <td><label>Postleitzahl:</label></td>
-            <td><input></td>
+            <td><input type="text"  class="form-control" [(ngModel)]="zipCode"></td>
         </tr>
         <tr>
             <td><label>Ort:</label></td>
-            <td><input></td>
+            <td><input type="text"  class="form-control" [(ngModel)]="location"></td>
         </tr>
         <tr>
             <td><label>Straße:</label></td>
-            <td><input></td>
+            <td><input type="text"  class="form-control" [(ngModel)]="address"></td>
         </tr>
         <tr>
             <td><label>Hausnummer:</label></td>
-            <td><input></td>
+            <td><input type="text"  class="form-control" [(ngModel)]="streetNr"></td>
         </tr>
     </tbody>
 </table>
+
+<button (click)="btnRegisterClicked()">Registrieren</button>
