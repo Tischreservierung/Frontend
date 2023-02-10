@@ -16,7 +16,7 @@ import { RestaurantRegistrationComponent } from './components/restaurant/restaur
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

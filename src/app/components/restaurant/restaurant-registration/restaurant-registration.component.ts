@@ -26,7 +26,7 @@ export class RestaurantRegistrationComponent {
     let restaurant : Restaurant;
     let zipCode : ZipCode = {location: this.location, zipCode: this.zipCode, district: "Test"};
     restaurant = {name: this.name,address: this.address, streetNr: this.streetNr, zipCode: zipCode};
-    this.service.addRestaurant(restaurant);
+    //this.service.addRestaurant(restaurant);
     console.log('Register complitet');
   }
 }

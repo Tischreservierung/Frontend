@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Restaurant } from 'src/app/model/restaurant';
+import { ZipCode } from 'src/app/model/zip-code';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,12 +14,11 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantService {
+export class ZipCodeService {
 
   constructor(private http: HttpClient) { }
 
-  addRestaurant(restaurant : Restaurant){
-    return this.http.post<Restaurant>(/*'/api/Restaurants'*/'https://localhost:7259/api/Restaurants',restaurant,
-    httpOptions).subscribe();
+  getZipCodes() {
+    return this.http.get<ZipCode>('');
   }
 }
