@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
+import { Component } from '@angular/core';
 
 
 @Component({
@@ -15,11 +15,11 @@ export class RestaurantRegistrationComponent {
 
   }
 
-  name : string = "";
-  zipCode : string = "";
-  location : string = "";
-  address : string = "";
-  streetNr : string = "";
+  name : string = "123";
+  zipCode : string = "123";
+  location : string = "132";
+  address : string = "123";
+  streetNr : string = "123";
 
   restaurants : Restaurant[] = [];
 

@@ -1,32 +1,43 @@
 <div class="container">
     <h1>Restaurant eintragen</h1>
+    <p>Test {{name}}</p>
+    <form class="labelForm">
+        <mat-form-field class="full-width">
+            <mat-label>Restaurantname</mat-label>
+            <input matInput placeholder="" type="text" [(ngModel)]="name">
+        </mat-form-field>
+    </form>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <td><label>Restaurantname:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="name"></td>
-            </tr>
-            <tr>
-                <td><label>Postleitzahl:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="zipCode"></td>
-            </tr>
-            <tr>
-                <td><label>Ort:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="location"></td>
-            </tr>
-            <tr>
-                <td><label>Straße:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="address"></td>
-            </tr>
-            <tr>
-                <td><label>Hausnummer:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="streetNr"></td>
-            </tr>
-        </tbody>
-    </table>
+    <form class="labelForm">
+        <mat-form-field class="full-width">
+            <mat-label>Postleitzahl</mat-label>
+            <input matInput placeholder="" [(ngModel)]="zipCode">
+        </mat-form-field>
+    </form>
 
-    <button class="btn btn-primary" [disabled]="enableRegister()" (click)="btnRegisterClicked()">Registrieren</button>
+    <form class="labelForm">
+        <mat-form-field class="full-width">
+            <mat-label>Ort</mat-label>
+            <input matInput placeholder="" [(ngModel)]="location">
+        </mat-form-field>
+    </form>
+
+    <form class="labelForm">
+        <mat-form-field class="full-width">
+            <mat-label>Straße</mat-label>
+            <input matInput placeholder="" [(ngModel)]="address">
+        </mat-form-field>
+    </form>
+
+    <form class="labelForm">
+        <mat-form-field class="full-width">
+            <mat-label>Hausnummer</mat-label>
+            <input matInput placeholder="" [(ngModel)]="streetNr">
+        </mat-form-field>
+    </form>
+    <button class="buttonMenu" mat-raised-button color="primary" [disabled]="enableRegister()"
+        (click)="btnRegisterClicked()">Registrieren</button>
+
 </div>
 
 <p *ngFor="let item of restaurants">{{item.name}}</p>
