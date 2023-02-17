@@ -21,12 +21,21 @@ export class RestaurantRegistrationComponent {
   address : string = "";
   streetNr : string = "";
 
+  restaurants : Restaurant[] = [];
+
   btnRegisterClicked(){
     console.log('Register')
     let restaurant : Restaurant;
-    let zipCode : ZipCode = {location: this.location, zipCode: this.zipCode, district: "Test"};
+    let zipCode : ZipCode = {location: this.location, zipCodeNr: this.zipCode, district: "Test"};
     restaurant = {name: this.name,address: this.address, streetNr: this.streetNr, zipCode: zipCode};
-    //this.service.addRestaurant(restaurant);
-    console.log('Register complitet');
+    this.service.addRestaurant(restaurant).subscribe({
+      next: data => {console.log('Inserted '+data.name)},
+      error: error => { alert("Fehler" + error.message) }
+    });
+    this.service.getRestaurants().subscribe({next:data => this.restaurants = data});
+  }
+
+  enableRegister(){
+    return !(this.name != "" && this.zipCode != "" && this.location != "" && this.streetNr != "" && this.address != "");
   }
 }

@@ -12,14 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
+import { SearchRestaurantComponent } from './components/restaurant/search-restaurant/search-restaurant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RestaurantRegistrationComponent,
     AboutComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    SearchRestaurantComponent
   ],
   imports: [
     BrowserModule,
