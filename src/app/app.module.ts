@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantRegistrationComponent } from './components/restaurant/restaurant-registration/restaurant-registration.component';
 import { AboutComponent } from './components/about/about.component';
+import { SearchRestaurantComponent } from './components/restaurant/search-restaurant/search-restaurant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RestaurantRegistrationComponent,
-    AboutComponent
+    AboutComponent,
+    SearchRestaurantComponent
   ],
   imports: [
     BrowserModule,

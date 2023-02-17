@@ -1,5 +1,5 @@
 export interface ZipCode {
-    zipCode: string;
+    zipCodeNr: string;
     location: string;
     district: string;
 }
