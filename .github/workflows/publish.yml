@@ -16,7 +16,7 @@ jobs:
         with:
           registry: ghcr.io
           username: tischreservierung
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_LOGIN }}
           
       - name: Build and publish Container
         run: |
