@@ -16,19 +16,32 @@
   <div>
       <div class="row">
         <div class="col-lg-4 col-0">
-          Bild xy für Website
+          <br>
+          <br>
           <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="..." alt="First slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="..." alt="Second slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="..." alt="Third slide">
-              </div>
-            </div>
+            <mdb-carousel [controls]="true">
+              <mdb-carousel-item [interval]="2500">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+              <mdb-carousel-item [interval]="2500">
+                <img 
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+              <mdb-carousel-item [interval]="2500">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+            </mdb-carousel>
           </div>
         </div>
         <div class="col-lg-8 col-12">
@@ -49,9 +62,8 @@
                       Email is <strong>required</strong>
                     </mat-error>
                   </mat-form-field>
-              </form>
               <br>
-              <form class="labelForm">
+              <br>
                   <mat-form-field class="full-width">
                     <mat-label>Password*</mat-label>
                     <input matInput placeholder="" [type]="hide ? 'password' : 'text'">

@@ -1,11 +1,20 @@
 <div class="container">
     <h1>Restaurant eintragen</h1>
+    <p>{{name}}</p>
+
 
     <table class="table">
-        <tbody>
+        <tbody formGroupName="Restaurant">
             <tr>
                 <td><label>Restaurantname:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="name"></td>
+                <td>
+                    <form class="labelForm">
+                        <mat-form-field class="full-width">
+                          <mat-label>Password*</mat-label>
+                          <input matInput placeholder="" [(ngModel)]="name" formControlName="restaurantName">
+                        </mat-form-field>
+                    </form>
+                </td>
             </tr>
             <tr>
                 <td><label>Postleitzahl:</label></td>
