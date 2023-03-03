@@ -12,7 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { SearchRestaurantComponent } from './components/restaurant/search-restaurant/search-restaurant.component';
+import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { SearchRestaurantComponent } from './components/restaurant/search-restau
     RestaurantRegistrationComponent,
     AboutComponent,
     UserRegistrationComponent,
-    SearchRestaurantComponent
+    RestaurantFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,7 @@ import { SearchRestaurantComponent } from './components/restaurant/search-restau
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MdbCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

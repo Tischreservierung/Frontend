@@ -6,49 +6,79 @@
     <button mat-raised-button>Basic</button>
     <button mat-raised-button color="primary">Basic</button>
 </body>!-->
-<div style="text-align:center">
-    <h1>Is nu in Orbeit</h1>
-</div>
 <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-0">
-        Bild xy für Website
-      </div>
-      <div class="col-lg-8 col-12" style="text-align:center">
-        <body style="background-color:#666;">
-            <br>
-            <br>
-            <br>
-            <form class="labelForm">
-                <mat-form-field class="full-width">
-                  <mat-label>Email-Address</mat-label>
-                  <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                         placeholder="max.mustermann@example.com">
-                  <mat-hint>Errors appear instantly!</mat-hint>
-                  <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    Please enter a valid email address
-                  </mat-error>
-                  <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Email is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field>
-            </form>
-            <br>
-            <form class="labelForm">
-                <mat-form-field class="full-width">
-                  <mat-label>Password</mat-label>
-                  <input matInput placeholder="" [type]="hide ? 'password' : 'text'">
-                </mat-form-field>
-            </form>
-            <br>
-            <br>
-            <button class="buttonMenu" mat-raised-button color="primary">Log In</button>
-            <br>
-            <br>
-            <button class="buttonMenu" mat-raised-button color="primary">Register</button>
-            <br>
-            <br>
-        </body>
-      </div>
+  <div>
+    <br>
+    <br>
+    <h1 class="headerStyle">Is nu in Orbeit</h1>
+    <br>
+  </div>
+  <div>
+      <div class="row">
+        <div class="col-lg-4 col-0">
+          <br>
+          <br>
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <mdb-carousel [controls]="true">
+              <mdb-carousel-item [interval]="2500">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+              <mdb-carousel-item [interval]="2500">
+                <img 
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+              <mdb-carousel-item [interval]="2500">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+                  class="imgSize"
+                  alt="..."
+                />
+              </mdb-carousel-item>
+            </mdb-carousel>
+          </div>
+        </div>
+        <div class="col-lg-8 col-12">
+          <body style="background-color:#666;">
+              <br>
+              <br>
+              <br>
+              <form class="labelForm">
+                  <mat-form-field class="full-width">
+                    <mat-label>Email-Address</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                          placeholder="max.mustermann@example.com">
+                    <mat-hint>Errors appear instantly!</mat-hint>
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                      Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                      Email is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+              <br>
+              <br>
+                  <mat-form-field class="full-width">
+                    <mat-label>Password*</mat-label>
+                    <input matInput placeholder="" [type]="hide ? 'password' : 'text'">
+                  </mat-form-field>
+              </form>
+              <br>
+              <br>
+              <button class="buttonMenu" mat-raised-button color="primary">Log In</button>
+              <br>
+              <br>
+              <button class="buttonMenu" mat-raised-button color="primary">Register</button>
+              <br>
+              <br>
+          </body>
+        </div>
+    </div>
   </div>
 </div>
