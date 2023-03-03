@@ -9,9 +9,10 @@ import { RestaurantRegistrationComponent } from './components/restaurant/restaur
 import { AboutComponent } from './components/about/about.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { SearchRestaurantComponent } from './components/restaurant/search-restaurant/search-restaurant.component';
 
 @NgModule({
@@ -32,6 +33,7 @@ import { SearchRestaurantComponent } from './components/restaurant/search-restau
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

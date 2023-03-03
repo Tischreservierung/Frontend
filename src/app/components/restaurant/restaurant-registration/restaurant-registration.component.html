@@ -1,43 +1,19 @@
 <div class="container">
     <h1>Restaurant eintragen</h1>
-    <p>Test {{name}}</p>
-    <form class="labelForm">
-        <mat-form-field class="full-width">
-            <mat-label>Restaurantname</mat-label>
-            <input matInput placeholder="" type="text" [(ngModel)]="name">
-        </mat-form-field>
-    </form>
 
-    <form class="labelForm">
+    <div formGroupName="restaurant">
         <mat-form-field class="full-width">
-            <mat-label>Postleitzahl</mat-label>
-            <input matInput placeholder="" [(ngModel)]="zipCode">
+            <mat-label>Password*</mat-label>
+            <input matInput placeholder=""  formControlName="restaurantName">
         </mat-form-field>
-    </form>
 
-    <form class="labelForm">
         <mat-form-field class="full-width">
-            <mat-label>Ort</mat-label>
-            <input matInput placeholder="" [(ngModel)]="location">
+            <mat-label>Password*</mat-label>
+            <input matInput placeholder="" >
         </mat-form-field>
-    </form>
+    </div>
 
-    <form class="labelForm">
-        <mat-form-field class="full-width">
-            <mat-label>Straße</mat-label>
-            <input matInput placeholder="" [(ngModel)]="address">
-        </mat-form-field>
-    </form>
-
-    <form class="labelForm">
-        <mat-form-field class="full-width">
-            <mat-label>Hausnummer</mat-label>
-            <input matInput placeholder="" [(ngModel)]="streetNr">
-        </mat-form-field>
-    </form>
-    <button class="buttonMenu" mat-raised-button color="primary" [disabled]="enableRegister()"
-        (click)="btnRegisterClicked()">Registrieren</button>
-
+    <button (click)="btnRegisterClicked()" class="buttonMenu" mat-raised-button color="primary">Registrieren</button>
 </div>
 
 <p *ngFor="let item of restaurants">{{item.name}}</p>
