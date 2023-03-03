@@ -2,7 +2,7 @@ import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -12,35 +12,37 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class RestaurantRegistrationComponent {
 
-  constructor(private service: RestaurantService) {
-
+  constructor(private service: RestaurantService, private formBuilder : FormBuilder) {
+    this.formGroup = this.createForm();
   }
 
-  restaurant = new FormGroup({
-    restaurantName: new FormControl('')
-  });
+  createForm() {
+    return this.formBuilder.group({
+      'name': [null],
+      'zipCode': [null],
+      'location': [null],
+      'address': [null],
+      'streetNr': [null]
+    });
+  }
 
-  name: string = "";
-  zipCode: string = "";
-  location: string = "";
-  address: string = "";
-  streetNr: string = "";
+  formGroup : FormGroup;
 
   restaurants: Restaurant[] = [];
 
-  btnRegisterClicked() {
-    console.log('Register')
+  register() {
+    
+    let temp = this.formGroup.controls;
+    console.log(temp['name'].value)
     let restaurant: Restaurant;
-    let zipCode: ZipCode = { location: this.location, zipCodeNr: this.zipCode, district: "Test" };
-    restaurant = { name: this.name, address: this.address, streetNr: this.streetNr, zipCode: zipCode };
-    /*this.service.addRestaurant(restaurant).subscribe({
+    let zipCode: ZipCode = { location: temp['location'].value, zipCodeNr: temp['zipCode'].value, district: "Linz-Land" };
+    restaurant = { name: temp['name'].value, address: temp['address'].value,
+     streetNr: temp['streetNr'].value, zipCode: zipCode };
+    this.service.addRestaurant(restaurant).subscribe({
       next: data => { console.log('Inserted ' + data.name) },
       error: error => { alert("Fehler" + error.message) }
-    });*/
+    });
     this.service.getRestaurants().subscribe({ next: data => this.restaurants = data });
   }
 
-  enableRegister() {
-    return !(this.name != "" && this.zipCode != "" && this.location != "" && this.streetNr != "" && this.address != "");
-  }
 }

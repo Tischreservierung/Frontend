@@ -1,19 +1,33 @@
 <div class="container">
     <h1>Restaurant eintragen</h1>
 
-    <div formGroupName="restaurant">
+    <form [formGroup]="formGroup" class="form">
         <mat-form-field class="full-width">
-            <mat-label>Password*</mat-label>
-            <input matInput placeholder=""  formControlName="restaurantName">
+            <mat-label>Restaurantname</mat-label>
+            <input matInput placeholder="" formControlName="name">
         </mat-form-field>
 
         <mat-form-field class="full-width">
-            <mat-label>Password*</mat-label>
-            <input matInput placeholder="" >
+            <mat-label>Postleitzahl</mat-label>
+            <input matInput placeholder="" formControlName="zipCode">
         </mat-form-field>
-    </div>
 
-    <button (click)="btnRegisterClicked()" class="buttonMenu" mat-raised-button color="primary">Registrieren</button>
+        <mat-form-field class="full-width">
+            <mat-label>Ort</mat-label>
+            <input matInput placeholder="" formControlName="location">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Addresse</mat-label>
+            <input matInput placeholder="" formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Straßennummer</mat-label>
+            <input matInput placeholder="" formControlName="streetNr">
+        </mat-form-field>
+    </form>
+    <button class="buttonMenu" mat-raised-button color="primary" (click)="register()">Registrieren</button>
 </div>
 
 <p *ngFor="let item of restaurants">{{item.name}}</p>
