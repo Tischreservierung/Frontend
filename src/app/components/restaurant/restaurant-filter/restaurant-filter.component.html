@@ -1,1 +1,121 @@
-<p>Filter</p>
+<div class="container">
+    <br>
+    <br>
+
+    <!-- Desktop -->
+    <div *ngIf="deviceInfo.deviceType == 'desktop'">
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>Restaurant Name</mat-label>
+                    <input matInput placeholder="">
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+            <mat-form-field>
+                <mat-label>Ort</mat-label>
+                <input matInput placeholder="">
+            </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>Datum</mat-label>
+                    <input matInput placeholder="01.01.2023">
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field>
+                    <mat-label>Uhrzeit</mat-label>
+                    <input matInput placeholder="12:00">
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                Dropdown Menu macht Sebastian Markus Witzeneder
+            </div>
+            <div class="col-2">
+                <button class="filterBtnSize" mat-raised-button color="primary">suchen</button>
+            </div>
+        </div>
+        <div *ngFor="let item of [1,2,3,4,5]">
+            <br>
+            <hr>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <img
+                    src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                    class="imgSize"
+                    alt="..."
+                    />
+                </div>
+                <div class="col-8">
+                    <h1 class="restaurantHeader">Restaurantname</h1>
+                    <p>Restaurantbeschreibung</p>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <!-- Mobile Devices -->
+    <div *ngIf="deviceInfo.deviceType == 'mobile' || deviceInfo.deviceType == 'tablet'">
+        <div *ngIf="showMobile == true">
+            <div>
+                <mat-form-field>
+                    <mat-label>Restaurant Name</mat-label>
+                    <input matInput placeholder="">
+                </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field>
+                <mat-label>Ort</mat-label>
+                <input matInput placeholder="">
+            </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Datum</mat-label>
+                    <input matInput placeholder="01.01.2023">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>Uhrzeit</mat-label>
+                    <input matInput placeholder="12:00">
+                </mat-form-field>
+            </div>
+            <div>
+                Dropdown Menu macht Sebastian Markus Witzeneder
+            </div>
+            <div>
+                <button (click)="changeMobileMode()" class="btnSize" mat-raised-button color="primary">suchen</button>
+            </div>
+        </div>
+        <div *ngIf="showMobile == false">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btnSize" mat-raised-button color="primary">Home</button>
+                </div>
+                <div class="col-6">
+                    <button (click)="changeMobileMode()" class="btnSize" mat-raised-button color="primary">Filter</button>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let item of [1,2,3,4,5]">
+            <br>
+            <hr>
+            <br>
+            <div>
+                <h1 class="restaurantHeader">Restaurantname</h1>
+                <img
+                src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                class="imgSize"
+                alt="..."
+                />
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+

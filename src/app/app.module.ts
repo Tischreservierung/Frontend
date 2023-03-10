@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +14,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { RestaurantFilterComponent } from './components/restaurant/restaurant-fi
     MatFormFieldModule,
     MatInputModule,
     MdbCarouselModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
