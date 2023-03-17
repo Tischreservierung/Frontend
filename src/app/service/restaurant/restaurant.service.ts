@@ -16,14 +16,15 @@ const httpOptions = {
 })
 export class RestaurantService {
 
+  url = 'https://localhost:7259/api/Restaurants';
   constructor(private http: HttpClient) { }
 
   addRestaurant(restaurant : Restaurant){
-    return this.http.post<Restaurant>('https://localhost:7259/api/Restaurants',restaurant,
+    return this.http.post<Restaurant>(this.url,restaurant,
     httpOptions);
   }
 
   getRestaurants(){
-    return this.http.get<Restaurant[]>('https://localhost:7259/api/Restaurants');
+    return this.http.get<Restaurant[]>(this.url);
   }
 }
