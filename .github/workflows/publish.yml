@@ -6,6 +6,7 @@ on:
 
 jobs:
   publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:   
       - name: Checkout
@@ -25,7 +26,7 @@ jobs:
 
   depoy:
       name: Deploy
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       needs: [ publish ]
       runs-on: ubuntu-latest
       steps:
