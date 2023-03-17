@@ -36,7 +36,7 @@ jobs:
             namespace: student-s-raaber
             method: service-account
             k8s-url: student.cloud.htl-leonding.ac.at
-            k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
+            token: ${{ secrets.KUBERNETES_TOKEN }}
 
         - name: Checkout
           uses: actions/checkout@v3
