@@ -24,7 +24,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     RestaurantRegistrationComponent,
     AboutComponent,
     UserRegistrationComponent,
-    RestaurantFilterComponent,
+    RestaurantFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +36,9 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
     MdbCarouselModule,
-    MatMenuModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
