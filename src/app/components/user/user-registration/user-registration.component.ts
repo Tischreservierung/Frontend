@@ -12,7 +12,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.scss']
+  styleUrls: ['./user-registration.component.scss'],
 })
 
 export class UserRegistrationComponent {
@@ -26,4 +26,3 @@ export class UserRegistrationComponent {
     this.hide = !this.hide;
   }
 }
-
