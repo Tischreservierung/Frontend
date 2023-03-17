@@ -33,4 +33,8 @@ export class RestaurantFilterComponent {
     else
       this.showMobile = true;
   }
+
+  goToRestaurant() {
+    console.log("It Works");
+  }
 }
