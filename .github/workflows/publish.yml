@@ -38,8 +38,13 @@ jobs:
             k8s-url: student.cloud.htl-leonding.ac.at
             kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+        - name: Install krew
+          uses: developer-guy/setup-krew@main
+          with:
+            krew-version: 'v0.4.2'
+
         - name: Install Kubectl Oidc
-          run: brew install int128/kubelogin/kubelogin
+          run: kubectl krew install oidc-login
 
         - name: Checkout
           uses: actions/checkout@v3
