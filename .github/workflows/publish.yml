@@ -38,6 +38,9 @@ jobs:
             k8s-url: student.cloud.htl-leonding.ac.at
             kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+        - name: Install Kubectl Oidc
+          run: kubectl krew install oidc-login
+
         - name: Checkout
           uses: actions/checkout@v3
           
