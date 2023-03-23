@@ -39,7 +39,7 @@ jobs:
             kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
         - name: Install Kubectl Oidc
-          run: kubectl krew install oidc-login
+          run: brew install int128/kubelogin/kubelogin
 
         - name: Checkout
           uses: actions/checkout@v3
