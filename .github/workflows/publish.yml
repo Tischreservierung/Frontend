@@ -42,4 +42,4 @@ jobs:
           uses: actions/checkout@v3
           
         - name: Deploy to Kubernetes
-          run: kubectl appply -f kubernetes/deployment.yaml
+          run: kubectl apply -f kubernetes/deployment.yaml
