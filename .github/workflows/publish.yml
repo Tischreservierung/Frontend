@@ -40,8 +40,6 @@ jobs:
 
         - name: Install krew
           uses: developer-guy/setup-krew@main
-          with:
-            krew-version: 'v0.4.2'
 
         - name: Install Kubectl Oidc
           run: kubectl krew install oidc-login
