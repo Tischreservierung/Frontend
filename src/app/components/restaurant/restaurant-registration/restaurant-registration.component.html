@@ -1,34 +1,79 @@
-<div class="container" style="background-color:#666;">
-    <h1>Restaurant eintragen</h1>
+<div class="container center" style="background-color:#666;">
+    <br>
+    <h1 class="margin">Restaurant eintragen</h1>
 
 
-    <form [formGroup]="formGroup" class="form">
-        <mat-form-field class="full-width">
-            <mat-label>Restaurantname</mat-label>
-            <input matInput placeholder="" formControlName="name">
-        </mat-form-field>
-        <br>
-        <mat-form-field class="full-width">
-            <mat-label>Postleitzahl</mat-label>
-            <input matInput placeholder="" formControlName="zipCode">
-        </mat-form-field>
-        <br>
-        <mat-form-field class="full-width">
-            <mat-label>Ort</mat-label>
-            <input matInput placeholder="" formControlName="location">
-        </mat-form-field>
-        <br>
-        <mat-form-field class="full-width">
-            <mat-label>Addresse</mat-label>
-            <input matInput placeholder="" formControlName="address">
-        </mat-form-field>
-        <br>
-        <mat-form-field class="full-width">
-            <mat-label>Straßennummer</mat-label>
-            <input matInput placeholder="" formControlName="streetNr">
-        </mat-form-field>
+    <form [formGroup]="formGroup" class="form row">
+        <div class="col-4">
+            <h2>Grunddaten</h2>
+            <mat-form-field class="full-width">
+                <mat-label>Restaurantname</mat-label>
+                <input matInput placeholder="" formControlName="name">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Postleitzahl</mat-label>
+                <input matInput placeholder="" formControlName="zipCode">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Ort</mat-label>
+                <input matInput placeholder="" formControlName="location">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Addresse</mat-label>
+                <input matInput placeholder="" formControlName="address">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Straßennummer</mat-label>
+                <input matInput placeholder="" formControlName="streetNr">
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <h2>Öffnungszeiten</h2>
+            <mat-form-field appearance="fill">
+                <mat-label>Tag</mat-label>
+                <mat-select [(value)]="day">
+                    <mat-option *ngFor="let day of days" [value]="day.id">{{day.day}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <div class="row">
+                <mat-form-field class="col-6">
+                    <mat-label>Von</mat-label>
+                    <input matInput placeholder="hh:mm" formControlName="openFrom">
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                    <mat-label>Bis</mat-label>
+                    <input matInput placeholder="hh:mm" formControlName="openTo">
+                </mat-form-field>
+            </div>
+            <p *ngIf="formGroup.controls['openTo'].invalid || formGroup.controls['openFrom'].invalid">Format: hh:mm
+                (12:30)</p>
+            <br>
+            <button class="buttonMenu m-2" mat-raised-button color="primary" (click)="addTime()">Hinzufügen</button>
+            <br>
+            <div style="text-align: left;" *ngFor="let day of days">
+                <ng-container *ngIf="openedAt(day.id)">
+                    <label>{{day.short}}:</label>
+                    <p *ngFor="let time of openingsAt(day.id)">{{time.openFrom}} - {{time.openTo}}</p>
+                </ng-container>
+            </div>
+        </div>
+        <div class="col-4">
+            <h2>Restaurantart</h2>
+            <mat-form-field appearance="fill">
+                <mat-label>Restaurantart</mat-label>
+                <mat-select [formControl]="categoryControl" multiple>
+                    <mat-option *ngFor="let type of categories" [value]="type">{{type.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     </form>
-    <button class="buttonMenu" mat-raised-button color="primary" (click)="register()">Registrieren</button>
+    <button class="buttonMenu m-2" mat-raised-button color="primary" (click)="register()">Registrieren</button>
 </div>
 
 <p *ngFor="let item of restaurants">{{item.name}}</p>
+<p *ngFor="let item of zipCodes">{{item.location}} - {{item.zipCodeNr}}</p>

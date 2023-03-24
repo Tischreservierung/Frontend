@@ -17,6 +17,7 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     MatInputModule,
     MatIconModule,
     MdbCarouselModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
