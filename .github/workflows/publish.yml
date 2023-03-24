@@ -30,6 +30,9 @@ jobs:
       needs: [ publish ]
       runs-on: ubuntu-latest
       steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+      
         - name: Set Kubernetes context
           uses: azure/k8s-set-context@v2
           with:
@@ -38,7 +41,7 @@ jobs:
             k8s-url: student.cloud.htl-leonding.ac.at
             kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
-        - name: Install Krew and Kubectl Oidc
+        - name: Install Kubectl Oidc and Deploy
           run: |
             (
             set -x; cd "$(mktemp -d)" &&
@@ -51,9 +54,4 @@ jobs:
             )
             export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
             kubectl krew install oidc-login
-
-        - name: Checkout
-          uses: actions/checkout@v3
-          
-        - name: Deploy to Kubernetes
-          run: kubectl apply -f kubernetes/deployment.yaml
+            run: kubectl apply -f kubernetes/deployment.yaml
