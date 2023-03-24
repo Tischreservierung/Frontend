@@ -46,6 +46,7 @@ spec:
       containers:
       - name: online-reservation
         image: ghcr.io/tischreservierung/frontend:latest
+        imagePullPolicy: "Always"
         resources:
           limits:
             memory: "128Mi"
