@@ -26,16 +26,21 @@ export class RestaurantRegistrationComponent {
 
   createForm() {
     return this.formBuilder.group({
-      'name': [null],
-      'zipCode': [null],
-      'location': [null],
-      'address': [null],
-      'streetNr': [null],
+      'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
+      'zipCode': new FormControl('4470', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+      'location': new FormControl('Enns', [Validators.required]),
+      'address': new FormControl('Teststraße', [Validators.required]),
+      'streetNr': new FormControl('12', [Validators.required]),
       'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-      'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")])
+      'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
+      'email': new FormControl('test@test.at', [Validators.required, Validators.email]),
+      'password': new FormControl('Sicher123', [Validators.required, Validators.minLength(8)]),
+      'firstName': new FormControl('Max', [Validators.required, Validators.minLength(2)]),
+      'lastName': new FormControl('Musterfrau', [Validators.required, Validators.minLength(2)])
     });
   }
 
+  hide : boolean = true;
   formGroup: FormGroup;
 
   restaurants: Restaurant[] = [];
@@ -45,16 +50,16 @@ export class RestaurantRegistrationComponent {
   zipCodes: ZipCode[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
-  categories: Category[] = [{ name: 'Amerikanisch', id: 0 }, { name: 'Arabisch', id: 1 }, { name: 'Asiatisch', id: 2 }
-    , { name: 'Chinesisch', id: 3 }, { name: 'Fast Food', id: 4 }, { name: 'Griechisch', id: 5 }, { name: 'Italienisch', id: 6 }
-    , { name: 'Mediterran', id: 7 }, { name: 'Mexikanisch', id: 8 }, { name: 'Thailändisch', id: 9 }, { name: 'Traditionel', id: 10 }
-    , { name: 'Türkisch', id: 11 }, { name: 'Vegetarisch', id: 12 }, { name: 'Vegan', id: 13 }, { name: 'Andere', id: 14 }];
+  categories: Category[] = [{ category: 'Amerikanisch', id: 0 }, { category: 'Arabisch', id: 1 }, { category: 'Asiatisch', id: 2 }
+    , { category: 'Chinesisch', id: 3 }, {category: 'Fast Food', id: 4 }, { category: 'Griechisch', id: 5 }, { category: 'Italienisch', id: 6 }
+    , { category: 'Mediterran', id: 7 }, { category: 'Mexikanisch', id: 8 }, { category: 'Thailändisch', id: 9 }, { category: 'Traditionel', id: 10 }
+    , { category: 'Türkisch', id: 11 }, { category: 'Vegetarisch', id: 12 }, { category: 'Vegan', id: 13 }, { category: 'Andere', id: 14 }];
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
     , { day: 'Samstag', short: 'SA', id: 5 }, { day: 'Sonntag', short: 'SO', id: 6 }];
 
-  openings: OpeningTime[] = [];
+  openings: OpeningTime[] = [{day: 0, openFrom: '08:00', openTo: '22:00'}, {day: 1, openFrom: '08:00', openTo: '22:00'}];
 
   openedAt(day: number) {
     for (let i = 0; i < this.openings.length; i++) {
@@ -73,11 +78,14 @@ export class RestaurantRegistrationComponent {
       alert("Maximal 14 Öffnungszeiten pro Restaurant");
     else if (this.day == -1 || this.formGroup.controls['openFrom'].value == '' || this.formGroup.controls['openTo'].value == '')
       alert("Bitte wählen Sie einen Tag aus und geben Sie die Öffnungszeiten ein!");
+    else if (!this.formGroup.controls['openFrom'].valid || !this.formGroup.controls['openTo'].valid)
+      alert("Bitte geben Sie die Öffnungszeiten im Format hh:mm ein!");
     else {
       let open = String(this.formGroup.controls['openFrom'].value).split(':');
       let close = String(this.formGroup.controls['openTo'].value).split(':');
 
-      if (Number(close[0]) < Number(open[0]) || (Number(close[0]) == Number(open[0]) && Number(close[1]) < Number(open[1]))) {
+      if ((Number(close[0]) < Number(open[0]) || (Number(close[0]) == Number(open[0]) && Number(close[1]) < Number(open[1])))
+        && this.formGroup.controls['openTo'].value != '00:00') {
         this.openings.push({
           day: this.day, openFrom: this.formGroup.controls['openFrom'].value
           , openTo: '00:00'
@@ -154,28 +162,44 @@ export class RestaurantRegistrationComponent {
     this.openings.splice(index, 1);
   }
 
+  removeTimeAt(day: number, index: number) {
+    let opening = this.openingsAt(day)[index];
+    for(let i = 0; i < this.openings.length; i++){
+      if(this.openings[i].day == opening.day && this.openings[i].openFrom == opening.openFrom && this.openings[i].openTo == opening.openTo){
+        this.openings.splice(i, 1);
+        break;
+      }
+    }
+  }
   register() {
+    if(this.formGroup.invalid){
+      alert("Bitte füllen Sie alle Felder aus!");
+      return null;
+    }
 
     let temp = this.formGroup.controls;
     console.log(temp['name'].value)
     let restaurant: Restaurant;
     let zipCode: ZipCode | null = this.zipCodes.filter(z => z.zipCodeNr == temp['zipCode'].value && z.location == temp['location'].value)[0];
-
-    if (zipCode != null) {
-      restaurant = {
-        name: temp['name'].value, address: temp['address'].value,
-        streetNr: temp['streetNr'].value, zipCode: zipCode, id: 0, openings: this.openings
-        , categories: this.categoryControl.value
-      };
-
-      console.log(restaurant);
-
-      this.resService.addRestaurant(restaurant).subscribe({
-        next: data => { console.log('Inserted ' + data.name) },
-        error: error => { alert("Fehler" + error.message) }
-      });
-      this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
+    if (zipCode == null) {
+      alert("Bitte geben Sie eine gültige Postleitzahl ein!");
+      return null;
     }
+    restaurant = {
+      name: temp['name'].value, address: temp['address'].value,
+      streetNr: temp['streetNr'].value, zipCode: zipCode, id: 0, openings: this.openings
+      , categories: this.categoryControl.value, employee: {email: temp['email'].value, password: temp['password'].value
+      , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true}
+    };
+    
+    console.log(restaurant);
+
+    this.resService.addRestaurant(restaurant).subscribe({
+      next: data => { console.log('Inserted ' + data.name) },
+      error: error => { alert("Fehler" + error.message) }
+    });
+    this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
+    return restaurant;
   }
 
 }
