@@ -1,41 +1,112 @@
-<div class="container">
-    <h1>Restaurant eintragen</h1>
-    <p>{{name}}</p>
+<div class="container center side bg" style="border-radius: 20px">
+    <br>
+    <h1 class="margin">Restaurant eintragen</h1>
 
+    <form [formGroup]="formGroup" class="form row">
+        <div class="col-12 col-md-6 col-lg-4">
+            <h2>Grunddaten</h2>
+            <mat-form-field class="full-width">
+                <mat-label>Restaurantname</mat-label>
+                <input matInput placeholder="" formControlName="name">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Postleitzahl</mat-label>
+                <input matInput placeholder="4020" formControlName="zipCode">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Ort</mat-label>
+                <input matInput placeholder="Linz" formControlName="location">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Addresse</mat-label>
+                <input matInput placeholder="" formControlName="address">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-width">
+                <mat-label>Straßennummer</mat-label>
+                <input matInput placeholder="" formControlName="streetNr">
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <h2>Öffnungszeiten</h2>
+            <mat-form-field appearance="fill">
+                <mat-label>Tag</mat-label>
+                <mat-select [(value)]="day">
+                    <mat-option *ngFor="let day of days" [value]="day.id">{{day.day}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <div class="row">
+                <mat-form-field class="col-6">
+                    <mat-label>Von</mat-label>
+                    <input type="time" matInput placeholder="hh:mm" formControlName="openFrom">
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                    <mat-label>Bis</mat-label>
+                    <input type="time" matInput placeholder="hh:mm" formControlName="openTo">
+                </mat-form-field>
+            </div>
+            <p *ngIf="formGroup.controls['openTo'].invalid || formGroup.controls['openFrom'].invalid">Format: hh:mm
+                (12:30)</p>
+            <br>
+            <button class="buttonMenu m-2" mat-raised-button color="primary" (click)="addTime()">Hinzufügen</button>
+            <br>
+            <div class="border border-3 border-dark">
+                <div *ngFor="let day of days">
+                    <div class="row">
+                        <ng-container *ngIf="openedAt(day.id)">
+                            <label style="text-align: right; padding-top: 10px; font-weight: bold;"
+                                class="col-4">{{day.short}}:</label>
+                            <div class="col-8" style="text-align: left; padding-top: 10px; font-weight: bold;">
+                                <div class="row" *ngFor="let time of openingsAt(day.id);let i=index;">
+                                    <p class="col-7" >{{time.openFrom}} - {{time.openTo}}</p>
+                                    <p class="col-4 text-danger" (click)="removeTimeAt(time.day,i)">Löschen</p>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-12">
+                    <h2>Restaurantart</h2>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Restaurantart</mat-label>
+                        <mat-select [formControl]="categoryControl" multiple>
+                            <mat-option *ngFor="let type of categories" [value]="type">{{type.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6 col-lg-12">
+                    <h2>Restaurant-Konto</h2>
+                    <mat-form-field class="full-width">
+                        <mat-label>Vorname</mat-label>
+                        <input matInput placeholder="" formControlName="firstName">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="full-width">
+                        <mat-label>Nachname</mat-label>
+                        <input matInput placeholder="" formControlName="lastName">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="full-width">
+                        <mat-label>E-Mail</mat-label>
+                        <input matInput placeholder="" formControlName="email">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="full-width">
+                        <mat-label>Passwort</mat-label>
+                        <input matInput placeholder="" formControlName="password" [type]="hide ? 'password' : 'text'">
+                    </mat-form-field>
+                </div>
+            </div>
 
-    <table class="table">
-        <tbody formGroupName="Restaurant">
-            <tr>
-                <td><label>Restaurantname:</label></td>
-                <td>
-                    <form class="labelForm">
-                        <mat-form-field class="full-width">
-                          <mat-label>Password*</mat-label>
-                          <input matInput placeholder="" formControlName="restaurantName">
-                        </mat-form-field>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td><label>Postleitzahl:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="zipCode"></td>
-            </tr>
-            <tr>
-                <td><label>Ort:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="location"></td>
-            </tr>
-            <tr>
-                <td><label>Straße:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="address"></td>
-            </tr>
-            <tr>
-                <td><label>Hausnummer:</label></td>
-                <td><input type="text" class="form-control" [(ngModel)]="streetNr"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button class="btn btn-primary" [disabled]="enableRegister()" (click)="btnRegisterClicked()">Registrieren</button>
+        </div>
+    </form>
+    <button class="buttonMenu m-2" mat-raised-button color="primary" (click)="register()">Registrieren</button>
 </div>
-
-<p *ngFor="let item of restaurants">{{item.name}}</p>

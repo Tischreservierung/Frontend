@@ -9,13 +9,15 @@ import { RestaurantRegistrationComponent } from './components/restaurant/restaur
 import { AboutComponent } from './components/about/about.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     RestaurantRegistrationComponent,
     AboutComponent,
     UserRegistrationComponent,
-    RestaurantFilterComponent,
+    RestaurantFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +37,10 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MdbCarouselModule,
     MatMenuModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
