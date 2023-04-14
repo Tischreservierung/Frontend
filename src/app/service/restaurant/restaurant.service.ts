@@ -20,7 +20,7 @@ export class RestaurantService {
   constructor(private http: HttpClient) { }
 
   addRestaurant(restaurant : Restaurant){
-    return this.http.post<Restaurant>(this.url,restaurant,
+    return this.http.post<number>(this.url,restaurant,
     httpOptions);
   }
 

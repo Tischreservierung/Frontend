@@ -6,6 +6,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
+import { CategoryService } from 'src/app/service/category/category.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { Category } from 'src/app/model/category';
 export class RestaurantRegistrationComponent implements OnInit{
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
-    private zipService: ZipCodeService) {
+    private zipService: ZipCodeService, private catService: CategoryService) {
    
   }
 
@@ -24,6 +25,9 @@ export class RestaurantRegistrationComponent implements OnInit{
     this.zipService.getZipCodes().subscribe({
       next: data => { this.zipCodes = data },
       error: error => { /*alert("Fehler" + error.message)*/ }
+    });
+    this.catService.getCategories().subscribe({
+      next: data => { this.categories = data }
     });
   }
 
@@ -48,10 +52,7 @@ export class RestaurantRegistrationComponent implements OnInit{
   zipCodes: ZipCode[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
-  categories: Category[] = [{ category: 'Amerikanisch', id: 1 }, { category: 'Arabisch', id: 2 }, { category: 'Asiatisch', id: 3 }
-    , { category: 'Chinesisch', id: 15 }, {category: 'Fast Food', id: 4 }, { category: 'Griechisch', id: 5 }, { category: 'Italienisch', id: 6 }
-    , { category: 'Mediterran', id: 7 }, { category: 'Mexikanisch', id: 8 }, { category: 'Thailändisch', id: 9 }, { category: 'Traditionel', id: 10 }
-    , { category: 'Türkisch', id: 11 }, { category: 'Vegetarisch', id: 12 }, { category: 'Vegan', id: 13 }, { category: 'Andere', id: 14 }];
+  categories: Category[] = [];
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
@@ -177,7 +178,6 @@ export class RestaurantRegistrationComponent implements OnInit{
     }
 
     let temp = this.formGroup.controls;
-    console.log(temp['name'].value)
     let restaurant: Restaurant;
     let zipCode: ZipCode | null = this.zipCodes.filter(z => z.zipCodeNr == temp['zipCode'].value && z.location == temp['location'].value)[0];
     if (zipCode == null) {
@@ -191,10 +191,9 @@ export class RestaurantRegistrationComponent implements OnInit{
       , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true}
     };
     
-    console.log(restaurant);
-
     this.resService.addRestaurant(restaurant).subscribe({
-      next: data => { console.log('Inserted restaurant') },
+    
+    next: data => { restaurant.id= data;console.log(data); console.log(restaurant); },
       error: error => { alert("Email wird bereits verwendet!") }
     });
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });

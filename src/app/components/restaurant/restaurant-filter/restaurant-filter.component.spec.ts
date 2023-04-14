@@ -22,5 +22,4 @@ describe('RestaurantFilterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  changeMobileMode
 });
