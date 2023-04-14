@@ -42,11 +42,11 @@
             <div class="row">
                 <mat-form-field class="col-6">
                     <mat-label>Von</mat-label>
-                    <input matInput placeholder="hh:mm" formControlName="openFrom">
+                    <input type="time" matInput placeholder="hh:mm" formControlName="openFrom">
                 </mat-form-field>
                 <mat-form-field class="col-6">
                     <mat-label>Bis</mat-label>
-                    <input matInput placeholder="hh:mm" formControlName="openTo">
+                    <input type="time" matInput placeholder="hh:mm" formControlName="openTo">
                 </mat-form-field>
             </div>
             <p *ngIf="formGroup.controls['openTo'].invalid || formGroup.controls['openFrom'].invalid">Format: hh:mm
@@ -61,9 +61,10 @@
                             <label style="text-align: right; padding-top: 10px; font-weight: bold;"
                                 class="col-4">{{day.short}}:</label>
                             <div class="col-8" style="text-align: left; padding-top: 10px; font-weight: bold;">
-
-                                <p *ngFor="let time of openingsAt(day.id);let i=index;"
-                                    (click)="removeTimeAt(time.day,i)">{{time.openFrom}} - {{time.openTo}}</p>
+                                <div class="row" *ngFor="let time of openingsAt(day.id);let i=index;">
+                                    <p class="col-7" >{{time.openFrom}} - {{time.openTo}}</p>
+                                    <p class="col-4 text-danger" (click)="removeTimeAt(time.day,i)">Löschen</p>
+                                </div>
                             </div>
                         </ng-container>
                     </div>
