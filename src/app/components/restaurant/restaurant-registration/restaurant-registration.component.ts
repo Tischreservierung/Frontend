@@ -93,7 +93,11 @@ export class RestaurantRegistrationComponent implements OnInit{
           , openTo: this.formGroup.controls['openTo'].value
         });
       }
-      else {
+      else if((Number(close[0]) == Number(open[0]) && Number(close[1]) == Number(open[1]))){
+        alert("Die Öffnungszeiten dürfen nicht gleich sein!");
+        return;
+      }
+      else{
         this.openings.push({
           day: this.day, openFrom: this.formGroup.controls['openFrom'].value
           , openTo: this.formGroup.controls['openTo'].value
