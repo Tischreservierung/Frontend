@@ -28,17 +28,17 @@ export class RestaurantRegistrationComponent implements OnInit{
   }
 
   formGroup: FormGroup = this.formBuilder.group({
-    'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
-    'zipCode': new FormControl('4470', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
-    'location': new FormControl('Enns', [Validators.required]),
-    'address': new FormControl('Teststraße', [Validators.required]),
-    'streetNr': new FormControl('12', [Validators.required]),
+    'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
+    'zipCode': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    'location': new FormControl('', [Validators.required]),
+    'address': new FormControl('', [Validators.required]),
+    'streetNr': new FormControl('', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-    'email': new FormControl('test@test.at', [Validators.required, Validators.email]),
-    'password': new FormControl('Sicher123', [Validators.required, Validators.minLength(8)]),
-    'firstName': new FormControl('Max', [Validators.required, Validators.minLength(2)]),
-    'lastName': new FormControl('Musterfrau', [Validators.required, Validators.minLength(2)])
+    'email': new FormControl('', [Validators.required, Validators.email]),
+    'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+    'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
+    'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
   hide : boolean = true;
