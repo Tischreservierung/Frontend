@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
@@ -13,45 +13,43 @@ import { Category } from 'src/app/model/category';
   templateUrl: './restaurant-registration.component.html',
   styleUrls: ['./restaurant-registration.component.scss']
 })
-export class RestaurantRegistrationComponent {
+export class RestaurantRegistrationComponent implements OnInit{
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
     private zipService: ZipCodeService) {
-    this.formGroup = this.createForm();
+   
+  }
+
+  ngOnInit(): void {
     this.zipService.getZipCodes().subscribe({
       next: data => { this.zipCodes = data },
-      error: error => { alert("Fehler" + error.message) }
+      error: error => { /*alert("Fehler" + error.message)*/ }
     });
   }
 
-  createForm() {
-    return this.formBuilder.group({
-      'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
-      'zipCode': new FormControl('4470', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
-      'location': new FormControl('Enns', [Validators.required]),
-      'address': new FormControl('Teststraße', [Validators.required]),
-      'streetNr': new FormControl('12', [Validators.required]),
-      'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-      'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-      'email': new FormControl('test@test.at', [Validators.required, Validators.email]),
-      'password': new FormControl('Sicher123', [Validators.required, Validators.minLength(8)]),
-      'firstName': new FormControl('Max', [Validators.required, Validators.minLength(2)]),
-      'lastName': new FormControl('Musterfrau', [Validators.required, Validators.minLength(2)])
-    });
-  }
+  formGroup: FormGroup = this.formBuilder.group({
+    'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
+    'zipCode': new FormControl('4470', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    'location': new FormControl('Enns', [Validators.required]),
+    'address': new FormControl('Teststraße', [Validators.required]),
+    'streetNr': new FormControl('12', [Validators.required]),
+    'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
+    'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
+    'email': new FormControl('test@test.at', [Validators.required, Validators.email]),
+    'password': new FormControl('Sicher123', [Validators.required, Validators.minLength(8)]),
+    'firstName': new FormControl('Max', [Validators.required, Validators.minLength(2)]),
+    'lastName': new FormControl('Musterfrau', [Validators.required, Validators.minLength(2)])
+  });
 
   hide : boolean = true;
-  formGroup: FormGroup;
-
   restaurants: Restaurant[] = [];
 
-  day: number = -1;
-
+  day: number = -1; // Selected day
   zipCodes: ZipCode[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
-  categories: Category[] = [{ category: 'Amerikanisch', id: 0 }, { category: 'Arabisch', id: 1 }, { category: 'Asiatisch', id: 2 }
-    , { category: 'Chinesisch', id: 3 }, {category: 'Fast Food', id: 4 }, { category: 'Griechisch', id: 5 }, { category: 'Italienisch', id: 6 }
+  categories: Category[] = [{ category: 'Amerikanisch', id: 1 }, { category: 'Arabisch', id: 2 }, { category: 'Asiatisch', id: 3 }
+    , { category: 'Chinesisch', id: 15 }, {category: 'Fast Food', id: 4 }, { category: 'Griechisch', id: 5 }, { category: 'Italienisch', id: 6 }
     , { category: 'Mediterran', id: 7 }, { category: 'Mexikanisch', id: 8 }, { category: 'Thailändisch', id: 9 }, { category: 'Traditionel', id: 10 }
     , { category: 'Türkisch', id: 11 }, { category: 'Vegetarisch', id: 12 }, { category: 'Vegan', id: 13 }, { category: 'Andere', id: 14 }];
 
@@ -59,20 +57,19 @@ export class RestaurantRegistrationComponent {
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
     , { day: 'Samstag', short: 'SA', id: 5 }, { day: 'Sonntag', short: 'SO', id: 6 }];
 
-  openings: OpeningTime[] = [{day: 0, openFrom: '08:00', openTo: '22:00'}, {day: 1, openFrom: '08:00', openTo: '22:00'}];
+  openings: OpeningTime[] = [];
 
+  // Check if day is already in openings
   openedAt(day: number) {
-    for (let i = 0; i < this.openings.length; i++) {
-      if (this.openings[i].day == day)
-        return true;
-    }
-    return false;
+    return this.openings.some(opening => opening.day == day);
   }
 
   openingsAt(day: number) {
     return this.openings.filter(opening => opening.day == day);
   }
 
+  // Add opening time to openings, if opening times overlap they get kombined into one
+  //If closing time is before opening time, the opening time is set to 00:00 and the closing time to the next day
   addTime() {
     if (this.openings.length >= 14)
       alert("Maximal 14 Öffnungszeiten pro Restaurant");
@@ -123,6 +120,7 @@ export class RestaurantRegistrationComponent {
     console.log(this.categoryControl.value);
   }
 
+  // Commpares two opening times
   comparator(a: OpeningTime, b: OpeningTime) {
     if (a.day > b.day)
       return 1;
@@ -171,6 +169,7 @@ export class RestaurantRegistrationComponent {
       }
     }
   }
+  
   register() {
     if(this.formGroup.invalid){
       alert("Bitte füllen Sie alle Felder aus!");
@@ -195,8 +194,8 @@ export class RestaurantRegistrationComponent {
     console.log(restaurant);
 
     this.resService.addRestaurant(restaurant).subscribe({
-      next: data => { console.log('Inserted ' + data.name) },
-      error: error => { alert("Fehler" + error.message) }
+      next: data => { console.log('Inserted restaurant') },
+      error: error => { alert("Email wird bereits verwendet!") }
     });
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
     return restaurant;
