@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: student-s-raaber
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  1;
+
+    events {
+      worker_connections  10240;
+    }
+
+    http {
+      include mime.types;
+
+      server {
+        listen 80;
+        server_name www.student.cloud.htl-leonding.ac.at student.cloud.htl-leonding.ac.at;
+        root   /usr/share/nginx/html;
+        index index.html index.htm;
+
+        location / {
+          try_files $uri $uri/ /s.raaber/onlinereservation/index.html?$args;
+        }
+      } 
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-reservation
+  namespace: student-s-raaber
+spec:
+  selector:
+    matchLabels:
+      app: online-reservation
+  template:
+    metadata:
+      labels:
+        app: online-reservation
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+      - name: online-reservation
+        image: ghcr.io/tischreservierung/frontend:latest
+        imagePullPolicy: "Always"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+            readOnly: true
+            name: nginx-conf
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: online-reservation-svc
+  namespace: student-s-raaber
+spec:
+  selector:
+    app: online-reservation
+    tier: frontend
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: online-reservation-ing
+  namespace: student-s-raaber
+  labels:
+    name: online-reservation
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: student.cloud.htl-leonding.ac.at
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/s.raaber/onlinereservation/(.*)$"
+        backend:
+          service:
+            name: online-reservation-svc
+            port: 
+              number: 80

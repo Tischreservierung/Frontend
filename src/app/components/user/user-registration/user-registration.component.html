@@ -49,10 +49,11 @@
             <br>
             <br>
             <br>
-            <form class="labelForm">
+            <form class="form labelForm" [formGroup]="formGroup">
                 <mat-form-field class="full-width">
                   <mat-label>Email-Address</mat-label>
-                  <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                  <!-- [formControl]="emailFormControl" [errorStateMatcher]="matcher" -->
+                  <input type="email" matInput  formControlName="email"
                         placeholder="max.mustermann@example.com">
                   <mat-hint>Errors appear instantly!</mat-hint>
                   <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -62,16 +63,16 @@
                     Email is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-            <br>
-            <br>
+              <br>
+              <br>
                 <mat-form-field class="full-width">
                   <mat-label>Password*</mat-label>
-                  <input matInput placeholder="" [type]="hide ? 'password' : 'text'">
+                  <input matInput placeholder="" [type]="hide ? 'password' : 'text'" formControlName="pw">
                 </mat-form-field>
             </form>
             <br>
             <br>
-            <button class="buttonMenu" mat-raised-button color="primary">Log In</button>
+            <button (click)="logIn()" class="buttonMenu" mat-raised-button color="primary">Log In</button>
             <br>
             <br>
             <button class="buttonMenu" mat-raised-button color="primary">Register</button>
