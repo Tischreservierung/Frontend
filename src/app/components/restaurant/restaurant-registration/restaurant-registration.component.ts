@@ -69,16 +69,23 @@ export class RestaurantRegistrationComponent implements OnInit{
     return this.openings.filter(opening => opening.day == day);
   }
 
+  addTimeIsValid() : boolean{
+    if (this.openings.length >= 14){
+      alert("Maximal 14 Öffnungszeiten pro Restaurant");
+      return false;
+    }
+    if (this.day == -1 || this.formGroup.controls['openFrom'].value == '' || this.formGroup.controls['openTo'].value == ''){
+      alert("Bitte wählen Sie einen Tag aus und geben Sie die Öffnungszeiten ein!");
+      return false;
+    }
+
+    return true;
+  }
+
   // Add opening time to openings, if opening times overlap they get kombined into one
   //If closing time is before opening time, the opening time is set to 00:00 and the closing time to the next day
   addTime() {
-    if (this.openings.length >= 14)
-      alert("Maximal 14 Öffnungszeiten pro Restaurant");
-    else if (this.day == -1 || this.formGroup.controls['openFrom'].value == '' || this.formGroup.controls['openTo'].value == '')
-      alert("Bitte wählen Sie einen Tag aus und geben Sie die Öffnungszeiten ein!");
-    else if (!this.formGroup.controls['openFrom'].valid || !this.formGroup.controls['openTo'].valid)
-      alert("Bitte geben Sie die Öffnungszeiten im Format hh:mm ein!");
-    else {
+    if(this.addTimeIsValid()) {
       let open = String(this.formGroup.controls['openFrom'].value).split(':');
       let close = String(this.formGroup.controls['openTo'].value).split(':');
 
@@ -160,6 +167,7 @@ export class RestaurantRegistrationComponent implements OnInit{
       return -1;
     return 0;
   }
+
 
   removeTime(index: number) {
     this.openings.splice(index, 1);

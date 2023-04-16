@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Person } from 'src/app/model/user/person.model';
@@ -17,7 +17,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./user-registration.component.scss'],
 })
 
-export class UserRegistrationComponent {
+export class UserRegistrationComponent{
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
   }
 
@@ -39,7 +39,7 @@ export class UserRegistrationComponent {
   }
 
   openRegisterPage(){
-
+    throw new Error('Method not implemented.');
   }
 
   logIn(){
@@ -49,7 +49,7 @@ export class UserRegistrationComponent {
     let password = temp['pw'].value;
     
     if(email != null && password != null){
-      this.userService.getUserLogIn(email!, password!).subscribe({
+      this.userService.getUserLogIn(email, password).subscribe({
         next: data => {
           this.user = data
         },

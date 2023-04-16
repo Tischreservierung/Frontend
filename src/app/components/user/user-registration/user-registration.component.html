@@ -1,11 +1,3 @@
-<!--<body style="background-color:black;">
-    <mat-form-field appearance="fill">
-        <mat-label>Input</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <button mat-raised-button>Basic</button>
-    <button mat-raised-button color="primary">Basic</button>
-</body>!-->
 <div class="container">
   <div>
     <br>
@@ -52,7 +44,6 @@
             <form class="form labelForm" [formGroup]="formGroup">
                 <mat-form-field class="full-width">
                   <mat-label>Email-Address</mat-label>
-                  <!-- [formControl]="emailFormControl" [errorStateMatcher]="matcher" -->
                   <input type="email" matInput  formControlName="email"
                         placeholder="max.mustermann@example.com">
                   <mat-hint>Errors appear instantly!</mat-hint>
