@@ -5,7 +5,7 @@ import { RestaurantFilterComponent } from './restaurant-filter.component';
 describe('RestaurantFilterComponent', () => {
   let component: RestaurantFilterComponent;
   let fixture: ComponentFixture<RestaurantFilterComponent>;
-  let showMobile: Boolean = true;
+  let showMobile: boolean = true;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

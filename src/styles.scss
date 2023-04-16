@@ -37,8 +37,6 @@ $Front-theme: mat.define-light-theme((
 @import "~bootstrap/dist/css/bootstrap.min.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .bubble {
     background-color: #6496c8;
@@ -51,5 +49,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     
     box-shadow: 8px 8px 10px black;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

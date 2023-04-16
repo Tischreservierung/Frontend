@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Person } from 'src/app/model/user/person.model';
 
@@ -18,7 +18,6 @@ export class UserService{
   constructor(private http: HttpClient) { }
 
   getUserLogIn(email: string, password: string){
-    let queryParams = new HttpParams().append(email,password);
 
     return this.http.get<Person>(API_URL+"/check?email=" + email + "&password=" + password);
   }
