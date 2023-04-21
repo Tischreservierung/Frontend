@@ -5,7 +5,8 @@ on:
       - main
 
 jobs:
-   build:
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:   
       - name: Checkout
@@ -22,3 +23,35 @@ jobs:
         run: |
           docker build . -t ghcr.io/tischreservierung/frontend:latest
           docker push ghcr.io/tischreservierung/frontend:latest
+
+  depoy:
+      name: Deploy
+      if: github.ref == 'refs/heads/main'
+      needs: [ publish ]
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+      
+        - name: Set Kubernetes context
+          uses: azure/k8s-set-context@v2
+          with:
+            namespace: student-s-raaber
+            method: kubeconfig
+            k8s-url: student.cloud.htl-leonding.ac.at
+            kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+        - name: Install Kubectl Oidc and Deploy
+          run: |
+            (
+            set -x; cd "$(mktemp -d)" &&
+            OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+            ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+            KREW="krew-${OS}_${ARCH}" &&
+            curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+            tar zxvf "${KREW}.tar.gz" &&
+            ./"${KREW}" install krew
+            )
+            export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+            kubectl krew install oidc-login
+            kubectl apply -f kubernetes/deployment.yaml

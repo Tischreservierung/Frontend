@@ -8,7 +8,7 @@ import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 })
 export class RestaurantFilterComponent {
   deviceInfo: DeviceInfo;
-  showMobile: Boolean = false;
+  showMobile: boolean = false;
 
   constructor(private deviceService: DeviceDetectorService) {
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -21,9 +21,13 @@ export class RestaurantFilterComponent {
   }
 
   changeMobileMode() {
-    if(this.showMobile == true)
+    if(this.showMobile)
       this.showMobile = false;
     else
       this.showMobile = true;
+  }
+
+  goToRestaurant() {
+    console.log("It Works");
   }
 }

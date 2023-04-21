@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,14 +9,16 @@ import { RestaurantRegistrationComponent } from './components/restaurant/restaur
 import { AboutComponent } from './components/about/about.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     RestaurantRegistrationComponent,
     AboutComponent,
     UserRegistrationComponent,
-    RestaurantFilterComponent,
+    RestaurantFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +38,10 @@ import { AuthModule } from '@auth0/auth0-angular';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MdbCarouselModule,
     MatMenuModule,
+    MatSelectModule,
 
     AuthModule.forRoot({
       domain: 'dev-6zf41u66fsy2t2gr.us.auth0.com', 
