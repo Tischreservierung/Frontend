@@ -1,4 +1,4 @@
-<div class="container bg-secondary">
+<!--<div class="container bg-secondary">
   <nav  class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -11,3 +11,26 @@
   </nav>
 </div>
 <router-outlet></router-outlet>
+!-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" routerLink="/restaurant-registration" routerLinkActive="active">ResReg</a>
+        <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a> 
+        <a class="nav-link" routerLink="/userCheckIn" routerLinkActive="active">UCI</a>
+        <a class="nav-link" routerLink="/restaurant-filter" routerLinkActive="active">ResFil</a>  
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+  
