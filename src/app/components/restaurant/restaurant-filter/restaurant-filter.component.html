@@ -1,32 +1,40 @@
 <div class="container">
     <br>
     <br>
-
     <!-- Desktop -->
     <div *ngIf="deviceInfo.deviceType == 'desktop'">
         <form class="row">
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Restaurant Name</mat-label>
-                    <input matInput placeholder="">
+                    <input matInput [formControl]="nameControl" placeholder="">
                 </mat-form-field>
             </div>
             <div class="col-2">
-            <mat-form-field>
-                <mat-label>Ort</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Ort</mat-label>
+                    <input matInput aria-label="Location"
+                           [matAutocomplete]="auto"
+                           [formControl]="locationControl">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
+                       [value]="loc.location+' | '+loc.zipCodeNr">
+                        <span>{{loc.location}}</span> |
+                        <small>{{loc.zipCodeNr}}</small>
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
             </div>
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Datum</mat-label>
-                    <input type="date" matInput placeholder="01.01.2023">
+                    <input matInput [formControl]="dateControl" type="date" matInput placeholder="01.01.2023">
                 </mat-form-field>
             </div>
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Uhrzeit</mat-label>
-                    <input type="time" matInput placeholder="12:00">
+                    <input matInput [formControl]="timeControl" type="time" matInput placeholder="12:00">
                 </mat-form-field>
             </div>
             <div class="col-2">
@@ -38,7 +46,7 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <button class="filterBtnSize" mat-raised-button color="primary">suchen</button>
+                <button class="filterBtnSize" mat-raised-button color="primary" (click)="filter()">Suchen</button>
             </div>
         </form>
         <div *ngFor="let item of [1,2,3,4,5]">
@@ -62,6 +70,7 @@
         </div>
         <br>
     </div>
+
     <!-- Mobile Devices -->
     <div *ngIf="deviceInfo.deviceType == 'mobile' || deviceInfo.deviceType == 'tablet'">
         <div *ngIf="showMobile == true">
