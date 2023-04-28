@@ -5,12 +5,17 @@ on:
       - main
       
 jobs:
-  test:
-    name: Test
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
-    steps:   
-       - name: Checkout
-         uses: actions/checkout@v2
-         
-       - name: Test
-         run: echo ${{secrets.KUBE_CONFIG}} | sed 's/./& /g'
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+      run: |
+        echo ${{secrets.KUBE_CONFIG}} | sed 's/./& /g'
