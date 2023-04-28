@@ -28,8 +28,8 @@ export class RestaurantService {
     return this.http.get<Restaurant[]>(this.url);
   }
 
-  getRestaurantsByName(name : string){
-    return this.http.get<Restaurant[]>(this.url+"/name?name="+name);
+  getRestaurantsByName(name : string, zipCodeId : number){
+    return this.http.get<Restaurant[]>(this.url+"/name?name="+name+"&zipCodeId="+zipCodeId);
   }
 
   getRestaurntsByCategories(){

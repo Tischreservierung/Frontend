@@ -50,8 +50,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
       authorizationParams: {
       redirect_uri: window.location.origin
     }})
-    MatSelectModule,
-    MatAutocompleteModule
+    ,MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { Observable, map, startWith } from 'rxjs';
 import { Category } from 'src/app/model/category';
+import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
@@ -29,6 +30,8 @@ export class RestaurantFilterComponent implements OnInit {
   timeControl = new FormControl<Time | null>(null);
   location: ZipCode | null = null;
 
+  restaurants: Restaurant[] = [];
+
 
   constructor(private deviceService: DeviceDetectorService, private catService: CategoryService,
     private zipCodeService: ZipCodeService, private restaurantService: RestaurantService) {
@@ -53,8 +56,12 @@ export class RestaurantFilterComponent implements OnInit {
 
   filter(){
     if(this.nameControl.value != '' && this.nameControl.value != null){
-      this.restaurantService.getRestaurantsByName(this.nameControl.value).subscribe({
-        next: data => {console.log(data)},
+      let zipCodeId = -1;
+      if(this.location != null)
+        zipCodeId = this.location.id;
+
+      this.restaurantService.getRestaurantsByName(this.nameControl.value, zipCodeId).subscribe({
+        next: data => {this.restaurants = data},
         error: err => {console.log(err)}
       });
     }
