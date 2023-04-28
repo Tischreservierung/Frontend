@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ZipCode } from 'src/app/model/zip-code';
+import { environment } from 'src/environments/environment.development';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +18,7 @@ const httpOptions = {
 })
 export class ZipCodeService {
 
-  url = 'https://localhost:7259/api/ZipCodes';
+  url = environment.apiUrl+'ZipCodes';
 
   constructor(private http: HttpClient) { }
 

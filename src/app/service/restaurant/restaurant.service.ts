@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
+import { environment } from 'src/environments/environment.development';
+
 
 
 const httpOptions = {
@@ -16,7 +18,7 @@ const httpOptions = {
 })
 export class RestaurantService {
 
-  url = 'https://localhost:7259/api/Restaurants';
+  url = environment.apiUrl+'Restaurants';
   constructor(private http: HttpClient) { }
 
   addRestaurant(restaurant : Restaurant){
