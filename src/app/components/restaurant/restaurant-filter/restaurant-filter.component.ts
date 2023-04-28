@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 
 @Component({
@@ -10,7 +11,7 @@ export class RestaurantFilterComponent {
   deviceInfo: DeviceInfo;
   showMobile: boolean = false;
 
-  constructor(private deviceService: DeviceDetectorService) {
+  constructor(private deviceService: DeviceDetectorService, private router:Router) {
     this.deviceInfo = this.deviceService.getDeviceInfo();
     this.epicFunction();
   }
@@ -28,6 +29,6 @@ export class RestaurantFilterComponent {
   }
 
   goToRestaurant() {
-    console.log("It Works");
+    this.router.navigate(['/restaurantView', 1]);
   }
 }
