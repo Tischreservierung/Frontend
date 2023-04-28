@@ -55,3 +55,4 @@ jobs:
             export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
             kubectl krew install oidc-login
             kubectl apply -f kubernetes/deployment.yaml
+            kubectl rollout restart deployment online-reservation
