@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validat
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Person } from 'src/app/model/user/person.model';
 import { UserService } from 'src/app/service/user/user.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,8 +18,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./user-registration.component.scss'],
 })
 
-export class UserRegistrationComponent{
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+export class UserRegistrationComponent {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, public auth: AuthService) {
   }
 
   formGroup= new FormGroup({
