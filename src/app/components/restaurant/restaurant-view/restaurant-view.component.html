@@ -1,19 +1,12 @@
 <br>
 <div class="container center side bg" style="border-radius: 20px">
-    <br>
-    <h1 class="margin">Restaurantname</h1>
-    <br>
-    <br>
-    <form class="form row">
-        <div class="col-12 col-md-8">
-            <br>
-            <p class="textInfo">About us</p>
-            <p class="description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
-                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    <h1 class="margin br-top">{{restaurant?.name}}</h1>
+    <form class="form row br-top">
+        <div class="col-12 col-lg-8">
+            <p class="textInfo br-top-sm">About us</p>
+            <p class="description">{{aboutUs}}</p>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-lg-4">
             <div id="carouselExampleSlidesOnly" class="carousel slide imgSlider" data-ride="carousel">
                 <mdb-carousel [controls]="true">
                     <mdb-carousel-item [interval]="2500">
@@ -41,26 +34,50 @@
             </div>
         </div>
     </form>
-    <br>
-    <div class="form row">
+    <div class="form row br-top-sm">
         <div class="col-12 col-md-6">
-            <div class="container center bubble" style="border-radius: 20px">
-                <p class="bubbles">Ort - Postleitzahl</p>
+            <div class="container center bubble round">
+                <p class="bubbles">{{restaurant?.zipCode?.location}} &nbsp;| &nbsp;{{restaurant?.zipCode?.zipCodeNr}} &nbsp;| &nbsp;{{restaurant?.zipCode?.district}}</p>
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="container center bubble" style="border-radius: 20px">
-                <p class="bubbles">Straße 1</p>
+            <div class="container center bubble round">
+                <p class="bubbles">{{restaurant?.address}} {{restaurant?.streetNr}}</p>
             </div>
         </div>
     </div>
+    <hr>
     <div class="form row">
-        <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of categories">
-            <div class="container center bubble" style="border-radius: 20px">
+        <div class="col-12 col-md-6 col-lg-3" *ngFor="let item of restaurant?.categories">
+            <div class="container center bubble round">
                 <p class="bubbles">{{item.name}}</p>
             </div>
         </div>
     </div>
-    
+    <div class="border border-3 border-dark round timeTable" style="background-color: #F2DCFF;">
+        <div *ngFor="let day of days">
+            <div class="row">
+                <ng-container *ngIf="openedAt(day.id)">
+                    <label style="text-align: right; padding-top: 10px; font-weight: bold;"
+                        class="col-4">{{day.short}}:</label>
+                    <div class="col-8" style="text-align: left; padding-top: 10px; font-weight: bold;">
+                        <div class="row" *ngFor="let time of openingsAt(day.id);let i=index;">
+                            <p class="col-7" >{{time.openFrom}} - {{time.openTo}}</p>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="br-top br-bottom-sm">
+        <div class="form row">
+            <div class="col-6">
+                <button class="textInfo btn1 round" (click)="back()">Back</button>
+            </div>
+            <div class="col-6">
+                <button class="textInfo btn1 round">Buchen</button>
+            </div>
+        </div>
+    </div>
 </div>
 <br>
