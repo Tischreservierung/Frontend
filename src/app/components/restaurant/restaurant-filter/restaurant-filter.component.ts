@@ -29,6 +29,6 @@ export class RestaurantFilterComponent {
   }
 
   goToRestaurant() {
-    this.router.navigate(['/restaurantView', 1]);
+    this.router.navigate(['/restaurantView', 2]);
   }
 }
