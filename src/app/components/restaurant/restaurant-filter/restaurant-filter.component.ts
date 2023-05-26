@@ -40,7 +40,7 @@ export class RestaurantFilterComponent implements OnInit {
   }
   ngOnInit(): void {
     this.catService.getCategories().subscribe({
-      next: data => { this.categories = data }
+      next: data => { this.categories = data; console.log(this.categories) }
     });
     this.zipCodeService.getZipCodes().subscribe({
       next: data => {
@@ -55,17 +55,23 @@ export class RestaurantFilterComponent implements OnInit {
   }
 
   filter(){
+    let zipCodeId = -1;
+    if(this.location != null)
+      zipCodeId = this.location.id;
     if(this.nameControl.value != '' && this.nameControl.value != null){
-      let zipCodeId = -1;
-      if(this.location != null)
-        zipCodeId = this.location.id;
-
       this.restaurantService.getRestaurantsByName(this.nameControl.value, zipCodeId).subscribe({
         next: data => {this.restaurants = data},
         error: err => {console.log(err)}
       });
     }
     else{
+      let day = -1;
+      if(this.dateControl.value != null)
+        day =  this.dateControl.value.getDay() + 1 % 7;
+      this.restaurantService.getRestaurntsByCategories(this.categoryControl.value, zipCodeId, day).subscribe({
+        next: data => {this.restaurants = data},
+        error: err => {console.log(err)}
+    });
       console.log("Filter nach Kategorie und Ort!");
     }
   }
