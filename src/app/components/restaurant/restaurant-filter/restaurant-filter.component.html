@@ -1,6 +1,4 @@
-<div class="container">
-    <br>
-    <br>
+<div class="bg-box container br-m-top br-top">
     <!-- Desktop -->
     <div *ngIf="deviceInfo.deviceType == 'desktop'">
         <form class="row">
@@ -13,18 +11,16 @@
             <div class="col-2">
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Ort</mat-label>
-                    <input matInput aria-label="Location"
-                           [matAutocomplete]="auto"
-                           [formControl]="locationControl">
+                    <input matInput aria-label="Location" [matAutocomplete]="auto" [formControl]="locationControl">
                     <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option (click)="location = null"> --- </mat-option>
-                      <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
-                       [value]="loc.location+' | '+loc.zipCodeNr">
-                        <span>{{loc.location}}</span> |
-                        <small>{{loc.zipCodeNr}}</small>
-                      </mat-option>
+                        <mat-option (click)="location = null"> --- </mat-option>
+                        <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
+                            [value]="loc.location+' | '+loc.zipCodeNr">
+                            <span>{{loc.location}}</span> |
+                            <small>{{loc.zipCodeNr}}</small>
+                        </mat-option>
                     </mat-autocomplete>
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="col-2">
                 <mat-form-field>
@@ -47,31 +43,24 @@
                 </mat-form-field>
             </div>
             <div class="col-2">
-                <button class="filterBtnSize" mat-raised-button color="primary" (click)="filter()">Suchen</button>
+                <button class="filterBtnSize text-design btn-main" color="primary" (click)="filter()">Suchen</button>
             </div>
         </form>
         <div *ngFor="let res of restaurants">
-            <br>
-            <hr>
-            <br>
-            <div class="row" (click)="goToRestaurant()">
+            <hr class="br-top">
+            <div class="row br-top" (click)="goToRestaurant(res.id)">
                 <div class="col-4">
-                    <img
-                    src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                    class="imgSize"
-                    alt="..."
-                    />
+                    <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="imgSize" alt="..." />
                 </div>
                 <div class="col-8">
                     <h1 class="restaurantHeader">{{res.name}}</h1>
                     <p>Restaurantbeschreibung</p>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    <p>{{res.description}}</p>
                 </div>
             </div>
         </div>
         <br>
     </div>
-
     <!-- Mobile Devices -->
     <div *ngIf="deviceInfo.deviceType == 'mobile' || deviceInfo.deviceType == 'tablet'">
         <div *ngIf="showMobile == true">
@@ -82,10 +71,10 @@
                 </mat-form-field>
             </div>
             <div>
-            <mat-form-field>
-                <mat-label>Ort</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Ort</mat-label>
+                    <input matInput placeholder="">
+                </mat-form-field>
             </div>
             <div>
                 <mat-form-field>
@@ -112,7 +101,8 @@
                     <button class="btnSize" mat-raised-button color="primary">Home</button>
                 </div>
                 <div class="col-6">
-                    <button (click)="changeMobileMode()" class="btnSize" mat-raised-button color="primary">Filter</button>
+                    <button (click)="changeMobileMode()" class="btnSize" mat-raised-button
+                        color="primary">Filter</button>
                 </div>
             </div>
         </div>
@@ -120,13 +110,9 @@
             <br>
             <hr>
             <br>
-            <div (click)="goToRestaurant()">
+            <div (click)="goToRestaurant(1)">
                 <h1 class="restaurantHeader">Restaurantname</h1>
-                <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                class="imgSize"
-                alt="..."
-                />
+                <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="imgSize" alt="..." />
             </div>
         </div>
         <br>

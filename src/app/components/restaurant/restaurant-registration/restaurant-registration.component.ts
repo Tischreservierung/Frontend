@@ -33,6 +33,7 @@ export class RestaurantRegistrationComponent implements OnInit{
 
   formGroup: FormGroup = this.formBuilder.group({
     'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
+    'description': new FormControl(''),
     'zipCode': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     'location': new FormControl('', [Validators.required]),
     'address': new FormControl('', [Validators.required]),
@@ -197,7 +198,7 @@ export class RestaurantRegistrationComponent implements OnInit{
       return null;
     }
     restaurant = {
-      name: temp['name'].value, address: temp['address'].value,
+      name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: zipCode, id: 0, openings: this.openings
       , categories: this.categoryControl.value, employee: {email: temp['email'].value, password: temp['password'].value
       , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true}

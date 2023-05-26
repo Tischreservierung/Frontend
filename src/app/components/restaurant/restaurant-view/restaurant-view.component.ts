@@ -46,12 +46,13 @@ export class RestaurantViewComponent implements OnInit{
     return this.restaurant?.openings.filter(opening => opening.day == day);
   }
 
-  back() {
+  async back() {
+    await delay(100);
+
     this.router.navigate(['/restaurant-filter']);
   }
 
   checkTimeFormat() {
-    //change to Correct [] when implemented
     this.restaurant?.openings.forEach(timeSlot => {
       var times = timeSlot.openFrom.split(":");
       if(times[0].length == 1){
@@ -72,4 +73,8 @@ export class RestaurantViewComponent implements OnInit{
       timeSlot.openTo = times[0] + ":" + times[1];
     });
   }
+}
+
+function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
 }

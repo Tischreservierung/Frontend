@@ -9,6 +9,7 @@ import { ZipCode } from 'src/app/model/zip-code';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -34,7 +35,7 @@ export class RestaurantFilterComponent implements OnInit {
 
 
   constructor(private deviceService: DeviceDetectorService, private catService: CategoryService,
-    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService) {
+    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router ) {
     this.deviceInfo = this.deviceService.getDeviceInfo();
 
   }
@@ -89,8 +90,8 @@ export class RestaurantFilterComponent implements OnInit {
       this.showMobile = true;
   }
 
-  goToRestaurant() {
-    console.log("It Works");
+  goToRestaurant(id : number) {
+    this.router.navigate(['/restaurantView', id]);
   }
 
   private _filterLocations(value: string): ZipCode[] {
