@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'https://localhost:7259/api/'
+    apiUrl: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation-backend/api/'
 };

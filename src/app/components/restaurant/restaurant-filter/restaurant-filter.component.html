@@ -1,57 +1,61 @@
-<div class="container">
-    <br>
-    <br>
-
+<div class="bg-box container br-m-top br-top">
     <!-- Desktop -->
     <div *ngIf="deviceInfo.deviceType == 'desktop'">
-        <div class="row">
+        <form class="row">
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Restaurant Name</mat-label>
-                    <input matInput placeholder="">
+                    <input matInput [formControl]="nameControl" placeholder="">
                 </mat-form-field>
             </div>
             <div class="col-2">
-            <mat-form-field>
-                <mat-label>Ort</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Ort</mat-label>
+                    <input matInput aria-label="Location" [matAutocomplete]="auto" [formControl]="locationControl">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option (click)="location = null"> --- </mat-option>
+                        <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
+                            [value]="loc.location+' | '+loc.zipCodeNr">
+                            <span>{{loc.location}}</span> |
+                            <small>{{loc.zipCodeNr}}</small>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
             </div>
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Datum</mat-label>
-                    <input matInput placeholder="01.01.2023">
+                    <input matInput [formControl]="dateControl" type="date" matInput placeholder="01.01.2023">
                 </mat-form-field>
             </div>
             <div class="col-2">
                 <mat-form-field>
                     <mat-label>Uhrzeit</mat-label>
-                    <input matInput placeholder="12:00">
+                    <input matInput [formControl]="timeControl" type="time" matInput placeholder="12:00">
                 </mat-form-field>
             </div>
             <div class="col-2">
-                Dropdown Menu macht Sebastian Markus Witzeneder
+                <mat-form-field appearance="fill">
+                    <mat-label>Restaurantart</mat-label>
+                    <mat-select [formControl]="categoryControl" multiple>
+                        <mat-option *ngFor="let type of categories" [value]="type">{{type.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div class="col-2">
-                <button class="filterBtnSize" mat-raised-button color="primary">suchen</button>
+                <button class="filterBtnSize text-design btn-main" color="primary" (click)="filter()">Suchen</button>
             </div>
-        </div>
-        <div *ngFor="let item of [1,2,3,4,5]">
-            <br>
-            <hr>
-            <br>
-            <div class="row" (click)="goToRestaurant()">
+        </form>
+        <div *ngFor="let res of restaurants">
+            <hr class="br-top">
+            <div class="row br-top" (click)="goToRestaurant(res.id)">
                 <div class="col-4">
-                    <img
-                    src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                    class="imgSize"
-                    alt="..."
-                    />
+                    <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="imgSize" alt="..." />
                 </div>
                 <div class="col-8">
-                    <h1 class="restaurantHeader">Restaurantname</h1>
+                    <h1 class="restaurantHeader">{{res.name}}</h1>
                     <p>Restaurantbeschreibung</p>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+                    <p>{{res.description}}</p>
                 </div>
             </div>
         </div>
@@ -67,10 +71,10 @@
                 </mat-form-field>
             </div>
             <div>
-            <mat-form-field>
-                <mat-label>Ort</mat-label>
-                <input matInput placeholder="">
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Ort</mat-label>
+                    <input matInput placeholder="">
+                </mat-form-field>
             </div>
             <div>
                 <mat-form-field>
@@ -97,7 +101,8 @@
                     <button class="btnSize" mat-raised-button color="primary">Home</button>
                 </div>
                 <div class="col-6">
-                    <button (click)="changeMobileMode()" class="btnSize" mat-raised-button color="primary">Filter</button>
+                    <button (click)="changeMobileMode()" class="btnSize" mat-raised-button
+                        color="primary">Filter</button>
                 </div>
             </div>
         </div>
@@ -105,17 +110,12 @@
             <br>
             <hr>
             <br>
-            <div (click)="goToRestaurant()">
+            <div (click)="goToRestaurant(1)">
                 <h1 class="restaurantHeader">Restaurantname</h1>
-                <img
-                src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                class="imgSize"
-                alt="..."
-                />
+                <img src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="imgSize" alt="..." />
             </div>
         </div>
         <br>
         <br>
     </div>
 </div>
-

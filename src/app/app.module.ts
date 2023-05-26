@@ -19,6 +19,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AuthModule } from '@auth0/auth0-angular';
 import {MatSelectModule} from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RestaurantViewComponent } from './components/restaurant/restaurant-view
       authorizationParams: {
       redirect_uri: window.location.origin
     }})
+    ,MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
