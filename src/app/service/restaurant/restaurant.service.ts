@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { Restaurant } from 'src/app/model/restaurant';
 import { environment } from 'src/environments/environment.development';
 
@@ -28,5 +29,9 @@ export class RestaurantService {
 
   getRestaurants(){
     return this.http.get<Restaurant[]>(this.url);
+  }
+
+  getRestaurantForView(id: number){
+    return this.http.get<RestaurantViewDto>(this.url + "/restaurantview/" + id);
   }
 }
