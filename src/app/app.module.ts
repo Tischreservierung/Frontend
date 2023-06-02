@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { AuthModule } from '@auth0/auth0-angular';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';

@@ -1,8 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
-import { Observable, concatWith, map, startWith } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
@@ -85,7 +84,7 @@ export class RestaurantFilterComponent implements OnInit {
   private _filterLocations(value: string): ZipCode[] {
     const filterValue = value.toLowerCase();
     return this.locations.filter(loc => {
-      var l = loc.location + " | " + loc.zipCodeNr;
+      let l = loc.location + " | " + loc.zipCodeNr;
       return l.toLowerCase().includes(filterValue)
     });
   }
