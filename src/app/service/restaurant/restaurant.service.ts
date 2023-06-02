@@ -32,18 +32,18 @@ export class RestaurantService {
     return this.http.get<Restaurant[]>(this.url);
   }
 
-  getRestaurantsByName(name: string, zipCodeId: number) {
-    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
+  getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
+    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
   }
 
-  getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, day: number) {
+  getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, dateTime: Date | null) {
     if (categories == null)
-      return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId+"&day="+day);
+      return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
     let c = "";
     categories.forEach(element => {
       c += "&categories=" + element.id;
     });
-    return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId + c+"&day="+day);
+    return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId + c+"&dateTime="+dateTime);
   }
   getRestaurantForView(id: number){
     return this.http.get<RestaurantViewDto>(this.url + "/restaurantview/" + id);

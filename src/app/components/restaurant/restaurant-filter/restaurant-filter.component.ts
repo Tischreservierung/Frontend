@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, concatWith, map, startWith } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
@@ -17,8 +17,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./restaurant-filter.component.scss']
 })
 export class RestaurantFilterComponent implements OnInit {
-  deviceInfo: DeviceInfo;
-  showMobile: boolean = false;
 
   categories: Category[] = [];
   locations: ZipCode[] = [];
@@ -27,17 +25,15 @@ export class RestaurantFilterComponent implements OnInit {
   categoryControl = new FormControl<Category[] | null>(null);
   locationControl = new FormControl<string>('');
   nameControl = new FormControl<string>('');
-  dateControl = new FormControl<Date |null>(null);
+  dateControl = new FormControl<Date | null>(null);
   timeControl = new FormControl<Time | null>(null);
   location: ZipCode | null = null;
 
   restaurants: Restaurant[] = [];
 
 
-  constructor(private deviceService: DeviceDetectorService, private catService: CategoryService,
-    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router ) {
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-
+  constructor(private catService: CategoryService,
+    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router) {
   }
   ngOnInit(): void {
     this.catService.getCategories().subscribe({
@@ -45,52 +41,44 @@ export class RestaurantFilterComponent implements OnInit {
     });
     this.zipCodeService.getZipCodes().subscribe({
       next: data => {
-        this.locations = data; 
+        this.locations = data;
         this.filteredLocations = this.locationControl.valueChanges.pipe(
           startWith(''),
           map(loc => (loc ? this._filterLocations(loc) : this.locations.slice()))
         );
       }
     });
-    this.epicFunction();
   }
 
-  filter(){
+  filter() {
     let zipCodeId = -1;
-    if(this.location != null)
+    let date = this.dateControl.value;
+    if (this.timeControl.value != null && date != null){
+      date.setHours(this.timeControl.value.hours);
+      date.setMinutes(this.timeControl.value.minutes);
+    }
+
+
+    if (this.location != null)
       zipCodeId = this.location.id;
-    if(this.nameControl.value != '' && this.nameControl.value != null){
-      this.restaurantService.getRestaurantsByName(this.nameControl.value, zipCodeId).subscribe({
-        next: data => {this.restaurants = data},
-        error: err => {console.log(err)}
+
+    if (this.nameControl.value != '' && this.nameControl.value != null) {
+      this.restaurantService.getRestaurantsByName(this.nameControl.value, zipCodeId, date).subscribe({
+        next: data => { this.restaurants = data },
+        error: err => { console.log(err) }
       });
     }
-    else{
-      let day = -1;
-      if(this.dateControl.value != null)
-        day =  this.dateControl.value.getDay() + 1 % 7;
-      this.restaurantService.getRestaurntsByCategories(this.categoryControl.value, zipCodeId, day).subscribe({
-        next: data => {this.restaurants = data},
-        error: err => {console.log(err)}
-    });
+    else {
+
+      this.restaurantService.getRestaurntsByCategories(this.categoryControl.value, zipCodeId, date).subscribe({
+        next: data => { this.restaurants = data },
+        error: err => { console.log(err) }
+      });
       console.log("Filter nach Kategorie und Ort!");
     }
   }
 
-
-  epicFunction() {
-    console.log(this.deviceInfo);
-    console.log(this.deviceInfo.deviceType);
-  }
-
-  changeMobileMode() {
-    if (this.showMobile)
-      this.showMobile = false;
-    else
-      this.showMobile = true;
-  }
-
-  goToRestaurant(id : number) {
+  goToRestaurant(id: number) {
     this.router.navigate(['/restaurantView', id]);
   }
 
