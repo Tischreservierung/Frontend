@@ -40,16 +40,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 // Colors for the backgrounds
-.navbar-color {
-  background-color: #d7c4e1 ; //#D6D3FF;
-}
-
 .bg-color {
-  background-color: #e8e1ed;
+  background-color: #2F2A2B;
 }
 
 .bg-box {
-  background-color: #b9b0e2f4;
+  background-color: #D6CBBF;
   border-radius: 20px;
 }
 
@@ -58,6 +54,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
   font-size: 19px;
   font-weight: 650;
+  color: #FFFFFF;
 }
 
 //Button
@@ -67,23 +64,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .btn-main {
-  width: 75%;
   position: relative;
-  background-color: #a266d2;
   border-radius: 4em;
   font-size: 16px;
-  padding: 0.8em 1.8em;
-  cursor:pointer;
-  user-select:none;
+  cursor: pointer;
+  user-select: none;
   text-align: center;
   text-decoration: none;
   transition-duration: 0.4s;
-  -webkit-transition-duration: 0.4s; /* Safari */
+  -webkit-transition-duration: 0.4s;
 }
 
 .btn-main:hover {
   transition-duration: 0.1s;
-  background-color: #b98adf;
 }
 
 .btn-main:after {

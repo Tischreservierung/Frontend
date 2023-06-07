@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" width="30" height="30" alt="Home">
@@ -8,7 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav seperator">
         <li class="nav-item">
           <a class="nav-link" routerLink="/restaurant-filter" routerLinkActive="active">Search</a>
         </li>
@@ -20,6 +20,15 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Login</a>
         </li>
       </ul>
     </div>

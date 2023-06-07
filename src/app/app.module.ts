@@ -22,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     UserRegistrationComponent,
     RestaurantFilterComponent,
     RestaurantViewComponent,
+    NavbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
