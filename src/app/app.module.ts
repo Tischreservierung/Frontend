@@ -22,6 +22,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HomeComponent } from './components/home/home.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     UserRegistrationComponent,
     RestaurantFilterComponent,
     RestaurantViewComponent,
+    NavbarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatExpansionModule,
 
     AuthModule.forRoot({
       domain: 'dev-6zf41u66fsy2t2gr.us.auth0.com',
