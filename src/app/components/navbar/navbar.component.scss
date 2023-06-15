@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #1D1D1E;
+    z-index: 2;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 19px;
+}
+
+.nav-item {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nav-link:hover {
+    color: #808080;
+}
+
+@media only screen and (min-width: 992px) {
+    .nav-link {
+        padding: 0 2em;
+    }
+
+    .navbar-nav.seperator li:not(:last-child).nav-item {
+        border-right: 2px solid #FFFFFF;
+    }
+}
