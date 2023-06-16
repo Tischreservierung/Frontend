@@ -33,17 +33,21 @@ export class RestaurantService {
   }
 
   getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
+    if(dateTime == null)
+      return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
     return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
   }
 
   getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, dateTime: Date | null) {
+    let act = this.url + "/categories?zipCodeId=" + zipCodeId;
+    if(dateTime != null)
+      act += "&dateTime="+dateTime;
     if (categories == null)
-      return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
-    let c = "";
+      return this.http.get<Restaurant[]>(act);
     categories.forEach(element => {
-      c += "&categories=" + element.id;
+      act += "&categories=" + element.id;
     });
-    return this.http.get<Restaurant[]>(this.url + "/categories?zipCodeId=" + zipCodeId + c+"&dateTime="+dateTime);
+    return this.http.get<Restaurant[]>(act);
   }
   getRestaurantForView(id: number){
     return this.http.get<RestaurantViewDto>(this.url + "/restaurantview/" + id);
