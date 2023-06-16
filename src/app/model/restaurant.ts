@@ -10,7 +10,6 @@ export interface Restaurant {
     zipCode : ZipCode;
     address : string;
     streetNr : string;
-    description : string;
     openings : OpeningTime[];
     categories : Category[] | null;
     employee : EmpRestaurant| null;
