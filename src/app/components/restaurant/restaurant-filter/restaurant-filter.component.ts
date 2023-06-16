@@ -31,6 +31,21 @@ export class RestaurantFilterComponent implements OnInit {
   restaurants: Restaurant[] = [];
 
 
+  dateFilter = (d: Date | null): boolean => {
+    let now = new Date();
+
+    if(d == null)
+      return false;
+    if(d.getFullYear() > now.getFullYear())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() > now.getMonth())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() == now.getMonth() && d.getDate() >= now.getDate())  
+      return true;
+
+    return false;
+  }
+
   constructor(private catService: CategoryService,
     private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router) {
   }
