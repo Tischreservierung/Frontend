@@ -30,9 +30,7 @@ export class RestaurantViewComponent implements OnInit{
     });
   }
   restaurant: RestaurantViewDto | null = null;
-
-  aboutUs: string = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.";
-  
+ 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
     , { day: 'Samstag', short: 'SA', id: 5 }, { day: 'Sonntag', short: 'SO', id: 6 }];
@@ -47,7 +45,7 @@ export class RestaurantViewComponent implements OnInit{
   }
 
   async back() {
-    await delay(100);
+    await delay(250);
 
     this.router.navigate(['/restaurant-filter']);
   }

@@ -6,6 +6,7 @@ import { ZipCode } from "./zip-code";
 export interface Restaurant {
     id: number;
     name: string;
+    description: string;
     zipCode : ZipCode;
     address : string;
     streetNr : string;
