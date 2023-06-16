@@ -21,7 +21,7 @@ export class ZipCodeService {
   constructor(private http: HttpClient) { }
 
   getZipCodes() {
-    return this.http.get<ZipCode[]>(this.url, httpOptions);
+    return this.http.get<ZipCode[]>(this.url);
   }
   getZipCodeByZipCodeNrAndLocation(zipCode : string ,location : string){
     return this.http.get<ZipCode>(this.url+"/byZipCodeAndLocation?zipCode="+zipCode+"&location="+location,httpOptions);
