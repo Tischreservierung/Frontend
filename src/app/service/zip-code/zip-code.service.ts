@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ZipCode } from 'src/app/model/zip-code';
+import { environment } from 'src/environments/environment';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
     'accept': 'text/plain',
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': 'true'
+    'Content-Type': 'application/json'
   })
 };
 
@@ -16,12 +16,12 @@ const httpOptions = {
 })
 export class ZipCodeService {
 
-  url = 'https://localhost:7259/api/ZipCodes';
+  url = environment.apiUrl+'ZipCodes';
 
   constructor(private http: HttpClient) { }
 
   getZipCodes() {
-    return this.http.get<ZipCode[]>(this.url, httpOptions);
+    return this.http.get<ZipCode[]>(this.url);
   }
   getZipCodeByZipCodeNrAndLocation(zipCode : string ,location : string){
     return this.http.get<ZipCode>(this.url+"/byZipCodeAndLocation?zipCode="+zipCode+"&location="+location,httpOptions);

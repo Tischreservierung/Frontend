@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
-import { Category } from 'src/app/model/category';
-import { OpeningTime } from 'src/app/model/opening-time';
-import { Restaurant } from 'src/app/model/restaurant';
-import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 
 @Component({
@@ -12,9 +8,9 @@ import { RestaurantService } from 'src/app/service/restaurant/restaurant.service
   templateUrl: './restaurant-view.component.html',
   styleUrls: ['./restaurant-view.component.scss']
 })
-export class RestaurantViewComponent implements OnInit{
+export class RestaurantViewComponent implements OnInit {
 
-  constructor(private router: Router, private restaurantService: RestaurantService){}
+  constructor(private router: Router, private restaurantService: RestaurantService) { }
 
   pageUrl: string = this.router.url;
   urlParts: string[] = this.pageUrl.split('/');
@@ -22,15 +18,15 @@ export class RestaurantViewComponent implements OnInit{
 
   ngOnInit(): void {
     this.restaurantService.getRestaurantForView(Number(this.id)).subscribe({
-      next: data => { 
+      next: data => {
         this.restaurant = data;
-        this.checkTimeFormat(); 
+        this.checkTimeFormat();
       },
       error: error => { /*alert("Fehler" + error.message)*/ }
     });
   }
   restaurant: RestaurantViewDto | null = null;
- 
+
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
     , { day: 'Samstag', short: 'SA', id: 5 }, { day: 'Sonntag', short: 'SO', id: 6 }];
@@ -52,20 +48,20 @@ export class RestaurantViewComponent implements OnInit{
 
   checkTimeFormat() {
     this.restaurant?.openings.forEach(timeSlot => {
-      var times = timeSlot.openFrom.split(":");
-      if(times[0].length == 1){
+      let times = timeSlot.openFrom.split(":");
+      if (times[0].length == 1) {
         times[0] = "0" + times[0];
       }
-      if(times[1].length == 1){
+      if (times[1].length == 1) {
         times[1] = "0" + times[1];
       }
       timeSlot.openFrom = times[0] + ":" + times[1];
 
       times = timeSlot.openTo.split(":");
-      if(times[0].length == 1){
+      if (times[0].length == 1) {
         times[0] = "0" + times[0];
       }
-      if(times[1].length == 1){
+      if (times[1].length == 1) {
         times[1] = "0" + times[1];
       }
       timeSlot.openTo = times[0] + ":" + times[1];
@@ -74,5 +70,5 @@ export class RestaurantViewComponent implements OnInit{
 }
 
 function delay(ms: number) {
-  return new Promise( resolve => setTimeout(resolve, ms) );
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

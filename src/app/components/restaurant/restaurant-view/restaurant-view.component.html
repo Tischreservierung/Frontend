@@ -1,5 +1,5 @@
 <br>
-<div class="container center side bg" style="border-radius: 20px">
+<div class="container center side bg-box">
     <h1 class="margin br-top">{{restaurant?.name}}</h1>
     <form class="form row br-top">
         <div class="col-12 col-lg-8">
@@ -36,25 +36,25 @@
     </form>
     <div class="form row br-top-sm">
         <div class="col-12 col-md-6">
-            <div class="container center bubble round">
-                <p class="bubbles">{{restaurant?.zipCode?.location}} &nbsp;| &nbsp;{{restaurant?.zipCode?.zipCodeNr}} &nbsp;| &nbsp;{{restaurant?.zipCode?.district}}</p>
+            <div class="container center element">
+                <p class="element-inner">{{restaurant?.zipCode?.location}} &nbsp;| &nbsp;{{restaurant?.zipCode?.zipCodeNr}} &nbsp;| &nbsp;{{restaurant?.zipCode?.district}}</p>
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="container center bubble round">
-                <p class="bubbles">{{restaurant?.address}} {{restaurant?.streetNr}}</p>
+            <div class="container center element">
+                <p class="element-inner">{{restaurant?.address}} {{restaurant?.streetNr}}</p>
             </div>
         </div>
     </div>
     <hr>
     <div class="form row">
         <div class="col-12 col-md-6 col-lg-3" *ngFor="let item of restaurant?.categories">
-            <div class="container center bubble round">
-                <p class="bubbles">{{item.name}}</p>
+            <div class="container center element">
+                <p class="element-inner">{{item.name}}</p>
             </div>
         </div>
     </div>
-    <div class="border border-3 border-dark round timeTable" style="background-color: #F2DCFF;">
+    <div class="border border-3 border-dark element-timetable">
         <div *ngFor="let day of days">
             <div class="row">
                 <ng-container *ngIf="openedAt(day.id)">
@@ -72,10 +72,10 @@
     <div class="br-top br-bottom-sm">
         <div class="form row">
             <div class="col-6">
-                <button class="textInfo btn1 round" (click)="back()">Back</button>
+                <button class="text-design btn-main" (click)="back()">Back</button>
             </div>
             <div class="col-6">
-                <button class="textInfo btn1 round">Buchen</button>
+                <button class="text-design btn-main">Buchen</button>
             </div>
         </div>
     </div>

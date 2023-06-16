@@ -14,11 +14,11 @@ import { CategoryService } from 'src/app/service/category/category.service';
   templateUrl: './restaurant-registration.component.html',
   styleUrls: ['./restaurant-registration.component.scss']
 })
-export class RestaurantRegistrationComponent implements OnInit{
+export class RestaurantRegistrationComponent implements OnInit {
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
     private zipService: ZipCodeService, private catService: CategoryService) {
-   
+
   }
 
   ngOnInit(): void {
@@ -33,6 +33,7 @@ export class RestaurantRegistrationComponent implements OnInit{
 
   formGroup: FormGroup = this.formBuilder.group({
     'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
+    'description': new FormControl(''),
     'zipCode': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     'location': new FormControl('', [Validators.required]),
     'address': new FormControl('', [Validators.required]),
@@ -45,7 +46,7 @@ export class RestaurantRegistrationComponent implements OnInit{
     'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
-  hide : boolean = true;
+  hide: boolean = true;
   restaurants: Restaurant[] = [];
 
   day: number = -1; // Selected day
@@ -69,67 +70,64 @@ export class RestaurantRegistrationComponent implements OnInit{
     return this.openings.filter(opening => opening.day == day);
   }
 
-  addTimeIsValid() : boolean{
-    if (this.openings.length >= 14){
+  addTimeIsValid(): boolean {
+    if (this.openings.length >= 14) {
       alert("Maximal 14 Öffnungszeiten pro Restaurant");
       return false;
     }
-    if (this.day == -1 || this.formGroup.controls['openFrom'].value == '' || this.formGroup.controls['openTo'].value == ''){
+    if (this.day == -1 || this.formGroup.controls['openFrom'].value == '' || this.formGroup.controls['openTo'].value == '') {
       alert("Bitte wählen Sie einen Tag aus und geben Sie die Öffnungszeiten ein!");
       return false;
     }
-
     return true;
   }
 
   // Add opening time to openings, if opening times overlap they get kombined into one
-  //If closing time is before opening time, the opening time is set to 00:00 and the closing time to the next day
   addTime() {
-    if(this.addTimeIsValid()) {
-      let open = String(this.formGroup.controls['openFrom'].value).split(':');
-      let close = String(this.formGroup.controls['openTo'].value).split(':');
+    if (!this.addTimeIsValid())
+      return;
 
-      if ((Number(close[0]) < Number(open[0]) || (Number(close[0]) == Number(open[0]) && Number(close[1]) < Number(open[1])))
-        && this.formGroup.controls['openTo'].value != '00:00') {
-        this.openings.push({
-          day: this.day, openFrom: this.formGroup.controls['openFrom'].value
-          , openTo: '00:00'
-        });
-        this.openings.push({
-          day: (this.day + 1) % 7, openFrom: '00:00'
-          , openTo: this.formGroup.controls['openTo'].value
-        });
-      }
-      else if((Number(close[0]) == Number(open[0]) && Number(close[1]) == Number(open[1]))){
-        alert("Die Öffnungszeiten dürfen nicht gleich sein!");
-        return;
-      }
-      else{
-        this.openings.push({
-          day: this.day, openFrom: this.formGroup.controls['openFrom'].value
-          , openTo: this.formGroup.controls['openTo'].value
-        });
-      }
-      this.openings.sort((a, b) => this.comparator(a, b));
+    let open = String(this.formGroup.controls['openFrom'].value).split(':');
+    let close = String(this.formGroup.controls['openTo'].value).split(':');
 
-      let i = 0;
-      while (i < this.openings.length - 1) {
-        if (this.openings[i].day == this.openings[i + 1].day) {
-          if (this.openings[i].openTo >= this.openings[i + 1].openFrom || this.openings[i].openTo == '00:00') {
-            if (this.openings[i].openTo <= this.openings[i + 1].openTo && this.openings[i].openTo != '00:00')
-              this.openings[i].openTo = this.openings[i + 1].openTo;
-            this.openings.splice(i + 1, 1);
-          }
-          else
-            i++;
+    //If closing time is before opening time, the opening time is set to 00:00 and the closing time to the next day
+    if ((Number(close[0]) < Number(open[0]) || (Number(close[0]) == Number(open[0]) && Number(close[1]) <= Number(open[1])))
+      && this.formGroup.controls['openTo'].value != '00:00') {
+      this.openings.push({
+        day: this.day, openFrom: this.formGroup.controls['openFrom'].value
+        , openTo: '00:00'
+      });
+      this.openings.push({
+        day: (this.day + 1) % 7, openFrom: '00:00'
+        , openTo: this.formGroup.controls['openTo'].value
+      });
+    }
+    else {
+      this.openings.push({
+        day: this.day, openFrom: this.formGroup.controls['openFrom'].value
+        , openTo: this.formGroup.controls['openTo'].value
+      });
+    }
+    this.openings.sort((a, b) => this.comparator(a, b));
+
+    this.combineOverlappingTimes();
+  }
+
+  combineOverlappingTimes(){
+    let i = 0;
+    while (i < this.openings.length - 1) {
+      if (this.openings[i].day == this.openings[i + 1].day) {
+        if (this.openings[i].openTo >= this.openings[i + 1].openFrom || this.openings[i].openTo == '00:00') {
+          if (this.openings[i].openTo <= this.openings[i + 1].openTo && this.openings[i].openTo != '00:00')
+            this.openings[i].openTo = this.openings[i + 1].openTo;
+          this.openings.splice(i + 1, 1);
         }
         else
           i++;
       }
-
+      else
+        i++;
     }
-    console.log(this.openings);
-    console.log(this.categoryControl.value);
   }
 
   // Commpares two opening times
@@ -175,16 +173,16 @@ export class RestaurantRegistrationComponent implements OnInit{
 
   removeTimeAt(day: number, index: number) {
     let opening = this.openingsAt(day)[index];
-    for(let i = 0; i < this.openings.length; i++){
-      if(this.openings[i].day == opening.day && this.openings[i].openFrom == opening.openFrom && this.openings[i].openTo == opening.openTo){
+    for (let i = 0; i < this.openings.length; i++) {
+      if (this.openings[i].day == opening.day && this.openings[i].openFrom == opening.openFrom && this.openings[i].openTo == opening.openTo) {
         this.openings.splice(i, 1);
         break;
       }
     }
   }
-  
+
   register() {
-    if(this.formGroup.invalid){
+    if (this.formGroup.invalid) {
       alert("Bitte füllen Sie alle Felder aus!");
       return null;
     }
@@ -197,15 +195,17 @@ export class RestaurantRegistrationComponent implements OnInit{
       return null;
     }
     restaurant = {
-      name: temp['name'].value, address: temp['address'].value,
+      name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: zipCode, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, employee: {email: temp['email'].value, password: temp['password'].value
-      , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true}
+      , categories: this.categoryControl.value, employee: {
+        email: temp['email'].value, password: temp['password'].value
+        , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
+      }
     };
-    
+
     this.resService.addRestaurant(restaurant).subscribe({
-    
-    next: data => { restaurant.id= data;console.log(data); console.log(restaurant); },
+
+      next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
       error: error => { alert("Email wird bereits verwendet!") }
     });
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });

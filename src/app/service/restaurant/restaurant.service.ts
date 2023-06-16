@@ -1,34 +1,54 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Category } from 'src/app/model/category';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { Restaurant } from 'src/app/model/restaurant';
+import { environment } from 'src/environments/environment';
+
 
 
 const httpOptions = {
   headers: new HttpHeaders({
-  'Content-Type': 'application/json',
-  'accept':'text/plain'
+    'Content-Type': 'application/json',
+    'accept': 'text/plain'
   })
 }
-  
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
 
-  url = 'https://localhost:7259/api/Restaurants';
+  url = environment.apiUrl + 'Restaurants';
   constructor(private http: HttpClient) { }
 
-  addRestaurant(restaurant : Restaurant){
-    return this.http.post<number>(this.url,restaurant,
-    httpOptions);
+  addRestaurant(restaurant: Restaurant) {
+    return this.http.post<number>(this.url, restaurant,
+      httpOptions);
   }
 
-  getRestaurants(){
+  getRestaurants() {
     return this.http.get<Restaurant[]>(this.url);
   }
 
+  getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
+    if(dateTime == null)
+      return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
+    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
+  }
+
+  getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, dateTime: Date | null) {
+    let act = this.url + "/categories?zipCodeId=" + zipCodeId;
+    if(dateTime != null)
+      act += "&dateTime="+dateTime;
+    if (categories == null)
+      return this.http.get<Restaurant[]>(act);
+    categories.forEach(element => {
+      act += "&categories=" + element.id;
+    });
+    return this.http.get<Restaurant[]>(act);
+  }
   getRestaurantForView(id: number){
     return this.http.get<RestaurantViewDto>(this.url + "/restaurantview/" + id);
   }
