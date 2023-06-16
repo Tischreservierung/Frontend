@@ -10,7 +10,7 @@
             <div class="col-2">
                 <mat-form-field class="fullSize">
                     <mat-label>Datum</mat-label>
-                    <input matInput [matDatepicker]="picker" [formControl]="dateControl">
+                    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" [formControl]="dateControl">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -18,7 +18,7 @@
             <div class="col-2">
                 <mat-form-field class="fullSize">
                     <mat-label>Uhrzeit</mat-label>
-                    <input matInput [formControl]="timeControl" type="time" matInput placeholder="12:00">
+                    <input matInput [formControl]="timeControl"type="time" matInput placeholder="12:00">
                 </mat-form-field>
             </div>
 

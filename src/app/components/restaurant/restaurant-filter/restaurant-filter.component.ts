@@ -31,6 +31,16 @@ export class RestaurantFilterComponent implements OnInit {
   restaurants: Restaurant[] = [];
 
 
+  dateFilter = (d: Date | null): boolean => {
+    if(d == null)
+      return false;
+
+    if(d?.getMilliseconds() >= Date.now())
+      return true;
+
+    return false;
+  }
+
   constructor(private catService: CategoryService,
     private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router) {
   }
