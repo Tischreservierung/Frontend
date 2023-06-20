@@ -25,6 +25,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatStepperModule} from '@angular/material/stepper';
+
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ],
   imports: [
     BrowserModule,
+    MatStepperModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

@@ -32,18 +32,18 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   formGroup: FormGroup = this.formBuilder.group({
-    'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
-    'description': new FormControl(''),
-    'zipCode': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
-    'location': new FormControl('', [Validators.required]),
-    'address': new FormControl('', [Validators.required]),
-    'streetNr': new FormControl('', [Validators.required]),
+    'name': new FormControl('Pasd', [Validators.required, Validators.minLength(2)]),
+    'description': new FormControl('P'),
+    'zipCode': new FormControl('4470', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
+    'location': new FormControl('Enns', [Validators.required]),
+    'address': new FormControl('W', [Validators.required]),
+    'streetNr': new FormControl('71', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-    'email': new FormControl('', [Validators.required, Validators.email]),
-    'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
-    'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
-    'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
+    'email': new FormControl('xxx@gmail.com', [Validators.required, Validators.email]),
+    'password': new FormControl('Josefosef', [Validators.required, Validators.minLength(8)]),
+    'firstName': new FormControl('Peter', [Validators.required, Validators.minLength(2)]),
+    'lastName': new FormControl('Hans', [Validators.required, Validators.minLength(2)])
   });
 
   hide: boolean = true;
@@ -202,7 +202,7 @@ export class RestaurantRegistrationComponent implements OnInit {
         , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
       }
     };
-
+    console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
 
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
@@ -211,5 +211,4 @@ export class RestaurantRegistrationComponent implements OnInit {
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
     return restaurant;
   }
-
 }
