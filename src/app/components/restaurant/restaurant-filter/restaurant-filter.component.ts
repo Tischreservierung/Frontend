@@ -85,11 +85,6 @@ export class RestaurantFilterComponent implements OnInit {
   filter() {
     let zipCodeId = -1;
     let date = this.dateControl.value;
-    if (this.timeControl.value != null && date != null){
-      date.setHours(this.timeControl.value.hours);
-      date.setMinutes(this.timeControl.value.minutes);
-    }
-
 
     if (this.location != null)
       zipCodeId = this.location.id;
