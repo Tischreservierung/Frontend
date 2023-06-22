@@ -48,19 +48,38 @@ export class RestaurantFilterComponent implements OnInit {
 
   constructor(private catService: CategoryService, private zipCodeService: ZipCodeService,
     private restaurantService: RestaurantService, private router: Router, private activiatedRoute: ActivatedRoute) {
-      this.activiatedRoute.params.subscribe(
-        (params: Params)=>{
-          this.nameControl.setValue(String(params['restaurantName'] ?? 'x'));
-        }
-      );
+      
   }
 
   ngOnInit(): void {
+    this.activiatedRoute.queryParams.subscribe(
+      (params: Params)=>{
+        this.nameControl.setValue(String(params['restaurantName'] ?? ''));
+        this.dateControl.setValue(new Date(params['date']));
 
+        let timeDate: Date = new Date(params['time']);
+        let time: Time = {
+          hours: timeDate.getHours(),
+          minutes: timeDate.getMinutes()
+        }
 
+        this.timeControl.setValue(time);
+      }
+    );
+
+    this.loadCategories();
+    this.loadZipCodes();
+
+    this.filter();
+  }
+
+  loadCategories() {
     this.catService.getCategories().subscribe({
       next: data => { this.categories = data; console.log(this.categories) }
     });
+  }
+
+  loadZipCodes() {
     this.zipCodeService.getZipCodes().subscribe({
       next: data => {
         this.locations = data;
