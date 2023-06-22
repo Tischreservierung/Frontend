@@ -1,9 +1,8 @@
 <div class="container center side bg-box restaurant-box">
-    <h1 class="margin br-top">{{restaurant?.name}}</h1>
     <form class="form row br-top">
         <div class="col-12 col-lg-8">
-            <p class="textInfo br-top-sm">About us</p>
-            <p class="description">{{restaurant?.description}}</p>
+            <h1 class="margin br-top header">{{restaurant?.name}}</h1>
+            <p class="description mt-4">{{restaurant?.description}}</p>
         </div>
         <div class="col-12 col-lg-4">
             <div id="carouselExampleSlidesOnly" class="carousel slide imgSlider" data-ride="carousel">
@@ -71,10 +70,10 @@
     <div class="br-top br-bottom-sm">
         <div class="form row">
             <div class="col-6">
-                <button class="text-design btn-main" (click)="back()">Back</button>
+                <button class="text-design btn-main btn btn-primary" (click)="back()">Back</button>
             </div>
             <div class="col-6">
-                <button class="text-design btn-main">Buchen</button>
+                <button class="text-design btn-main btn btn-primary">Buchen</button>
             </div>
         </div>
     </div>
