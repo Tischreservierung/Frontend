@@ -12,21 +12,32 @@
 }
 
 .search-box {
-  margin-top: 5%;
+  transform: translate(0, 4rem);
 }
 
-
 .header {
+  margin: 0 10%;
   font-size: 30px;
   font-weight: 300;
+  display: block;
 }
 
 .description {
-  margin-right: 10%;
+  margin-left: 10%;
   font-size: 20px;
-  text-align: justify;
 }
 
 .picture-div {
   text-align: center;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .hideOnMobile {
+    font-size: 0px;
+  }
+
+  .header{
+    text-align: center;
+  }
 }
