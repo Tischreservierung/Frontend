@@ -8,7 +8,7 @@ import { ZipCode } from 'src/app/model/zip-code';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -46,13 +46,31 @@ export class RestaurantFilterComponent implements OnInit {
     return false;
   }
 
-  constructor(private catService: CategoryService,
-    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router) {
+  constructor(private catService: CategoryService, private zipCodeService: ZipCodeService,
+    private restaurantService: RestaurantService, private router: Router, private activiatedRoute: ActivatedRoute) {
+      
   }
+
   ngOnInit(): void {
+    this.activiatedRoute.queryParams.subscribe(
+      (params: Params)=>{
+          this.nameControl.setValue(params["restaurantName"]);
+      }
+    );
+
+    this.loadCategories();
+    this.loadZipCodes();
+
+    this.filter();
+  }
+
+  loadCategories() {
     this.catService.getCategories().subscribe({
       next: data => { this.categories = data; console.log(this.categories) }
     });
+  }
+
+  loadZipCodes() {
     this.zipCodeService.getZipCodes().subscribe({
       next: data => {
         this.locations = data;

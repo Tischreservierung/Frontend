@@ -3,18 +3,20 @@
     text-align: center;
 }
 
-
-
-.description {
-    margin-left: 10px;
-    margin-right: 10px;
+.header {
+    font-size: 50px;
+    font-weight: 300;
 }
 
+.description {
+    margin: 0 10% 5% 10%;
+    font-size: 20px;
+    text-align: justify;
+}
 
 .center {
     text-align: center;
 }
-
 
 .br-top {
     padding-top: 24px;
@@ -26,4 +28,8 @@
 
 .br-bottom-sm {
     padding-bottom: 18px;
+}
+
+.restaurant-box {
+    margin-top: 5%;
 }

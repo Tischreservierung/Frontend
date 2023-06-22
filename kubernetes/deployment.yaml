@@ -33,6 +33,7 @@ metadata:
   name: online-reservation
   namespace: student-s-raaber
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: online-reservation
