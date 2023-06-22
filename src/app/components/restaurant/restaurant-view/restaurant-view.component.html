@@ -1,9 +1,13 @@
 <div class="container center side bg-box restaurant-box">
     <form class="form row br-top">
-        <div class="col-12 col-lg-8">
+        <button class="col-1" mat-button (click)="back()">
+            <mat-icon class="col-1 mx-2">arrow_back_ios</mat-icon>
+        </button>
+        <div class="col-10 col-lg-6">
             <h1 class="margin br-top header">{{restaurant?.name}}</h1>
             <p class="description mt-4">{{restaurant?.description}}</p>
         </div>
+        <div class="col-1"></div>
         <div class="col-12 col-lg-4">
             <div id="carouselExampleSlidesOnly" class="carousel slide imgSlider" data-ride="carousel">
                 <mdb-carousel [controls]="true">
@@ -69,10 +73,7 @@
     </div>
     <div class="br-top br-bottom-sm">
         <div class="form row">
-            <div class="col-6">
-                <button class="text-design btn-main btn btn-primary" (click)="back()">Back</button>
-            </div>
-            <div class="col-6">
+            <div class="col">
                 <button class="text-design btn-main btn btn-primary">Buchen</button>
             </div>
         </div>
