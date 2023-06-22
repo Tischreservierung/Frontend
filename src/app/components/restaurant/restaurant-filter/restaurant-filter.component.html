@@ -1,69 +1,79 @@
 <div class="bg-box container br-m-top br-top search-box">
     <form class="search-bar justify-content-md-center">
         <div class="row" style="padding-left: 2%;">
-            <div class="col-5">
-                <mat-form-field class="fullSize">
-                    <mat-label>Restaurant Name</mat-label>
-                    <input matInput [formControl]="nameControl" placeholder="">
-                </mat-form-field>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-11 col-lg-6">
+                        <mat-form-field class="fullSize">
+                            <mat-label>Restaurant Name</mat-label>
+                            <input matInput [formControl]="nameControl" placeholder="">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-11 col-lg-3">
+                        <mat-form-field class="fullSize">
+                            <mat-label>Datum</mat-label>
+                            <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker"
+                                [formControl]="dateControl">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-11 col-lg-3">
+                        <mat-form-field class="fullSize">
+                            <mat-label>Uhrzeit</mat-label>
+                            <input matInput [formControl]="timeControl" type="time" matInput placeholder="12:00">
+                            <mat-icon matSuffix>access_time</mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11 col-lg-3">
+                        <mat-form-field class="example-full-width fullSize" appearance="fill">
+                            <mat-label>Ort</mat-label>
+                            <input matInput aria-label="Location" [matAutocomplete]="auto"
+                                [formControl]="locationControl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option (click)="location = null"> --- </mat-option>
+                                <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
+                                    [value]="loc.location+' | '+loc.zipCodeNr">
+                                    <span>{{loc.location}}</span> |
+                                    <small>{{loc.zipCodeNr}}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-11 col-lg-3">
+                        <mat-form-field appearance="fill" class="fullSize">
+                            <mat-label>Restaurantart</mat-label>
+                            <mat-select [formControl]="categoryControl" multiple>
+                                <mat-option *ngFor="let type of categories" [value]="type">{{type.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
             </div>
-            <div class="col-2">
-                <mat-form-field class="fullSize">
-                    <mat-label>Datum</mat-label>
-                    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" [formControl]="dateControl">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-2">
-                <mat-form-field class="fullSize">
-                    <mat-label>Uhrzeit</mat-label>
-                    <input matInput [formControl]="timeControl"type="time" matInput placeholder="12:00">
-                    <mat-icon matSuffix>access_time</mat-icon>
-                </mat-form-field>
-            </div>
-
-            <div class="col-2">
+            <div class="col-11 col-lg-2">
                 <button class="btn btn-primary btn-main btn-maintext-design" color="primary"
                     (click)="filter()">Suchen</button>
             </div>
         </div>
 
         <div class="row" style="padding-left: 2%;">
-            <div class="col-2">
-                <mat-form-field class="example-full-width fullSize" appearance="fill">
-                    <mat-label>Ort</mat-label>
-                    <input matInput aria-label="Location" [matAutocomplete]="auto" [formControl]="locationControl">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option (click)="location = null"> --- </mat-option>
-                        <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
-                            [value]="loc.location+' | '+loc.zipCodeNr">
-                            <span>{{loc.location}}</span> |
-                            <small>{{loc.zipCodeNr}}</small>
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </div>
-            <div class="col-2">
-                <mat-form-field appearance="fill" class="fullSize">
-                    <mat-label>Restaurantart</mat-label>
-                    <mat-select [formControl]="categoryControl" multiple>
-                        <mat-option *ngFor="let type of categories" [value]="type">{{type.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+
         </div>
     </form>
 
     <div *ngFor="let res of restaurants">
         <hr class="br-top">
-        <div class="row br-top" >
-            <div class="col-4 picture-div">
-                <img (click)="goToRestaurant(res.id)" src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp" class="imgSize" alt="..." />
-            </div>
-            <div class="col-8">
+        <div class="row br-top">
+            <div class="col-xl-8 col-12">
                 <a routerLink="/restaurantView/{{res.id}}" class="header">{{res.name}}</a>
-                <p class="description mt-3">{{res.description}}</p>
+                <p class="description mt-3 hideOnMobile">{{res.description}}</p>
+            </div>
+            <div class="col-xl-4 col-12 picture-div">
+                <img (click)="goToRestaurant(res.id)" src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
+                    class="imgSize" alt="..." />
             </div>
         </div>
     </div>
