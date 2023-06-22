@@ -35,13 +35,16 @@ export class RestaurantService {
   getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
     if(dateTime == null)
       return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
-    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+dateTime);
+    let date = (dateTime.getMonth() + 1)+ "." + dateTime.getDate()   + "." + dateTime.getFullYear();
+    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+date);
   }
 
   getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, dateTime: Date | null) {
     let act = this.url + "/categories?zipCodeId=" + zipCodeId;
-    if(dateTime != null)
-      act += "&dateTime="+dateTime;
+    if(dateTime != null){
+      let date = (dateTime.getMonth() + 1)+ "." + dateTime.getDate()   + "." + dateTime.getFullYear();
+      act += "&dateTime="+date;
+    }
     if (categories == null)
       return this.http.get<Restaurant[]>(act);
     categories.forEach(element => {
