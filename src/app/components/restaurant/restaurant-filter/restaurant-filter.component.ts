@@ -54,16 +54,7 @@ export class RestaurantFilterComponent implements OnInit {
   ngOnInit(): void {
     this.activiatedRoute.queryParams.subscribe(
       (params: Params)=>{
-        this.nameControl.setValue(String(params['restaurantName'] ?? ''));
-        this.dateControl.setValue(new Date(params['date']));
-
-        let timeDate: Date = new Date(params['time']);
-        let time: Time = {
-          hours: timeDate.getHours(),
-          minutes: timeDate.getMinutes()
-        }
-
-        this.timeControl.setValue(time);
+          this.nameControl.setValue(params["restaurantName"]);
       }
     );
 

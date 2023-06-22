@@ -6,28 +6,11 @@
         </h2>
 
         <form class="row search-box">
-            <mat-form-field class="col-lg-5 search-field">
+            <mat-form-field class="col-lg-7 search-field">
                 <mat-label>Nach Restaurant Suchen</mat-label>
-                <input matInput [formControl]="nameControl" type="text">
+                <input matInput type="text">
             </mat-form-field>
-
-            <div class="col">
-                <mat-form-field class="fullSize">
-                    <mat-label>Datum</mat-label>
-                    <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" [formControl]="dateControl">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-
-            <div class="col">
-                <mat-form-field class="fullSize">
-                    <mat-label>Uhrzeit</mat-label>
-                    <input matInput [formControl]="timeControl"type="time" matInput placeholder="12:00">
-                    <mat-icon matSuffix>access_time</mat-icon>
-                </mat-form-field>
-            </div>
-
+            
             <div class="col-lg-2">
                 <button class="btn btn-primary btn-main btn-maintext-design search-btn" color="primary" (click)="goToSearch()" type="submit">Suchen</button>
             </div>

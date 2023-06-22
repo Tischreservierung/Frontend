@@ -34,13 +34,17 @@ export class HomeComponent {
   }
 
   goToSearch() {
+    let date = this.dateControl.value;
+    if (this.timeControl.value != null && date != null){
+      date.setHours(this.timeControl.value.hours);
+      date.setMinutes(this.timeControl.value.minutes);
+    }
+
     this.router.navigate(['/restaurant-filter'],
     {
       queryParams:
       {
-        restaurantName: this.nameControl.value,
-        date: this.dateControl.value?.toISOString(),
-        time: this.timeControl.value
+        restaurantName: this.nameControl.value
       }
     });
   }

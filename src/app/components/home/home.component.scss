@@ -23,7 +23,7 @@
 }
 
 .search-box {
-    margin-top: clamp(3.13rem, calc(5.65rem + -3.26vw), 5.00rem);;
+    margin-top: clamp(3.13rem, calc(5.65rem + -3.26vw), 5.00rem);
 }
 
 
@@ -49,4 +49,12 @@ h2 {
     h2 {
         text-align: center;
     }
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-30 {
+    width: 30%;
 }
