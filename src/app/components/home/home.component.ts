@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Time } from '@angular/common';
+import { Component, Query } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,11 +10,42 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
+  nameControl = new FormControl<string>('');
+  dateControl = new FormControl<Date | null>(null);
+  timeControl = new FormControl<Time | null>(null);
+
+  dateFilter = (d: Date | null): boolean => {
+    let now = new Date();
+
+    if(d == null)
+      return false;
+    if(d.getFullYear() > now.getFullYear())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() > now.getMonth())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() == now.getMonth() && d.getDate() >= now.getDate())  
+      return true;
+
+    return false;
+  }
+
   constructor(private router: Router) {
 
   }
 
   goToSearch() {
-    this.router.navigate(['/restaurant-filter']);
+    let date = this.dateControl.value;
+    if (this.timeControl.value != null && date != null){
+      date.setHours(this.timeControl.value.hours);
+      date.setMinutes(this.timeControl.value.minutes);
+    }
+
+    this.router.navigate(['/restaurant-filter'],
+    {
+      queryParams:
+      {
+        restaurantName: this.nameControl.value
+      }
+    });
   }
 }
