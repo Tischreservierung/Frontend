@@ -37,7 +37,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     'streetNr': new FormControl('', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-    'email': new FormControl('', [Validators.required, Validators.email]),
+    'email': new FormControl('',  [Validators.required, Validators.email]),
     'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
     'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
     'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
