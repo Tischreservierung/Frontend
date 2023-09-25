@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +7,21 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  constructor(public auth: AuthService){}
 
-  test(){
-    let user = this.auth.user$;
-    user.subscribe(data => console.log(data))
+  loggedIn: boolean = false;
+  user: User | null = null;
+
+  constructor(public auth: AuthService){
+    this.auth.isAuthenticated$.subscribe(data => 
+      {this.loggedIn = data});
+    this.auth.user$.subscribe(data => {if (data) this.user = data});
+  }
+
+  logout(){
+    this.auth.logout();
+  }
+
+  login(){
+    this.auth.loginWithRedirect();
   }
 }
