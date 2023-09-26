@@ -61,7 +61,7 @@ import {MatStepperModule} from '@angular/material/stepper';
       domain: 'dev-tischreservierung.eu.auth0.com',
       clientId: 'RpHUpcad4hQJxBwQhDeMeHMuRbFoQtMf',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation/#',
       }
     })
     , MatAutocompleteModule
