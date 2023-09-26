@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService, User } from '@auth0/auth0-angular';
+import { AuthService, User, RedirectLoginOptions } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,6 @@ export class NavbarComponent {
 
   loggedIn: boolean = false;
   user: User | null = null;
-
   constructor(public auth: AuthService){
     this.auth.isAuthenticated$.subscribe(data => 
       {this.loggedIn = data});
