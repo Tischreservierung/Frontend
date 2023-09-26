@@ -27,6 +27,8 @@ import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
 
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,7 @@ import {MatStepperModule} from '@angular/material/stepper';
       domain: 'dev-tischreservierung.eu.auth0.com',
       clientId: 'RpHUpcad4hQJxBwQhDeMeHMuRbFoQtMf',
       authorizationParams: {
-        redirect_uri: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation/#',
+        redirect_uri: environment.redirectUri,
       }
     })
     , MatAutocompleteModule
