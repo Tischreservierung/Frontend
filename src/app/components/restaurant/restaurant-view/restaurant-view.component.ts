@@ -15,11 +15,13 @@ export class RestaurantViewComponent implements OnInit {
   pageUrl: string = this.router.url;
   urlParts: string[] = this.pageUrl.split('/');
   id: string = this.urlParts[this.urlParts.length - 1];
+  pic = "";
 
   ngOnInit(): void {
     this.restaurantService.getRestaurantForView(Number(this.id)).subscribe({
       next: data => {
         this.restaurant = data;
+        this.pic = this.restaurant.pictures[0].pic.toString();
         this.checkTimeFormat();
       },
       error: error => { /*alert("Fehler" + error.message)*/ }

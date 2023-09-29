@@ -1,9 +1,14 @@
 <br>
+<br>
+<br>
+<br>
 <div class="container center side bg-box">
+    <p>{{pic}}</p>
+
     <h1 class="margin br-top">{{restaurant?.name}}</h1>
     <form class="form row br-top">
         <div class="col-12 col-lg-8">
-            <p class="textInfo br-top-sm">About us</p>
+            <p class="textInfo br-top-sm">Über uns</p>
             <p class="description">{{restaurant?.description}}</p>
         </div>
         <div class="col-12 col-lg-4">
@@ -72,10 +77,10 @@
     <div class="br-top br-bottom-sm">
         <div class="form row">
             <div class="col-6">
-                <button class="text-design btn-main" (click)="back()">Back</button>
+                <button class="btn btn-primary text-design btn-main" (click)="back()">Back</button>
             </div>
             <div class="col-6">
-                <button class="text-design btn-main">Buchen</button>
+                <button class="btn btn-primary text-design btn-main">Buchen</button>
             </div>
         </div>
     </div>
