@@ -26,6 +26,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
+import { RestaurantReservationComponent } from './components/restaurant/restaurant-reservation/restaurant-reservation.component';
 
 import { environment } from 'src/environments/environment';
 
@@ -39,6 +40,7 @@ import { environment } from 'src/environments/environment';
     RestaurantViewComponent,
     NavbarComponent,
     HomeComponent,
+    RestaurantReservationComponent,
   ],
   imports: [
     BrowserModule,
