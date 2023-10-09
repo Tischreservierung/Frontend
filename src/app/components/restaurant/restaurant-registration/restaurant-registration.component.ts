@@ -7,6 +7,7 @@ import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
+import { Observable, map, startWith } from 'rxjs';
 
 
 @Component({
@@ -22,29 +23,26 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.zipService.getZipCodes().subscribe({
-      next: data => { this.zipCodes = data },
-      error: error => { /*alert("Fehler" + error.message)*/ }
-    });
     this.catService.getCategories().subscribe({
       next: data => { this.categories = data }
     });
+    this.loadZipCodes();
   }
 
   formGroup: FormGroup = this.formBuilder.group({
     'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
     'description': new FormControl(''),
-    'zipCode': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     'location': new FormControl('', [Validators.required]),
     'address': new FormControl('', [Validators.required]),
     'streetNr': new FormControl('', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-    'email': new FormControl('', [Validators.required, Validators.email]),
+    'email': new FormControl('',  [Validators.required, Validators.email]),
     'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
     'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
     'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
   });
+  location: ZipCode | null = null;
 
   hide: boolean = true;
   restaurants: Restaurant[] = [];
@@ -54,12 +52,35 @@ export class RestaurantRegistrationComponent implements OnInit {
 
   categoryControl = new FormControl<Category[] | null>(null);
   categories: Category[] = [];
+  locations: ZipCode[] = [];
+  filteredLocations: Observable<ZipCode[]> = new Observable<ZipCode[]>();
+
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
     , { day: 'Samstag', short: 'SA', id: 5 }, { day: 'Sonntag', short: 'SO', id: 6 }];
 
   openings: OpeningTime[] = [];
+
+  loadZipCodes() {
+    this.zipService.getZipCodes().subscribe({
+      next: data => {
+        this.locations = data;
+        this.filteredLocations = this.formGroup.controls['location'].valueChanges.pipe(
+          startWith(''),
+          map(loc => (loc ? this._filterLocations(loc) : this.locations.slice()))
+        );
+      }
+    });
+  }
+
+  private _filterLocations(value: string): ZipCode[] {
+    const filterValue = value.toLowerCase();
+    return this.locations.filter(loc => {
+      let l = loc.location + " | " + loc.zipCodeNr;
+      return l.toLowerCase().includes(filterValue)
+    });
+  }
 
   // Check if day is already in openings
   openedAt(day: number) {
@@ -189,20 +210,19 @@ export class RestaurantRegistrationComponent implements OnInit {
 
     let temp = this.formGroup.controls;
     let restaurant: Restaurant;
-    let zipCode: ZipCode | null = this.zipCodes.filter(z => z.zipCodeNr == temp['zipCode'].value && z.location == temp['location'].value)[0];
-    if (zipCode == null) {
+    if (this.location == null) {
       alert("Bitte geben Sie eine gültige Postleitzahl ein!");
       return null;
     }
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
-      streetNr: temp['streetNr'].value, zipCode: zipCode, id: 0, openings: this.openings
+      streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
       , categories: this.categoryControl.value, employee: {
         email: temp['email'].value, password: temp['password'].value
         , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
       }
     };
-
+    console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
 
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
@@ -211,5 +231,4 @@ export class RestaurantRegistrationComponent implements OnInit {
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
     return restaurant;
   }
-
 }

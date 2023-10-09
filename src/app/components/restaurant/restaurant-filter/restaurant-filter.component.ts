@@ -8,7 +8,7 @@ import { ZipCode } from 'src/app/model/zip-code';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -31,13 +31,46 @@ export class RestaurantFilterComponent implements OnInit {
   restaurants: Restaurant[] = [];
 
 
-  constructor(private catService: CategoryService,
-    private zipCodeService: ZipCodeService, private restaurantService: RestaurantService, private router: Router) {
+  dateFilter = (d: Date | null): boolean => {
+    let now = new Date();
+
+    if(d == null)
+      return false;
+    if(d.getFullYear() > now.getFullYear())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() > now.getMonth())
+      return true;
+    if(d.getFullYear() == now.getFullYear() && d.getMonth() == now.getMonth() && d.getDate() >= now.getDate())  
+      return true;
+
+    return false;
   }
+
+  constructor(private catService: CategoryService, private zipCodeService: ZipCodeService,
+    private restaurantService: RestaurantService, private router: Router, private activiatedRoute: ActivatedRoute) {
+      
+  }
+
   ngOnInit(): void {
+    this.activiatedRoute.queryParams.subscribe(
+      (params: Params)=>{
+          this.nameControl.setValue(params["restaurantName"]);
+      }
+    );
+
+    this.loadCategories();
+    this.loadZipCodes();
+
+    this.filter();
+  }
+
+  loadCategories() {
     this.catService.getCategories().subscribe({
       next: data => { this.categories = data; console.log(this.categories) }
     });
+  }
+
+  loadZipCodes() {
     this.zipCodeService.getZipCodes().subscribe({
       next: data => {
         this.locations = data;
@@ -52,11 +85,6 @@ export class RestaurantFilterComponent implements OnInit {
   filter() {
     let zipCodeId = -1;
     let date = this.dateControl.value;
-    if (this.timeControl.value != null && date != null){
-      date.setHours(this.timeControl.value.hours);
-      date.setMinutes(this.timeControl.value.minutes);
-    }
-
 
     if (this.location != null)
       zipCodeId = this.location.id;

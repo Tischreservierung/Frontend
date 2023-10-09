@@ -25,6 +25,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatStepperModule} from '@angular/material/stepper';
+
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
   ],
   imports: [
     BrowserModule,
+    MatStepperModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -56,10 +60,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatExpansionModule,
 
     AuthModule.forRoot({
-      domain: 'dev-6zf41u66fsy2t2gr.us.auth0.com',
-      clientId: 'iPF1i40nz4bEVBHVXEj7OhAEeTd6V37w',
+      domain: 'dev-tischreservierung.eu.auth0.com',
+      clientId: 'RpHUpcad4hQJxBwQhDeMeHMuRbFoQtMf',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: environment.redirectUri,
       }
     })
     , MatAutocompleteModule

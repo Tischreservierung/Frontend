@@ -1,36 +1,19 @@
-<br>
-<br>
-<br>
-<br>
-<div class="container center side bg-box">
-    <p>{{pic}}</p>
-
-    <h1 class="margin br-top">{{restaurant?.name}}</h1>
+<div class="container center side bg-box restaurant-box">
     <form class="form row br-top">
-        <div class="col-12 col-lg-8">
-            <p class="textInfo br-top-sm">Über uns</p>
-            <p class="description">{{restaurant?.description}}</p>
+        <button class="col-1" mat-button (click)="back()">
+            <mat-icon class="col-1 mx-2">arrow_back_ios</mat-icon>
+        </button>
+        <div class="col-10 col-lg-6">
+            <h1 class="margin br-top header">{{restaurant?.name}}</h1>
+            <p class="description mt-4">{{restaurant?.description}}</p>
         </div>
+        <div class="col-1"></div>
         <div class="col-12 col-lg-4">
-            <div id="carouselExampleSlidesOnly" class="carousel slide imgSlider" data-ride="carousel">
-                <mdb-carousel [controls]="true">
-                    <mdb-carousel-item [interval]="2500">
+            <div class="carousel slide imgSlider" data-ride="carousel">
+                <mdb-carousel [controls]="true" #carousel>
+                    <mdb-carousel-item [interval]="2500" *ngFor="let item of imagePath">
                         <img
-                        src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                        class="imgSize"
-                        alt="..."
-                        />
-                    </mdb-carousel-item>
-                    <mdb-carousel-item [interval]="2500">
-                        <img 
-                        src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
-                        class="imgSize"
-                        alt="..."
-                        />
-                    </mdb-carousel-item>
-                    <mdb-carousel-item [interval]="2500">
-                        <img
-                        src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+                        [src]="item"
                         class="imgSize"
                         alt="..."
                         />
@@ -76,11 +59,8 @@
     </div>
     <div class="br-top br-bottom-sm">
         <div class="form row">
-            <div class="col-6">
-                <button class="btn btn-primary text-design btn-main" (click)="back()">Back</button>
-            </div>
-            <div class="col-6">
-                <button class="btn btn-primary text-design btn-main">Buchen</button>
+            <div class="col">
+                <button class="text-design btn-main btn btn-primary">Buchen</button>
             </div>
         </div>
     </div>
