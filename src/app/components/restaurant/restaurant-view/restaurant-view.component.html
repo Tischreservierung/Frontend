@@ -9,7 +9,7 @@
         </div>
         <div class="col-1"></div>
         <div class="col-12 col-lg-4">
-            <div class="carousel slide imgSlider" data-ride="carousel">
+            <div class="carousel slide imgSlider" data-ride="carousel" *ngIf="imagePath.length > 0">
                 <mdb-carousel [controls]="true" #carousel>
                     <mdb-carousel-item [interval]="2500" *ngFor="let item of imagePath">
                         <img
