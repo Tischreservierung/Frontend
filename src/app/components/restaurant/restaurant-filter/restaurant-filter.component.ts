@@ -9,6 +9,9 @@ import { CategoryService } from 'src/app/service/category/category.service';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Picture } from 'src/app/model/picture.model';
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -28,7 +31,8 @@ export class RestaurantFilterComponent implements OnInit {
   timeControl = new FormControl<Time | null>(null);
   location: ZipCode | null = null;
 
-  restaurants: Restaurant[] = [];
+  imagePath: SafeResourceUrl[] = [];
+  restaurants: RestaurantFilter[] = [];
 
 
   dateFilter = (d: Date | null): boolean => {
@@ -47,7 +51,8 @@ export class RestaurantFilterComponent implements OnInit {
   }
 
   constructor(private catService: CategoryService, private zipCodeService: ZipCodeService,
-    private restaurantService: RestaurantService, private router: Router, private activiatedRoute: ActivatedRoute) {
+    private restaurantService: RestaurantService, private router: Router, private activiatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer) {
       
   }
 
@@ -116,4 +121,12 @@ export class RestaurantFilterComponent implements OnInit {
       return l.toLowerCase().includes(filterValue)
     });
   }
+
+  imageConverter(value: Picture): SafeResourceUrl{
+    if(value == null) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+      + value.picture);
+  }   
 }
