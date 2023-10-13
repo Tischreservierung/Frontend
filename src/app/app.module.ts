@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReservationComponent } from './components/restaurant/reservation/reservation.component';
 import { RestaurantRegistrationComponent } from './components/restaurant/restaurant-registration/restaurant-registration.component';
 import { AboutComponent } from './components/about/about.component';
 import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
@@ -39,6 +40,7 @@ import { environment } from 'src/environments/environment';
     RestaurantViewComponent,
     NavbarComponent,
     HomeComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

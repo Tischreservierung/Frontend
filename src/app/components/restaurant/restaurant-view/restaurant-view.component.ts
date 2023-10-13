@@ -46,6 +46,10 @@ export class RestaurantViewComponent implements OnInit {
     this.router.navigate(['/restaurant-filter']);
   }
 
+  reserve() {
+    this.router.navigate(['/reservation', this.id]);
+  }
+
   checkTimeFormat() {
     this.restaurant?.openings.forEach(timeSlot => {
       let times = timeSlot.openFrom.split(":");

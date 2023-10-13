@@ -1,0 +1,40 @@
+<div class="container center side bg-box restaurant-box">
+    <div class="form row br-top">
+        <button class="col-1" mat-button (click)="back()">
+            <mat-icon class="col-1 mx-2">arrow_back_ios</mat-icon>
+        </button>
+        <div class="col-10 col-lg-6">
+            <h1 class="margin br-top header">Restaurantname</h1>
+        </div>
+    </div>
+
+    <form class="row">
+        <mat-form-field class="search-field col-12">
+            <mat-label>Personenanzahl</mat-label>
+            <input matInput type="text">
+        </mat-form-field>
+    </form>
+    <ng-template matStepLabel>Öffnungszeiten</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Tag</mat-label>
+                    <mat-select [(value)]="day">
+                        <mat-option *ngFor="let day of days" [value]="day.id">{{day.day}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field class="col-10">
+                            <mat-label>Von</mat-label>
+                            <input type="time" matInput placeholder="hh:mm" formControlName="openFrom">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field class="col-10">
+                            <mat-label>Bis</mat-label>
+                            <input type="time" matInput placeholder="hh:mm" formControlName="openTo">
+                        </mat-form-field>
+                    </div>
+                </div>
+</div>
+<br>
