@@ -83,6 +83,10 @@ export class SearchBarComponent {
   }
 
   public removeCategory(category: Category) {
+    if (category == null || category == undefined) {
+      return;
+    }
+
     let index = this.searchService.categories.indexOf(category);
 
     if (index >= 0) {
@@ -91,6 +95,10 @@ export class SearchBarComponent {
   }
 
   public addCategory(category: Category) {
+    if (category == null || category == undefined) {
+      return;
+    }
+
     if (this.searchService.categories.indexOf(category) == -1) {
       if (this.categoryInput != null) {
         this.categoryInput.nativeElement.value = "";
