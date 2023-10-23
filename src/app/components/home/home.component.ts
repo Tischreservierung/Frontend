@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RestaurantSearchInfoService } from 'src/app/service/search-info/restaurant-search-info.service';
 
 @Component({
   selector: 'app-home',
@@ -9,19 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
 
-  nameControl = new FormControl<string>('');
-
-  constructor(private router: Router) {
+  constructor(private router: Router, public searchService: RestaurantSearchInfoService) {
 
   }
 
   goToSearch() {
-    this.router.navigate(['/restaurant-filter'],
-    {
-      queryParams:
-      {
-        restaurantName: this.nameControl.value
-      }
-    });
+    this.router.navigate(['/restaurant-filter']);
   }
 }

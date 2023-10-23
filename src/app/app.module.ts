@@ -17,6 +17,7 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthModule } from '@auth0/auth0-angular';
+import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
@@ -28,6 +29,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
 
 import { environment } from 'src/environments/environment';
+import { SearchBarComponent } from './components/restaurant/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +41,11 @@ import { environment } from 'src/environments/environment';
     RestaurantViewComponent,
     NavbarComponent,
     HomeComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
+    MatChipsModule,
     MatStepperModule,
     AppRoutingModule,
     FormsModule,
