@@ -3,6 +3,10 @@
     text-align: center;
 }
 
+.reservate-box {
+    transform: translate(0, 4rem);
+  }
+
 .header {
     font-size: 50px;
     font-weight: 300;
@@ -32,4 +36,10 @@
 
 .restaurant-box {
     margin-top: 5%;
+}
+
+@media only screen and (max-width: 991px) {
+    img {
+        display: none;
+    }
 }
