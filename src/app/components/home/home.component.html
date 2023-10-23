@@ -5,15 +5,15 @@
             Komfortable Tischreservierung in wenigen Klicks für dein gastronomisches Erlebnis
         </h2>
 
-        <form class="row search-box">
+        <div class="row search-box">
             <mat-form-field class="col-lg-7 search-field">
                 <mat-label>Nach Restaurant Suchen</mat-label>
-                <input [formControl]="nameControl" matInput type="text">
+                <input matInput [(ngModel)]="searchService.restaurantName" type="text">
             </mat-form-field>
             
             <div class="col-lg-2">
                 <button class="btn btn-primary btn-main btn-maintext-design search-btn" color="primary" (click)="goToSearch()" type="submit">Suchen</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
