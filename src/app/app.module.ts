@@ -17,6 +17,7 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatTableModule} from '@angular/material/table';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -30,6 +31,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 
 import { environment } from 'src/environments/environment';
 import { SearchBarComponent } from './components/restaurant/search-bar/search-bar.component';
+import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { SearchBarComponent } from './components/restaurant/search-bar/search-ba
     NavbarComponent,
     HomeComponent,
     SearchBarComponent,
+    ReservationListComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { SearchBarComponent } from './components/restaurant/search-bar/search-ba
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    MatTableModule,
 
     AuthModule.forRoot({
       domain: 'dev-tischreservierung.eu.auth0.com',

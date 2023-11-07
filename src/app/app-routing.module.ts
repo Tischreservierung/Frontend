@@ -7,6 +7,7 @@ import { UserRegistrationComponent } from './components/user/user-registration/u
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { HomeComponent } from './components/home/home.component';
+import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 
 const routes: Routes = [
   {path: 'restaurant-registration',component: RestaurantRegistrationComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'userCheckIn', component: UserRegistrationComponent},
   {path: 'restaurant-filter', component: RestaurantFilterComponent},
   {path: 'restaurantView/:id', component: RestaurantViewComponent},
+  {path: 'reservationList', component: ReservationListComponent},
   {path: '**', component: HomeComponent, pathMatch: "full"}
 ];
 

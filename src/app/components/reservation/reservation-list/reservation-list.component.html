@@ -1,0 +1,19 @@
+<div class="bg-box container br-m-top br-top br-bottom-sm reservation-list-box">
+    <table class="table table-bordered bdr">
+        <thead style="background-color: #D6D3FF;">
+            <tr>
+                <th>Restaurant</th>
+                <th>Datum</th>
+                <th>Uhrzeit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let res of reservations"
+                [ngStyle]="{'background-color': (checkDate(res.date)) ? '#ffffff' : '#e6e6e6'}">
+                <td>{{res.restaurant}}</td>
+                <td>{{res.date | date:'fullDate'}}</td>
+                <td>{{res.time | date:'shortTime'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
