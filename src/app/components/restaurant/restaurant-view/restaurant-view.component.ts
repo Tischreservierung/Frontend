@@ -11,15 +11,7 @@ import { Restaurant } from 'src/app/model/restaurant';
   styleUrls: ['./restaurant-view.component.scss']
 })
 export class RestaurantViewComponent implements OnInit {
-  @ViewChild('carousel', {static: false}) carousel: any;
-
-  next() {
-    this.carousel.nextSlide();
-  }
-  prev() {
-    this.carousel.previousSlide();
-  }
-
+  
   constructor(private router: Router, private restaurantService: RestaurantService, private sanitizer: DomSanitizer) { }
 
   pageUrl: string = this.router.url;

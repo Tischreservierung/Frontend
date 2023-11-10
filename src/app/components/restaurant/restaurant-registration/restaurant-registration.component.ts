@@ -8,6 +8,10 @@ import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Observable, map, startWith } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -18,7 +22,8 @@ import { Observable, map, startWith } from 'rxjs';
 export class RestaurantRegistrationComponent implements OnInit {
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
-    private zipService: ZipCodeService, private catService: CategoryService) {
+    private zipService: ZipCodeService, private catService: CategoryService, private sanitizer: DomSanitizer
+    , private http : HttpClient) {
 
   }
 
@@ -49,6 +54,9 @@ export class RestaurantRegistrationComponent implements OnInit {
 
   day: number = -1; // Selected day
   zipCodes: ZipCode[] = [];
+
+  showImage = false;
+  imgList: Blob[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
   categories: Category[] = [];
@@ -230,5 +238,43 @@ export class RestaurantRegistrationComponent implements OnInit {
     });
     this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
     return restaurant;
+  }
+
+  //image Cropper
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  event: Event | null = null;
+  imageCache: Blob = new Blob();
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    if(event.objectUrl != undefined){
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+
+      this.showImage = true;
+      console.log("TEst");
+      console.log(event.blob);
+
+      if(event.blob != undefined)
+        this.imageCache = event.blob;
+    }
+  }
+
+  imageLoaded(image: LoadedImage) {
+      // show cropper
+  }
+  cropperReady() {
+      // cropper ready
+  }
+  loadImageFailed() {
+      // show message
+  }
+
+  addToImgList() {
+    this.imgList.push(this.imageCache);
+    console.log(this.imgList);
   }
 }

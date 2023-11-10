@@ -26,6 +26,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
+import { ImageCropperModule, base64ToFile } from 'ngx-image-cropper';
 
 import { environment } from 'src/environments/environment';
 
@@ -58,6 +59,7 @@ import { environment } from 'src/environments/environment';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    ImageCropperModule,
 
     AuthModule.forRoot({
       domain: 'dev-tischreservierung.eu.auth0.com',

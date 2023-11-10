@@ -122,6 +122,34 @@
                     <button mat-button matStepperNext>Next</button>
                 </div>
             </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Bilder</ng-template>
+                <input type="file" (change)="fileChangeEvent($event)" />
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="3 / 2"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)"
+                    (cropperReady)="cropperReady()" 
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+                <div *ngIf="showImage">
+                    <div class="br-top-sm"></div>
+                    <img [src]="croppedImage" class="imgSize"/>
+                </div>
+
+                <div class="br-top-sm"></div>
+                <button class="text-design btn-main btn btn-primary" (click)="addToImgList()">Hinzufügen</button>
+
+                <div *ngFor="let img in imgList">
+                    <img [src]="img">
+                    <p>Irgendwas</p>
+                </div>
+            </mat-step>
+
             <mat-step>
                 <ng-template matStepLabel>Restaurant-Konto</ng-template>
                 <mat-form-field class="full-width">
