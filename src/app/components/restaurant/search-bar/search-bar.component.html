@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row">
+        <mat-form-field class="col-xl-4 col-md-12">
+            <mat-label>Restaurantname</mat-label>
+            <input matInput [(ngModel)]="searchService.restaurantName" type="text">
+        </mat-form-field>
+
+        <mat-form-field class="col-xl-3 col-md-4">
+            <mat-label>Datum</mat-label>
+            <input matInput [(ngModel)]="searchService.date" [matDatepickerFilter]="dateFilter"
+                [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-xl-3 col-md-4">
+            <mat-label>Uhrzeit</mat-label>
+            <mat-select [(ngModel)]="searchService.time">
+                <mat-option
+                    *ngFor="let e of [].constructor(48)let i = index"
+                    [value]="timeSelect(i)">
+                    {{timeSelect(i)|date:'shortTime'}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>access_time</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-xl-2 col-md-4">
+            <mat-label>Personen</mat-label>
+            <mat-select [(ngModel)]="searchService.persons">
+                <mat-option *ngFor="let e of [].constructor(20) let i = index" [value]="i + 1">{{i + 1}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="collapse" id="collapsableFilters">
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Kategorien</mat-label>
+                <mat-chip-grid #categoryGrid>
+                    <mat-chip-row *ngFor="let category of searchService.categories"
+                        (removed)="removeCategory(category)">
+                        {{category.name}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <input matInput #categoryInput [matChipInputFor]="categoryGrid" [matAutocomplete]="categoryAutoComplete"
+                    [formControl]="categoryControl">
+                <mat-autocomplete autoActiveFirstOption #categoryAutoComplete>
+                    <ng-container *ngFor="let category of filteredCategories | async">
+                        <mat-option *ngIf="!searchService.categories.includes(category)" (click)="addCategory(category)"
+                            [value]="category.name">
+                            {{category.name}}
+                        </mat-option>
+                    </ng-container>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Ort</mat-label>
+                <input matInput [(ngModel)]="searchService.zipCode" [matAutocomplete]="zipCodeAutoComplete"
+                    [formControl]="zipCodeControl">
+                <mat-autocomplete autoActiveFirstOption #zipCodeAutoComplete [displayWith]="diplayZipCode">
+                    <mat-option *ngFor="let zipCode of filteredZipCodes | async" [value]="zipCode">
+                        {{zipCode.zipCodeNr}} {{zipCode.location}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <button mat-mini-fab class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapsableFilters"
+            style="float: right;">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+    </div>
+</div>

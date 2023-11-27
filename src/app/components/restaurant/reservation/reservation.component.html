@@ -9,49 +9,52 @@
     </div>
 
     <form class="row" [formGroup]="reservateForm">
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-8">
             <div class="row">
-                <mat-form-field class="fullSize col-12 col-md-6" style="padding-right: 10px;">
+                <mat-form-field class="fullSize col-12 col-md-6">
                     <mat-label>Datum</mat-label>
                     <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" formControlName="date"
                         (dateChange)="dateChange()">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field *ngIf="openingTime.length" class="fullSize col-12 col-md-6"
+                <mat-form-field *ngIf="times.length" class="fullSize col-12 col-md-6"
                     style="padding-right: 10px;">
                     <mat-label>Uhrzeit</mat-label>
                     <mat-select formControlName="time">
-                        <mat-option
+                        <mat-option *ngFor="let time of times" [value]="time">{{time|date:'shortTime'}}</mat-option>
+                        <!--<mat-option
                             *ngFor="let e of [].constructor(((openingTime[1].getHours()*60 + openingTime[1].getMinutes())
                     -(openingTime[0].getHours()*60 + openingTime[0].getMinutes()))/30 - reservateForm.value.duration!/30 +1)let i = index"
-                            [value]="openingTime[0]">
-                            {{timeSelect(i)|date:'shortTime'}}</mat-option>
+                            [value]="timeSelect(i)">
+                            {{timeSelect(i)|date:'shortTime'}}</mat-option>-->
                     </mat-select>
                     <mat-icon matSuffix>access_time</mat-icon>
                 </mat-form-field>
             </div>
-            <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
-                <mat-label>Dauer</mat-label>
-                <mat-select formControlName="duration">
-                    <mat-option *ngFor="let val of durations" [value]="val">{{val}} Minuten</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
-                <mat-label>Personenanzahl</mat-label>
-                <mat-select formControlName="persons">
-                    <mat-option *ngFor="let e of [].constructor(20) let i = index" [value]="i + 1">{{i +
-                        1}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="search-field col-12">
-                <mat-label>Notizen</mat-label>
-                <textarea formControlName="note" placeholder="Wir brauchen bitte einen Kindersessel!" maxlength="200"
-                    matInput type="text" cdkTextareaAutosize></textarea>
-            </mat-form-field>
+            <div class="row">
+                <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
+                    <mat-label>Dauer</mat-label>
+                    <mat-select (selectionChange)="getOpeningtimesOfDay()" formControlName="duration">
+                        <mat-option *ngFor="let val of durations" [value]="val">{{val}} Minuten</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
+                    <mat-label>Personenanzahl</mat-label>
+                    <mat-select (selectionChange)="getOpeningtimesOfDay()" formControlName="persons">
+                        <mat-option *ngFor="let e of [].constructor(20) let i = index" [value]="i + 1">{{i +
+                            1}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="search-field col-12">
+                    <mat-label>Notizen</mat-label>
+                    <textarea formControlName="note" placeholder="Wir brauchen bitte einen Kindersessel!"
+                        maxlength="200" matInput type="text" cdkTextareaAutosize></textarea>
+                </mat-form-field>
+            </div>
         </div>
-        <img class="col-lg-6" [src]="'data:image/jpg;base64,'+reservationView?.picture">
-        <div class="br-top br-bottom-sm form row col">
+        <img class="imgSize" [src]="'data:image/jpg;base64,'+reservationView?.picture">
+        <div class="br-top br-bottom-sm form row">
             <div class="form row">
                 <div class="col">
                     <button class="text-design btn-main btn btn-primary" (click)="reservate()">Reservieren</button>

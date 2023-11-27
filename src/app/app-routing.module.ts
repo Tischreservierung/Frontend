@@ -9,13 +9,15 @@ import { RestaurantViewComponent } from './components/restaurant/restaurant-view
 import { HomeComponent } from './components/home/home.component';
 import { ReservationComponent } from './components/restaurant/reservation/reservation.component';
 
-const routes: Routes = [{path:'restaurant-registration',component: RestaurantRegistrationComponent},
+const routes: Routes = [
+  {path: 'restaurant-registration',component: RestaurantRegistrationComponent},
   {path: 'about', component: AboutComponent}, 
   {path: 'userCheckIn', component: UserRegistrationComponent},
   {path: 'restaurant-filter', component: RestaurantFilterComponent},
   {path: 'restaurantView/:id', component: RestaurantViewComponent},
   {path: 'reservation/:id', component: ReservationComponent},
-  {path: '', component: HomeComponent, pathMatch: "full"}
+  {path: '', component: HomeComponent, pathMatch: "full"},
+  {path: '**', component: HomeComponent, pathMatch: "full"}
 ];
 
 @NgModule({

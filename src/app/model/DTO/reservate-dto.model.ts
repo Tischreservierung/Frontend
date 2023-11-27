@@ -1,8 +1,8 @@
 export interface ReservateDto {
     restaurantId: number;
-    date: Date;
-    time: string;
+    customerId: number;
+    day: Date;
     duration: number;
-    persons: number;
+    numberOfPersons: number;
     note: string;
 }

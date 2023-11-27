@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 
@@ -10,7 +10,7 @@ import { RestaurantService } from 'src/app/service/restaurant/restaurant.service
 })
 export class RestaurantViewComponent implements OnInit {
 
-  constructor(private router: Router, private restaurantService: RestaurantService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) { }
 
   pageUrl: string = this.router.url;
   urlParts: string[] = this.pageUrl.split('/');
