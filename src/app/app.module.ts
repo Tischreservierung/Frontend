@@ -69,7 +69,7 @@ import { SearchBarComponent } from './components/restaurant/search-bar/search-ba
       domain: 'dev-tischreservierung.eu.auth0.com',
       clientId: 'RpHUpcad4hQJxBwQhDeMeHMuRbFoQtMf',
       authorizationParams: {
-        redirect_uri: environment.redirectUri,
+        redirect_uri: environment.redirectUri
       }
     })
     , MatAutocompleteModule
