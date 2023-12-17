@@ -49,7 +49,7 @@ export class RestaurantService {
     if (categories == null)
       return this.http.get<Restaurant[]>(act);
     categories.forEach(element => {
-      act += "&categories=" + element.name;
+      act += "&categories=" + element.id;
     });
     return this.http.get<Restaurant[]>(act);
   }

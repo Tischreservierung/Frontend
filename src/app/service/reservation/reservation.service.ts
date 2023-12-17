@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService, authGuardFn } from '@auth0/auth0-angular';
+import { Observable } from 'rxjs/internal/Observable';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { ReservateDto } from 'src/app/model/DTO/reservate-dto.model';
 import { ReservationTime } from 'src/app/model/DTO/reservation-time.model';
 import { environment } from 'src/environments/environment';
@@ -21,7 +23,7 @@ export class ReservationService{
   token = "";
   url = environment.apiUrl + 'Reservations';
   constructor(private http: HttpClient, private auth: AuthService) {
-    this.auth.getAccessTokenSilently().subscribe(data => {this.token = data; console.log(this.token); 
+    this.auth.getAccessTokenSilently().subscribe((data: string) => {this.token = data; console.log(this.token); 
       httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.token);
     });
   }
