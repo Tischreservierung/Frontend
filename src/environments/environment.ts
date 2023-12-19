@@ -1,4 +1,5 @@
 export const environment = {
     apiUrl: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation-backend/api/',
-    redirectUri: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation/#'
+    redirectUri: 'https://student.cloud.htl-leonding.ac.at/s.raaber/onlinereservation/#',
+    auth0: {domain: '', clientId: ''}
 };
