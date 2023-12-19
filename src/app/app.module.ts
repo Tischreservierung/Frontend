@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReservationComponent } from './components/restaurant/reservation/reservation.component';
@@ -30,6 +30,7 @@ import { SearchBarComponent } from './components/restaurant/search-bar/search-ba
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -67,12 +68,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       domain: 'dev-aebw48wxuxofybgz.us.auth0.com',
       clientId: 'DlhgI1ro1tfIsVp9WaSb7UkuCtx7kGnb',
       authorizationParams: {
-        redirect_uri: environment.redirectUri
-      }
+        redirect_uri: environment.redirectUri,
+        audience: 'https://localhost:7259/api/'
+      },
+      httpInterceptor: {
+        allowedList: [`https://localhost:7259/api/*`],
+      },
     })
     , MatAutocompleteModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

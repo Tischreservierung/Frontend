@@ -51,7 +51,8 @@ export class NavbarComponent {
     }});
     console.log(accessToken);*/
 
-    this.auth.loginWithPopup();
+    this.auth.loginWithPopup().subscribe(_ => this.auth.getAccessTokenSilently()
+              .subscribe((data: string) => {console.log(data);}));
     //this.auth.loginWithRedirect();
   }
 }
