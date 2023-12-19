@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
-        <mat-form-field class="col-sm-5">
+        <mat-form-field class="col-xl-4 col-md-12">
             <mat-label>Restaurantname</mat-label>
             <input matInput [(ngModel)]="searchService.restaurantName" type="text">
         </mat-form-field>
 
-        <mat-form-field class="col-sm-3">
+        <mat-form-field class="col-xl-3 col-md-4">
             <mat-label>Datum</mat-label>
             <input matInput [(ngModel)]="searchService.date" [matDatepickerFilter]="dateFilter"
                 [matDatepicker]="picker">
@@ -13,13 +13,18 @@
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-sm-2">
+        <mat-form-field class="col-xl-3 col-md-4">
             <mat-label>Uhrzeit</mat-label>
-            <input matInput [(ngModel)]="searchService.time" type="time">
+            <mat-select [(ngModel)]="searchService.time">
+                <mat-option
+                    *ngFor="let e of [].constructor(48)let i = index"
+                    [value]="timeSelect(i)">
+                    {{timeSelect(i)|date:'shortTime'}}</mat-option>
+            </mat-select>
             <mat-icon matSuffix>access_time</mat-icon>
         </mat-form-field>
 
-        <mat-form-field class="col-sm-2">
+        <mat-form-field class="col-xl-2 col-md-4">
             <mat-label>Personen</mat-label>
             <mat-select [(ngModel)]="searchService.persons">
                 <mat-option *ngFor="let e of [].constructor(20) let i = index" [value]="i + 1">{{i + 1}}</mat-option>

@@ -26,17 +26,22 @@ export class SearchBarComponent {
   filteredCategories: Observable<Category[]> = new Observable<Category[]>;
 
   constructor(public searchService: RestaurantSearchInfoService, private catService: CategoryService,
-    private zipCodeService: ZipCodeService) {}
+    private zipCodeService: ZipCodeService) { }
 
+
+  timeSelect(i: number) {
+    return new Date(1, 1, 1, 0, i * 30);
+  }
+  
   ngOnInit(): void {
     this.loadCategories();
     this.loadZipCodes();
   }
 
   dateFilter = (d: Date | null): boolean => {
-    if(d == null)
+    if (d == null)
       return false;
-    
+
     let now = new Date();
     return d.getDate() >= now.getDate();
   }
@@ -56,7 +61,7 @@ export class SearchBarComponent {
 
   loadZipCodes() {
     this.zipCodeService.getZipCodes().subscribe({
-      next: data => { 
+      next: data => {
         this.zipCodes = data;
 
         this.filteredZipCodes = this.zipCodeControl.valueChanges.pipe(
