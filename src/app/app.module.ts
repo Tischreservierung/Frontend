@@ -14,6 +14,7 @@ import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { RestaurantFilterComponent } from './components/restaurant/restaurant-filter/restaurant-filter.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatTableModule} from '@angular/material/table';
 import { MatChip, MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -31,6 +32,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
+import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     NavbarComponent,
     HomeComponent,
     ReservationComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    ReservationListComponent,
   ],
   imports: [
     MatChipsModule,
@@ -64,15 +67,17 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    MatTableModule,
+
     AuthModule.forRoot({
-      domain: 'dev-aebw48wxuxofybgz.us.auth0.com',
-      clientId: 'DlhgI1ro1tfIsVp9WaSb7UkuCtx7kGnb',
+      domain: environment.auth0.domain,
+      clientId: environment.auth0.clientId,
       authorizationParams: {
         redirect_uri: environment.redirectUri,
         audience: 'https://localhost:7259/api/'
       },
       httpInterceptor: {
-        allowedList: [`https://localhost:7259/api/*`],
+        allowedList: [environment.apiUrl+'*'],
       },
     })
     , MatAutocompleteModule

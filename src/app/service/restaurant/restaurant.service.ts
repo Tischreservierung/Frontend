@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
+import { OpeningTime } from 'src/app/model/opening-time';
 import { Restaurant } from 'src/app/model/restaurant';
 import { environment } from 'src/environments/environment';
-
-
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,6 +30,10 @@ export class RestaurantService {
 
   getRestaurants() {
     return this.http.get<Restaurant[]>(this.url);
+  }
+
+  getOpeningTimes(id: number) {
+    return this.http.get<OpeningTime[]>(this.url + "/openingTimes/" + id);
   }
 
   getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {

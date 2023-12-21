@@ -20,12 +20,7 @@ export class ReservationComponent implements OnInit {
   durations = [60, 90, 120];
   times: Date[] = [];
 
-  restaurantOpeningTimes: OpeningTime[] =
-    [{ day: 0, openFrom: "8:00", openTo: "22:00" },
-    { day: 1, openFrom: "10:00", openTo: "22:00" },
-    { day: 2, openFrom: "10:00", openTo: "22:00" },
-    { day: 3, openFrom: "10:00", openTo: "22:00" },
-    { day: 4, openFrom: "10:00", openTo: "22:00" }];
+  restaurantOpeningTimes: OpeningTime[] = [];
   id = "";
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
@@ -45,6 +40,8 @@ export class ReservationComponent implements OnInit {
   ngOnInit(): void {
     var urlParts: string[] = this.router.url.split('/');
     this.id = urlParts[urlParts.length - 1];
+    this.restaurantService.getOpeningTimes(parseInt(this.id)).subscribe(data => this.restaurantOpeningTimes = data)
+
     this.restaurantService.getReservationView(parseInt(this.id)).subscribe(data => this.reservationView = data);
     this.dateChange();
   }
