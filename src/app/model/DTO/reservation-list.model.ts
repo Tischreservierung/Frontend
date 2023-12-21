@@ -1,5 +1,6 @@
 export interface ReservationList {
-    restaurant: string;
-    date: Date;
-    time: Date;
+    restaurantName: string;
+    restaurantId: number;
+    persons: number;
+    day: Date;
 }

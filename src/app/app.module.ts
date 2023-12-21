@@ -70,14 +70,14 @@ import { ReservationListComponent } from './components/reservation/reservation-l
     MatTableModule,
 
     AuthModule.forRoot({
-      domain: 'dev-aebw48wxuxofybgz.us.auth0.com',
-      clientId: 'DlhgI1ro1tfIsVp9WaSb7UkuCtx7kGnb',
+      domain: environment.auth0.domain,
+      clientId: environment.auth0.clientId,
       authorizationParams: {
         redirect_uri: environment.redirectUri,
         audience: 'https://localhost:7259/api/'
       },
       httpInterceptor: {
-        allowedList: [`https://localhost:7259/api/*`],
+        allowedList: [environment.apiUrl+'*'],
       },
     })
     , MatAutocompleteModule

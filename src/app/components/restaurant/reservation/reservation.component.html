@@ -18,16 +18,12 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
+                <!--<mat-form-field *ngIf="times.length" class="fullSize col-12 col-md-6" -->
                 <mat-form-field *ngIf="times.length" class="fullSize col-12 col-md-6"
                     style="padding-right: 10px;">
                     <mat-label>Uhrzeit</mat-label>
                     <mat-select formControlName="time">
                         <mat-option *ngFor="let time of times" [value]="time">{{time|date:'shortTime'}}</mat-option>
-                        <!--<mat-option
-                            *ngFor="let e of [].constructor(((openingTime[1].getHours()*60 + openingTime[1].getMinutes())
-                    -(openingTime[0].getHours()*60 + openingTime[0].getMinutes()))/30 - reservateForm.value.duration!/30 +1)let i = index"
-                            [value]="timeSelect(i)">
-                            {{timeSelect(i)|date:'shortTime'}}</mat-option>-->
                     </mat-select>
                     <mat-icon matSuffix>access_time</mat-icon>
                 </mat-form-field>
