@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { OpeningTime } from 'src/app/model/opening-time';
