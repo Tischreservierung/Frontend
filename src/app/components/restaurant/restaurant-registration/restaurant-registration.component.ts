@@ -7,12 +7,13 @@ import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, concatWith, map, startWith } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
+import { read } from '@popperjs/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-restaurant-registration',
@@ -32,6 +33,7 @@ export class RestaurantRegistrationComponent implements OnInit {
       next: data => { this.categories = data }
     });
     this.loadZipCodes();
+    //this.imgList.push('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
   }
 
   formGroup: FormGroup = this.formBuilder.group({
@@ -56,7 +58,7 @@ export class RestaurantRegistrationComponent implements OnInit {
   zipCodes: ZipCode[] = [];
 
   showImage = false;
-  imgList: Blob[] = [];
+  imgList: string[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
   categories: Category[] = [];
@@ -255,7 +257,7 @@ export class RestaurantRegistrationComponent implements OnInit {
       this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
 
       this.showImage = true;
-      console.log("TEst");
+      console.log("Test");
       console.log(event.blob);
 
       if(event.blob != undefined)
@@ -274,7 +276,26 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   addToImgList() {
-    this.imgList.push(this.imageCache);
-    console.log(this.imgList);
+    //this.imgList.push(this.blobToString());
+    //this.blobToString();
+    this.blobToBase64().then(res => {this.imgList.push((String)(res));
+      console.log(this.imgList);
+    });
   }
+
+  blobToBase64(){
+    return new Promise((resolve,) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(this.imageCache);
+    })
+  }
+
+  convertImage(base64String :string){
+    if(base64String == null) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl(base64String);
+  }
+
 }

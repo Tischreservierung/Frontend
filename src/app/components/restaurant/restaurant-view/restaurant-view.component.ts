@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
@@ -12,7 +12,7 @@ import { Restaurant } from 'src/app/model/restaurant';
 })
 export class RestaurantViewComponent implements OnInit {
   
-  constructor(private router: Router, private restaurantService: RestaurantService, private sanitizer: DomSanitizer) { }
+  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService, private sanitizer: DomSanitizer) { }
 
   pageUrl: string = this.router.url;
   urlParts: string[] = this.pageUrl.split('/');
@@ -61,6 +61,10 @@ export class RestaurantViewComponent implements OnInit {
     await delay(250);
 
     this.router.navigate(['/restaurant-filter']);
+  }
+
+  goToReserveView() {
+    this.router.navigate(['reserve'], { relativeTo: this.route });
   }
 
   checkTimeFormat() {

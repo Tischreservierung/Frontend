@@ -8,12 +8,13 @@ import { RestaurantFilterComponent } from './components/restaurant/restaurant-fi
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { HomeComponent } from './components/home/home.component';
 
-const routes: Routes = [{path:'restaurant-registration',component: RestaurantRegistrationComponent},
+const routes: Routes = [
+  {path: 'restaurant-registration',component: RestaurantRegistrationComponent},
   {path: 'about', component: AboutComponent}, 
   {path: 'userCheckIn', component: UserRegistrationComponent},
   {path: 'restaurant-filter', component: RestaurantFilterComponent},
   {path: 'restaurantView/:id', component: RestaurantViewComponent},
-  {path: '', component: HomeComponent, pathMatch: "full"}
+  {path: '**', component: HomeComponent, pathMatch: "full"}
 ];
 
 @NgModule({
