@@ -36,21 +36,6 @@ export class NavbarComponent {
   }
 
   async login(){
-    /*await auth0.loginWithPopup({authorizationParams: {
-      redirect_uri: 'http://localhost:4200/'
-    }});
-    const user = await auth0.getUser();
-    console.log(user);
-    if(user){ 
-      this.loggedIn = true;
-      this.user = user;
-    }
-    const accessToken = await auth0.getTokenSilently({authorizationParams: {
-      audience: 'https://Reservio',
-      scope: 'read:rules'
-    }});
-    console.log(accessToken);*/
-
     this.auth.loginWithPopup().subscribe(_ => this.auth.getAccessTokenSilently()
               .subscribe((data: string) => {console.log(data);}));
     //this.auth.loginWithRedirect();
