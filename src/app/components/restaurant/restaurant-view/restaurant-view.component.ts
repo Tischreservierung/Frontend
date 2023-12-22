@@ -63,8 +63,8 @@ export class RestaurantViewComponent implements OnInit {
     this.router.navigate(['/restaurant-filter']);
   }
 
-  goToReserveView() {
-    this.router.navigate(['reserve'], { relativeTo: this.route });
+  reserve() {
+    this.router.navigate(['/reservation', this.id]);
   }
 
   checkTimeFormat() {

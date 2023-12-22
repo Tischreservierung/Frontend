@@ -9,8 +9,8 @@ import { ZipCode } from 'src/app/model/zip-code';
 export class RestaurantSearchInfoService {
 
   private _restaurantName: string = "";
-  private _date: Date = new Date();
-  private _time: string = "18:00"
+  private _date: Date | null = null;
+  private _time: string = "0:00"
   private _persons: number = 2;
   private _zipCode: ZipCode | null = null;
   private _categories: Category[] = [];
@@ -23,11 +23,11 @@ export class RestaurantSearchInfoService {
     this._restaurantName = value;
   }
 
-  public get date(): Date {
+  public get date(): Date | null {
     return this._date;
   }
   
-  public set date(value: Date) {
+  public set date(value: Date|null) {
     this._date = value;
   }
 
@@ -36,6 +36,7 @@ export class RestaurantSearchInfoService {
   }
 
   public set time(value: string) {
+    console.log(value)
     this._time = value;
   }
   
