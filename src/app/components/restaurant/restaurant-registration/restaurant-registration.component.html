@@ -145,6 +145,7 @@
                 <button class="text-design btn-main btn btn-primary" (click)="addToImgList()">Hinzufügen</button>
 
                 <div *ngFor="let img of imgList">
+                    <p></p>
                     <img [src]="convertImage(img)" class="imgSize">
                 </div>
             </mat-step>

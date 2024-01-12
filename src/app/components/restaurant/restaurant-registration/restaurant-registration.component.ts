@@ -218,6 +218,11 @@ export class RestaurantRegistrationComponent implements OnInit {
       return null;
     }
 
+    if (this.imgList.length == 0) {
+      alert("Bitte fügen Sie ein Bild ein!")
+      return null;
+    }
+
     let temp = this.formGroup.controls;
     let restaurant: Restaurant;
     if (this.location == null) {
@@ -227,7 +232,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, employee: {
+      , categories: this.categoryControl.value, pictures: this.imgList, employee: {
         email: temp['email'].value, password: temp['password'].value
         , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
       }
