@@ -21,7 +21,7 @@
             {{user!.name}}
           </button>
           <mat-menu #menu="matMenu">
-            <a mat-menu-item class="nav-link" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
+            <a mat-menu-item class="nav-link" (click)="test()" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
             <a mat-menu-item class="nav-link" routerLink="/restaurant-registration"
               routerLinkActive="active">Restaurant</a>
             <a mat-menu-item class="nav-link" (click)="logout()">Abmelden</a>

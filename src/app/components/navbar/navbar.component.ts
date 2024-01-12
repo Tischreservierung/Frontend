@@ -26,6 +26,10 @@ export class NavbarComponent {
 
     
   }
+  test(){
+    console.log(this.user);
+    this.auth.getAccessTokenSilently().subscribe((data: any) => {console.log(data);});
+  }
 
   logout(){
     let url = this.uri + this.router.url;

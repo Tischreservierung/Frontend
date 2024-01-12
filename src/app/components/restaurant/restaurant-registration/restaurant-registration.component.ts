@@ -7,7 +7,7 @@ import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, concatWith, map, startWith } from 'rxjs';
 
 
 @Component({
@@ -16,6 +16,9 @@ import { Observable, map, startWith } from 'rxjs';
   styleUrls: ['./restaurant-registration.component.scss']
 })
 export class RestaurantRegistrationComponent implements OnInit {
+
+  categories: Category[] = [];
+  zipCodes: ZipCode[] = [];
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
     private zipService: ZipCodeService, private catService: CategoryService) {
@@ -38,19 +41,18 @@ export class RestaurantRegistrationComponent implements OnInit {
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
   });
+
   location: ZipCode | null = null;
 
   hide: boolean = true;
   restaurants: Restaurant[] = [];
 
   day: number = -1; // Selected day
-  zipCodes: ZipCode[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
-  categories: Category[] = [];
-  locations: ZipCode[] = [];
+  
   filteredLocations: Observable<ZipCode[]> = new Observable<ZipCode[]>();
-
+  locations: ZipCode[] = [];
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
@@ -205,6 +207,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     }
 
     let temp = this.formGroup.controls;
+    console.log(temp);
     let restaurant: Restaurant;
     if (this.location == null) {
       alert("Bitte geben Sie eine gültige Postleitzahl ein!");
@@ -213,18 +216,15 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, employee: {
-        email: temp['email'].value, password: temp['password'].value
-        , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
-      }
+      , categories: this.categoryControl.value
     };
     console.log(restaurant)
-    this.resService.addRestaurant(restaurant).subscribe({
+    /*this.resService.addRestaurant(restaurant).subscribe({
 
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
       error: error => { alert("Email wird bereits verwendet!") }
     });
-    this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
+    this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });*/
     return restaurant;
   }
 }
