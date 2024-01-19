@@ -78,7 +78,7 @@ import { ReservationListComponent } from './components/reservation/reservation-l
       },
       httpInterceptor: {
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
-         environment.apiUrl+'Restaurants'],
+         environment.apiUrl+'Restaurants/employee'],
       },
     })
     , MatAutocompleteModule

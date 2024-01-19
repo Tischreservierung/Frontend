@@ -16,13 +16,24 @@
 
       <div class="navbar-nav ms-auto">
         <a *ngIf="!loggedIn" class="nav-link" (click)="login()">Anmelden</a>
-        <div class="nav-item" *ngIf="loggedIn">
+        <div class="nav-item" *ngIf="loggedIn && employee == null">
           <button [matMenuTriggerFor]="menu" mat-raised-button>
             {{user!.name}}
           </button>
           <mat-menu #menu="matMenu">
-            <a mat-menu-item class="nav-link" (click)="test()" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
+            <a mat-menu-item class="nav-link" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
             <a mat-menu-item class="nav-link" routerLink="/restaurant-registration"
+              routerLinkActive="active">Restaurant registrieren</a>
+            <a mat-menu-item class="nav-link" (click)="logout()">Abmelden</a>
+          </mat-menu>
+        </div>
+        <div class="nav-item" *ngIf="loggedIn && employee != null">
+          <button [matMenuTriggerFor]="menu" mat-raised-button>
+            {{user!.name}}
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item class="nav-link" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
+            <a mat-menu-item class="nav-link" routerLink="/restaurant/{{employee.restaurantId}}"
               routerLinkActive="active">Restaurant</a>
             <a mat-menu-item class="nav-link" (click)="logout()">Abmelden</a>
           </mat-menu>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { OpeningTime } from 'src/app/model/opening-time';
@@ -30,6 +31,10 @@ export class RestaurantService {
 
   getRestaurants() {
     return this.http.get<Restaurant[]>(this.url);
+  }
+
+  getRoles(){
+    return this.http.get<EmpRestaurant|null>(this.url + "/employee");
   }
 
   getOpeningTimes(id: number) {

@@ -8,6 +8,7 @@ import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Observable, concatWith, map, startWith } from 'rxjs';
+import { UserService } from 'src/app/service/user/user.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RestaurantRegistrationComponent implements OnInit {
   zipCodes: ZipCode[] = [];
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
-    private zipService: ZipCodeService, private catService: CategoryService) {
+    private zipService: ZipCodeService, private catService: CategoryService, private userService: UserService) {
 
   }
 
@@ -33,11 +34,11 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   formGroup: FormGroup = this.formBuilder.group({
-    'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
-    'description': new FormControl(''),
+    'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
+    'description': new FormControl('Cool'),
     'location': new FormControl('', [Validators.required]),
-    'address': new FormControl('', [Validators.required]),
-    'streetNr': new FormControl('', [Validators.required]),
+    'address': new FormControl('Strase', [Validators.required]),
+    'streetNr': new FormControl('13', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
   });
