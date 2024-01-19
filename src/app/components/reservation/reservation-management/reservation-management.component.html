@@ -1,0 +1,35 @@
+<div class="bg-box container br-m-top br-top br-bottom-sm reservation-list-box">
+    <div class="row">
+        <button class="col-1" mat-button (click)="back()">
+            <mat-icon class="col-1 mx-2">arrow_back_ios</mat-icon>
+        </button>
+        <div class="col-9">
+            <h1>Reservierungen</h1>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary" (click)="goToReservations()">Reservierung hinzufügen</button>
+        </div>
+    </div>
+    <br>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kunde</th>
+                <th>Datum</th>
+                <th>Uhrzeit</th>
+                <th>Personenanzahl</th>
+                <th>Sitzplätze</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let res of reservations"
+                [ngStyle]="{'background-color': (checkDate(res.day)) ? '#ffffff' : '#e6e6e6'}">
+                <td>{{res.customerName}}</td>
+                <td>{{res.day | date:'fullDate'}}</td>
+                <td>{{res.day | date:'shortTime'}}</td>
+                <td>{{res.persons}}</td>
+                <td>{{res.seatPlaces}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

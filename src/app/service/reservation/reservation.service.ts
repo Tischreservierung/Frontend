@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { ReservateDto } from 'src/app/model/DTO/reservate-dto.model';
 import { ReservationList } from 'src/app/model/DTO/reservation-list.model';
+import { ReservationManualDto } from 'src/app/model/DTO/reservation-manual-dto';
 import { ReservationTime } from 'src/app/model/DTO/reservation-time.model';
 import { environment } from 'src/environments/environment';
 
@@ -29,8 +30,16 @@ export class ReservationService{
       httpOptions);
   }
 
-  getReservationsByUser(){
+  addReservationManually(reservation: ReservationManualDto) {
+    return this.http.post<any>(this.url + "/manual", reservation, httpOptions);
+  }
+
+  getReservationsByUser() {
     return this.http.get<ReservationList[]>(this.url + "/customer", httpOptions);
+  }
+
+  getReservationByRestaurant() {
+    return this.http.get<ReservationList[]>(this.url + "/restaurant/1", httpOptions)
   }
 
   getReservationTimesByRestaurantAndDay(restaurantId : number, day : Date, duration : number, persons: number){

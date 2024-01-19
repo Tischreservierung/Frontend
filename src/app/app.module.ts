@@ -15,7 +15,7 @@ import { RestaurantFilterComponent } from './components/restaurant/restaurant-fi
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthModule } from '@auth0/auth0-angular';
 import {MatTableModule} from '@angular/material/table';
-import { MatChip, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
@@ -33,6 +33,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
+import { ReservationManagementComponent } from './components/reservation/reservation-management/reservation-management.component';
+import { ManualReservationComponent } from './components/reservation/manual-reservation/manual-reservation.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ReservationListComponent } from './components/reservation/reservation-l
     ReservationComponent,
     SearchBarComponent,
     ReservationListComponent,
+    ReservationManagementComponent,
+    ManualReservationComponent
   ],
   imports: [
     MatChipsModule,

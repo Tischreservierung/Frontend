@@ -166,3 +166,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .br-bottom-sm {
   padding-bottom: 18px;
 }
+
+
+.reservation-list-box {
+  transform: translate(0, 4rem);
+}
+
+table.table-bordered {
+  border: 1px solid blue;
+  border-radius: 10px;
+  overflow: hidden;
+}
