@@ -1,25 +1,20 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { Person } from 'src/app/model/user/person.model';
 import { environment } from 'src/environments/environment';
 
 
-const API_URL=environment.apiUrl+"Person";
-
-const httpOptions = {
-  headers: new HttpHeaders({
-  'Content-Type': 'application/json'
-  })
-}
+const API_URL=environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService{
   constructor(private http: HttpClient) { }
+  user : EmpRestaurant | null = null;
 
-  getUserLogIn(email: string, password: string){
-
-    return this.http.get<Person>(API_URL+"/check?email=" + email + "&password=" + password);
+  getUserRole(){
+    this.http.get<EmpRestaurant>(API_URL + '/Restaurants/employee').subscribe(data => this.user = data);
   }
 }

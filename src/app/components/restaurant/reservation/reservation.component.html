@@ -24,7 +24,7 @@
                     <mat-select formControlName="time" [disabled]="times.length == 0">
                         <mat-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</mat-option>
                     </mat-select>
-                    <mat-icon matSuffix>access_time</mat-icon>
+                    <mat-icon matSuffix>access_time</mat-icon> 
                 </mat-form-field>
             </div>
             <div class="row">
