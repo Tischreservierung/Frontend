@@ -10,30 +10,35 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav seperator">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/restaurant-filter" routerLinkActive="active">Restaurant-Suche</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/restaurant-registration" routerLinkActive="active">Restaurant</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about" routerLinkActive="active">About</a>
+          <a class="nav-link" routerLink="/restaurant-filter" routerLinkActive="active">Restaurant suchen</a>
         </li>
       </ul>
 
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item" *ngIf="loggedIn">
-          <a class="nav-link" href="#">{{user!.name}}</a>
-        </li>
-        <li class="nav-item" *ngIf="loggedIn">
-          <a class="nav-link" (click)="logout()">Logout</a>
-        </li>
-        <li class="nav-item" *ngIf="!loggedIn">
-          <a class="nav-link" (click)="login()">Login</a>
-        </li>
-      </ul>
+      <div class="navbar-nav ms-auto">
+        <a *ngIf="!loggedIn" class="nav-link" (click)="login()">Anmelden</a>
+        <div class="nav-item" *ngIf="loggedIn && restaurantService.employee == null">
+          <button [matMenuTriggerFor]="menu" mat-raised-button>
+            {{user!.name}}
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item class="nav-link" routerLink="/reservationList" routerLinkActive="active">Reservierungen</a>
+            <a mat-menu-item class="nav-link" routerLink="/restaurant-registration"
+              routerLinkActive="active">Restaurant registrieren</a>
+            <a mat-menu-item class="nav-link" (click)="logout()">Abmelden</a>
+          </mat-menu>
+        </div>
+        <div class="nav-item" *ngIf="loggedIn && restaurantService.employee != null">
+          <button [matMenuTriggerFor]="menu" mat-raised-button>
+            {{user!.name}}
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item class="nav-link" routerLink="/reservationManagement" routerLinkActive="active">Reservierungen</a>
+            <a mat-menu-item class="nav-link" routerLink="/restaurant/{{restaurantService.employee.restaurantId}}"
+              routerLinkActive="active">Restaurant</a>
+            <a mat-menu-item class="nav-link" (click)="logout()">Abmelden</a>
+          </mat-menu>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

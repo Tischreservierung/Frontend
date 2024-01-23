@@ -123,32 +123,6 @@
                 </div>
             </mat-step>
             <mat-step>
-                <ng-template matStepLabel>Restaurant-Konto</ng-template>
-                <mat-form-field class="full-width">
-                    <mat-label>Vorname</mat-label>
-                    <input matInput placeholder="" formControlName="firstName">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>Nachname</mat-label>
-                    <input matInput placeholder="" formControlName="lastName">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>E-Mail</mat-label>
-                    <input matInput placeholder="" formControlName="email">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>Passwort</mat-label>
-                    <input matInput placeholder="" formControlName="password" [type]="hide ? 'password' : 'text'">
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-            <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
                 <button class="buttonMenu m-2" mat-raised-button color="primary"
                     (click)="register()">Registrieren</button>

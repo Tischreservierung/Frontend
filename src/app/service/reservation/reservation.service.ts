@@ -5,8 +5,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { ReservateDto } from 'src/app/model/DTO/reservate-dto.model';
 import { ReservationList } from 'src/app/model/DTO/reservation-list.model';
+import { ReservationManualDto } from 'src/app/model/DTO/reservation-manual-dto';
 import { ReservationTime } from 'src/app/model/DTO/reservation-time.model';
 import { environment } from 'src/environments/environment';
+import { RestaurantService } from '../restaurant/restaurant.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,7 +23,7 @@ const httpOptions = {
 export class ReservationService{
   
   url = environment.apiUrl + 'Reservations';
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private restaurantService : RestaurantService) {
   }
 
   addReservation(reservation: ReservateDto) {
@@ -29,8 +31,17 @@ export class ReservationService{
       httpOptions);
   }
 
-  getReservationsByUser(){
+  addReservationManually(reservation: ReservationManualDto) {
+    return this.http.post<any>(this.url + "/manual", reservation, httpOptions);
+  }
+
+  getReservationsByUser() {
     return this.http.get<ReservationList[]>(this.url + "/customer", httpOptions);
+  }
+
+
+  getReservationByRestaurant() {
+    return this.http.get<ReservationList[]>(this.url + "/restaurant", httpOptions)
   }
 
   getReservationTimesByRestaurantAndDay(restaurantId : number, day : Date, duration : number, persons: number){
