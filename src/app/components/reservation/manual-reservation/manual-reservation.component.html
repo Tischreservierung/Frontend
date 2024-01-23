@@ -1,8 +1,45 @@
 <div class="container reservate-box bg-box br-m-top br-top">
-    <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
-        <mat-label>Dauer</mat-label>
-        <mat-select (selectionChange)="getOpeningtimesOfDay()" formControlName="duration">
-            <mat-option *ngFor="let val of durations" [value]="val">{{val}} Minuten</mat-option>
-        </mat-select>
-    </mat-form-field>
+    <div class="row">
+        <button class="col-1" mat-button (click)="back()">
+            <mat-icon class="col-1 mx-2">arrow_back_ios</mat-icon>
+        </button>
+        <div class="col-9">
+            <h1>Manuelle Reservierung</h1>
+        </div>
+    </div>
+    <div class="row" [formGroup]="reservateForm">
+        <mat-form-field class="fullSize col-12 col-md-6">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="userName" maxlength="40" type="text">
+        </mat-form-field>
+        <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
+            <mat-label>Personenanzahl</mat-label>
+            <mat-select (selectionChange)="getOpeningtimesOfDay()" formControlName="numberOfPersons">
+                <mat-option *ngFor="let e of [].constructor(20) let i = index" [value]="i + 1">{{i + 1}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="fullSize col-12 col-md-6">
+            <mat-label>Datum</mat-label>
+            <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" formControlName="date"
+                (dateChange)="dateChange()">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="fullSize col-12 col-md-6" style="padding-right: 10px;">
+            <mat-label>Uhrzeit</mat-label>
+            <mat-select formControlName="time" [disabled]="times.length == 0">
+                <mat-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>access_time</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="search-field col-12 col-md-6" style="padding-right: 10px;">
+            <mat-label>Dauer</mat-label>
+            <mat-select (selectionChange)="getOpeningtimesOfDay()" formControlName="duration">
+                <mat-option *ngFor="let val of durations" [value]="val">{{val}} Minuten</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="col-12 col-md-6">
+            <button class="text-design btn-main btn btn-primary" (click)="reservate()">Reservieren</button>
+        </div>
+    </div>
 </div>

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { ReservationComponent } from './components/restaurant/reservation/reservation.component';
 import { RestaurantRegistrationComponent } from './components/restaurant/restaurant-registration/restaurant-registration.component';
 import { AboutComponent } from './components/about/about.component';
-import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -41,7 +40,6 @@ import { ManualReservationComponent } from './components/reservation/manual-rese
     AppComponent,
     RestaurantRegistrationComponent,
     AboutComponent,
-    UserRegistrationComponent,
     RestaurantFilterComponent,
     RestaurantViewComponent,
     NavbarComponent,
@@ -81,7 +79,8 @@ import { ManualReservationComponent } from './components/reservation/manual-rese
         audience: 'https://localhost:7259/api/'
       },
       httpInterceptor: {
-        allowedList: [environment.apiUrl+'*'],
+        allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
+         environment.apiUrl+'Restaurants/employee'],
       },
     })
     , MatAutocompleteModule
