@@ -13,5 +13,4 @@ export interface Restaurant {
     openings : OpeningTime[];
     categories : Category[] | null;
     pictures : string[] | null;
-    employee : EmpRestaurant| null;
 }

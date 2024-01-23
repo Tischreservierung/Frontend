@@ -144,38 +144,29 @@
                 <div class="br-top-sm"></div>
                 <button class="text-design btn-main btn btn-primary" (click)="addToImgList()">Hinzufügen</button>
 
-                <div *ngFor="let img of imgList">
-                    <p></p>
-                    <img [src]="convertImage(img)" class="imgSize">
+                <div *ngFor="let img of imgList, let i = index">
+                    <div class="row br-top">
+                        <div class="col-6">
+                            <img [src]="convertImage(img)" class="imgSize">
+                        </div>
+                        <div class="col-6" style="margin-top: auto; margin-bottom: auto;">
+                            <div *ngIf="i != 0" class="br-bottom-sm btn-Padding">
+                                <button class="btn btn-primary btn-main btn-maintext-design" color="primary"
+                                    (click)="switchImgAtIndex(i, i - 1)"><mat-icon>keyboard_arrow_up</mat-icon></button>
+                            </div>
+                            <div class="btn-Padding">
+                                <button class="btn btn-primary btn-main btn-maintext-design" color="primary"
+                                    (click)="remove(img)"><mat-icon>delete</mat-icon></button>
+                            </div>
+                            <div *ngIf="i != imgList.length - 1" class="br-top-sm btn-Padding">
+                                <button class="btn btn-primary btn-main btn-maintext-design" color="primary"
+                                    (click)="switchImgAtIndex(i, i + 1)"><mat-icon>keyboard_arrow_down</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </mat-step>
 
-            <mat-step>
-                <ng-template matStepLabel>Restaurant-Konto</ng-template>
-                <mat-form-field class="full-width">
-                    <mat-label>Vorname</mat-label>
-                    <input matInput placeholder="" formControlName="firstName">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>Nachname</mat-label>
-                    <input matInput placeholder="" formControlName="lastName">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>E-Mail</mat-label>
-                    <input matInput placeholder="" formControlName="email">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="full-width">
-                    <mat-label>Passwort</mat-label>
-                    <input matInput placeholder="" formControlName="password" [type]="hide ? 'password' : 'text'">
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Done</ng-template>
                 <button class="buttonMenu m-2" mat-raised-button color="primary"

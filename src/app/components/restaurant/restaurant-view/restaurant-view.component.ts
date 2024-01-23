@@ -35,7 +35,7 @@ export class RestaurantViewComponent implements OnInit {
   loadPictures(restaurant: RestaurantViewDto): void{
     restaurant.pictures.forEach(entry => {
       this.pic = entry.picture;
-      this.imagePath?.push(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+      this.imagePath?.push(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' 
       + this.pic))
     });
 

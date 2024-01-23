@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
@@ -20,7 +20,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './restaurant-registration.component.html',
   styleUrls: ['./restaurant-registration.component.scss']
 })
+
 export class RestaurantRegistrationComponent implements OnInit {
+
+  categories: Category[] = [];
+  zipCodes: ZipCode[] = [];
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
     private zipService: ZipCodeService, private catService: CategoryService, private sanitizer: DomSanitizer
@@ -44,27 +48,22 @@ export class RestaurantRegistrationComponent implements OnInit {
     'streetNr': new FormControl('', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
-    'email': new FormControl('',  [Validators.required, Validators.email]),
-    'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
-    'firstName': new FormControl('', [Validators.required, Validators.minLength(2)]),
-    'lastName': new FormControl('', [Validators.required, Validators.minLength(2)])
   });
+
   location: ZipCode | null = null;
 
   hide: boolean = true;
   restaurants: Restaurant[] = [];
 
   day: number = -1; // Selected day
-  zipCodes: ZipCode[] = [];
 
   showImage = false;
   imgList: string[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
-  categories: Category[] = [];
-  locations: ZipCode[] = [];
+  
   filteredLocations: Observable<ZipCode[]> = new Observable<ZipCode[]>();
-
+  locations: ZipCode[] = [];
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
     , { day: 'Donnerstag', short: 'DO', id: 3 }, { day: 'Freitag', short: 'FR', id: 4 }
@@ -224,6 +223,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     }
 
     let temp = this.formGroup.controls;
+    console.log(temp);
     let restaurant: Restaurant;
     if (this.location == null) {
       alert("Bitte geben Sie eine gültige Postleitzahl ein!");
@@ -232,19 +232,34 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, pictures: this.imgList, employee: {
-        email: temp['email'].value, password: temp['password'].value
-        , name: temp['firstName'].value, familyName: temp['lastName'].value, isAdmin: true
-      }
+      , categories: this.categoryControl.value, pictures: this.imgList
     };
     console.log(restaurant)
-    this.resService.addRestaurant(restaurant).subscribe({
+    /*this.resService.addRestaurant(restaurant).subscribe({
 
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
       error: error => { alert("Email wird bereits verwendet!") }
-    });
-    this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
+    });*/
+    //this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
+
+    this.addRes(restaurant);
+
     return restaurant;
+  }
+
+  async addRes(restaurant: Restaurant){
+      this.resService.addRestaurant(restaurant).subscribe();
+  }
+
+  remove(img: string){
+    this.imgList.splice(this.imgList.indexOf(img), 1);
+  }
+
+  switchImgAtIndex(index1: number, index2: number){
+    let cache
+    cache = this.imgList[index1];
+    this.imgList[index1] = this.imgList[index2];
+    this.imgList[index2] = cache;
   }
 
   //image Cropper
@@ -271,19 +286,19 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   imageLoaded(image: LoadedImage) {
-      // show cropper
+      
   }
   cropperReady() {
-      // cropper ready
+      
   }
   loadImageFailed() {
-      // show message
+     
   }
 
   addToImgList() {
-    //this.imgList.push(this.blobToString());
-    //this.blobToString();
-    this.blobToBase64().then(res => {this.imgList.push((String)(res));
+    this.blobToBase64().then(res => {
+      var cache = (String)(res).split(',')[1]
+      this.imgList.push(cache);
       console.log(this.imgList);
     });
   }
@@ -300,7 +315,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     if(base64String == null) {
       return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
     }
-    return this.sanitizer.bypassSecurityTrustResourceUrl(base64String);
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + base64String);
   }
 
 }
