@@ -11,12 +11,12 @@ export class ReservationListComponent {
   displayedColumns: string[] = ['restaurant', 'date', 'time'];
 
   reservations: ReservationList[] = [];
-  /*reservations = [{restaurant: "test", date: new Date(), time: new Date()},
-  {restaurant: "test2", date: new Date(2023,11,10), time: new Date()},
-  {restaurant: "test2", date: new Date(2023,11,10), time: new Date()},
-  {restaurant: "test", date: new Date(), time: new Date()}];*/
 
   constructor(private reservationService: ReservationService) {
+    
+  }
+
+  ngOnInit() {
     this.reservationService.getReservationsByUser().subscribe((data) => {
       this.reservations = data;
     });

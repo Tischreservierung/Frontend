@@ -49,25 +49,26 @@ export class ReservationComponent implements OnInit {
   back() {
     this.router.navigate(['/restaurantView/' + this.id]);
   }
+
+  goToReservations() {
+    this.router.navigate(['/reservationList']);
+  }
+
   dateControl = new FormControl<Date | null>(null);
   timeControl = new FormControl<Time | null>(null);
 
   dateFilter = (d: Date | null): boolean => {
     let now = new Date();
     let day = false;
-    this.restaurantOpeningTimes.forEach(timeSlot => timeSlot.day == d?.getDay() ? day = true : null);
+    this.restaurantOpeningTimes.forEach(timeSlot => (timeSlot.day + 1) % 7 == d?.getDay() ? day = true : null);
+    
     if (!day)
       return false;
+
     if (d == null)
       return false;
-    if (d.getFullYear() > now.getFullYear())
-      return true;
-    if (d.getFullYear() == now.getFullYear() && d.getMonth() > now.getMonth())
-      return true;
-    if (d.getFullYear() == now.getFullYear() && d.getMonth() == now.getMonth() && d.getDate() >= now.getDate())
-      return true;
 
-    return false;
+    return d! > now;
   }
 
   dateChange() {
@@ -89,13 +90,14 @@ export class ReservationComponent implements OnInit {
 
   reservate() {
     let form = this.reservateForm.value;
-    console.log(form);
+    
     let date = new Date(form.date!.getFullYear(), form.date!.getMonth(), form.date!.getDate(), form.time!.getHours() + 1, form.time!.getMinutes());
+    
     let reservation: ReservateDto = {
       restaurantId: (Number)(this.id), customerId: 1, day: date,
       duration: form.duration!, numberOfPersons: form.persons!, note: form.note!
     };
-    console.log(reservation);
-    this.reservationService.addReservation(reservation).subscribe(data => console.log(data));
+
+    this.reservationService.addReservation(reservation).subscribe(data => this.goToReservations(), error => {});
   }
 }

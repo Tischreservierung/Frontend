@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
@@ -21,6 +22,7 @@ const httpOptions = {
 })
 export class RestaurantService {
 
+  employee: EmpRestaurant | null = null;
   url = environment.apiUrl + 'Restaurants';
   constructor(private http: HttpClient) { }
 
@@ -31,6 +33,10 @@ export class RestaurantService {
 
   getRestaurants() {
     return this.http.get<Restaurant[]>(this.url);
+  }
+
+  getRoles(){
+    this.http.get<EmpRestaurant|null>(this.url + "/employee").subscribe((data) => {this.employee = data, console.log(data)});
   }
 
   getOpeningTimes(id: number) {

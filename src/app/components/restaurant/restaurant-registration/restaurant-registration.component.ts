@@ -41,11 +41,11 @@ export class RestaurantRegistrationComponent implements OnInit {
   }
 
   formGroup: FormGroup = this.formBuilder.group({
-    'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
-    'description': new FormControl(''),
+    'name': new FormControl('Test', [Validators.required, Validators.minLength(2)]),
+    'description': new FormControl('Cool'),
     'location': new FormControl('', [Validators.required]),
-    'address': new FormControl('', [Validators.required]),
-    'streetNr': new FormControl('', [Validators.required]),
+    'address': new FormControl('Strase', [Validators.required]),
+    'streetNr': new FormControl('13', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
   });
@@ -235,15 +235,11 @@ export class RestaurantRegistrationComponent implements OnInit {
       , categories: this.categoryControl.value, pictures: this.imgList
     };
     console.log(restaurant)
-    /*this.resService.addRestaurant(restaurant).subscribe({
-
-      next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
-      error: error => { alert("Email wird bereits verwendet!") }
-    });*/
-    //this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });
-
-    this.addRes(restaurant);
-
+    this.resService.addRestaurant(restaurant).subscribe({
+      next: data => { restaurant.id = data; console.log(data); console.log(restaurant); 
+        this.resService.employee = {restaurantId: restaurant.id, role: ""};},
+      error: error => { alert("Restaurant konnte nicht angelegt werden!") }
+    });
     return restaurant;
   }
 

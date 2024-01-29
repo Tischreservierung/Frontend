@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { ReservationComponent } from './components/restaurant/reservation/reservation.component';
 import { RestaurantRegistrationComponent } from './components/restaurant/restaurant-registration/restaurant-registration.component';
 import { AboutComponent } from './components/about/about.component';
-import { UserRegistrationComponent } from './components/user/user-registration/user-registration.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +14,7 @@ import { RestaurantFilterComponent } from './components/restaurant/restaurant-fi
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthModule } from '@auth0/auth0-angular';
 import {MatTableModule} from '@angular/material/table';
-import { MatChip, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
@@ -34,13 +33,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
+import { ReservationManagementComponent } from './components/reservation/reservation-management/reservation-management.component';
+import { ManualReservationComponent } from './components/reservation/manual-reservation/manual-reservation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RestaurantRegistrationComponent,
     AboutComponent,
-    UserRegistrationComponent,
     RestaurantFilterComponent,
     RestaurantViewComponent,
     NavbarComponent,
@@ -48,6 +48,8 @@ import { ReservationListComponent } from './components/reservation/reservation-l
     ReservationComponent,
     SearchBarComponent,
     ReservationListComponent,
+    ReservationManagementComponent,
+    ManualReservationComponent
   ],
   imports: [
     MatChipsModule,
@@ -80,7 +82,7 @@ import { ReservationListComponent } from './components/reservation/reservation-l
       },
       httpInterceptor: {
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
-         environment.apiUrl+'Restaurants'],
+         environment.apiUrl+'Restaurants/employee',environment.apiUrl+'Restaurants']
       },
     })
     , MatAutocompleteModule
