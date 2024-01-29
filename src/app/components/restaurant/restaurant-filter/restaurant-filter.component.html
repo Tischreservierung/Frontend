@@ -17,8 +17,11 @@
                 <p class="description mt-3 hideOnMobile">{{res.description}}</p>
             </div>
             <div class="col-xl-4 col-12 picture-div">
-                <img (click)="goToRestaurant(res.id)" src="https://mdbcdn.b-cdn.net/img/new/slides/041.webp"
-                    class="imgSize" alt="..." />
+                <img (click)="goToRestaurant(res.id)" 
+                    [src]="imageConverter(res.profilPicture)"
+                    class="imgSize"
+                    alt="..."
+                    />
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
+import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Restaurant } from 'src/app/model/restaurant';
@@ -44,9 +45,9 @@ export class RestaurantService {
 
   getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
     if(dateTime == null)
-      return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
+      return this.http.get<RestaurantFilter[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId);
     let date = (dateTime.getMonth() + 1)+ "." + dateTime.getDate()   + "." + dateTime.getFullYear();
-    return this.http.get<Restaurant[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+date);
+    return this.http.get<RestaurantFilter[]>(this.url + "/name?name=" + name + "&zipCodeId=" + zipCodeId+"&dateTime="+date);
   }
 
   getRestaurntsByCategories(categories: Category[] | null, zipCodeId: number, dateTime: Date | null) {
@@ -56,11 +57,11 @@ export class RestaurantService {
       act += "&dateTime="+date;
     }
     if (categories == null)
-      return this.http.get<Restaurant[]>(act);
+      return this.http.get<RestaurantFilter[]>(act);
     categories.forEach(element => {
       act += "&categories=" + element.id;
     });
-    return this.http.get<Restaurant[]>(act);
+    return this.http.get<RestaurantFilter[]>(act);
   }
   getRestaurantForView(id: number){
     return this.http.get<RestaurantViewDto>(this.url + "/restaurantview/" + id);

@@ -1,9 +1,8 @@
 import { Category } from "../category";
-import { OpeningTime } from "../opening-time";
-import { ZipCode } from "../zip-code";
 import { Picture } from "../picture.model";
+import { ZipCode } from "../zip-code";
 
-export interface RestaurantViewDto {
+export interface RestaurantFilter {
     id: number;
     name: string;
     description: string;
@@ -11,6 +10,5 @@ export interface RestaurantViewDto {
     address: string;
     streetNr: string;
     categories: Category[];
-    openings: OpeningTime[];
-    pictures: Picture[];
+    profilPicture: Picture;
 }

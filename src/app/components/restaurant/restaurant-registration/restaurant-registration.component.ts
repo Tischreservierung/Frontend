@@ -2,26 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { ZipCode } from 'src/app/model/zip-code';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Observable, concatWith, map, startWith } from 'rxjs';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { ImageCroppedEvent, LoadedImage, base64ToFile } from 'ngx-image-cropper';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { read } from '@popperjs/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-restaurant-registration',
   templateUrl: './restaurant-registration.component.html',
   styleUrls: ['./restaurant-registration.component.scss']
 })
+
 export class RestaurantRegistrationComponent implements OnInit {
 
   categories: Category[] = [];
   zipCodes: ZipCode[] = [];
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
-    private zipService: ZipCodeService, private catService: CategoryService) {
+    private zipService: ZipCodeService, private catService: CategoryService, private sanitizer: DomSanitizer
+    , private http : HttpClient) {
 
   }
 
@@ -30,6 +37,7 @@ export class RestaurantRegistrationComponent implements OnInit {
       next: data => { this.categories = data }
     });
     this.loadZipCodes();
+    //this.imgList.push('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
   }
 
   formGroup: FormGroup = this.formBuilder.group({
@@ -48,6 +56,9 @@ export class RestaurantRegistrationComponent implements OnInit {
   restaurants: Restaurant[] = [];
 
   day: number = -1; // Selected day
+
+  showImage = false;
+  imgList: string[] = [];
 
   categoryControl = new FormControl<Category[] | null>(null);
   
@@ -206,6 +217,11 @@ export class RestaurantRegistrationComponent implements OnInit {
       return null;
     }
 
+    if (this.imgList.length == 0) {
+      alert("Bitte fügen Sie ein Bild ein!")
+      return null;
+    }
+
     let temp = this.formGroup.controls;
     console.log(temp);
     let restaurant: Restaurant;
@@ -216,15 +232,86 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value
+      , categories: this.categoryControl.value, pictures: this.imgList
     };
     console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
-
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); 
         this.resService.employee = {restaurantId: restaurant.id, role: ""};},
       error: error => { alert("Restaurant konnte nicht angelegt werden!") }
     });
     return restaurant;
   }
+
+  async addRes(restaurant: Restaurant){
+      this.resService.addRestaurant(restaurant).subscribe();
+  }
+
+  remove(img: string){
+    this.imgList.splice(this.imgList.indexOf(img), 1);
+  }
+
+  switchImgAtIndex(index1: number, index2: number){
+    let cache
+    cache = this.imgList[index1];
+    this.imgList[index1] = this.imgList[index2];
+    this.imgList[index2] = cache;
+  }
+
+  //image Cropper
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  event: Event | null = null;
+  imageCache: Blob = new Blob();
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    if(event.objectUrl != undefined){
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+
+      this.showImage = true;
+      console.log("Test");
+      console.log(event.blob);
+
+      if(event.blob != undefined)
+        this.imageCache = event.blob;
+    }
+  }
+
+  imageLoaded(image: LoadedImage) {
+      
+  }
+  cropperReady() {
+      
+  }
+  loadImageFailed() {
+     
+  }
+
+  addToImgList() {
+    this.blobToBase64().then(res => {
+      var cache = (String)(res).split(',')[1]
+      this.imgList.push(cache);
+      console.log(this.imgList);
+    });
+  }
+
+  blobToBase64(){
+    return new Promise((resolve,) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(this.imageCache);
+    })
+  }
+
+  convertImage(base64String :string){
+    if(base64String == null) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + base64String);
+  }
+
 }

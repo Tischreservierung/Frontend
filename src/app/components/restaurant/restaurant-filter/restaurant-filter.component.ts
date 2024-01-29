@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { RestaurantSearchInfoService } from 'src/app/service/search-info/restaurant-search-info.service';
+import { Restaurant } from 'src/app/model/restaurant';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Picture } from 'src/app/model/picture.model';
+import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 
 @Component({
   selector: 'app-restaurant-filter',
@@ -10,9 +13,10 @@ import { RestaurantSearchInfoService } from 'src/app/service/search-info/restaur
   styleUrls: ['./restaurant-filter.component.scss']
 })
 export class RestaurantFilterComponent {
-  restaurants: Restaurant[] = [];
+  restaurants: RestaurantFilter[] = [];
 
-  constructor(private restaurantService: RestaurantService, private router: Router, private searchService: RestaurantSearchInfoService) { }
+  constructor(private restaurantService: RestaurantService,
+    private sanitizer: DomSanitizer, private router: Router, private searchService: RestaurantSearchInfoService) { }
 
   ngOnInit(): void {
     this.filter();
@@ -44,4 +48,12 @@ export class RestaurantFilterComponent {
   goToRestaurant(id: number) {
     this.router.navigate(['/restaurantView', id]);
   }
+
+  imageConverter(value: Picture): SafeResourceUrl{
+    if(value == null) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAABMCAYAAABu45m/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAC/SURBVHhe7dFBDQAwCACxOcG/SmaDS/qogr6ZWW6TFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQFKApABJAZICJAVICpAUIClAUoCkAEkBkgIkBUgKkBQgKUBSgKQASQGSAiQFSAqQFCApQNJ5sx9LOmJHY0PSVQAAAABJRU5ErkJggg==');
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' 
+      + value.picture);
+  }   
 }

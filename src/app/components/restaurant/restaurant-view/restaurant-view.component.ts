@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { RestaurantService } from 'src/app/service/restaurant/restaurant.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { Restaurant } from 'src/app/model/restaurant';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -9,22 +11,37 @@ import { RestaurantService } from 'src/app/service/restaurant/restaurant.service
   styleUrls: ['./restaurant-view.component.scss']
 })
 export class RestaurantViewComponent implements OnInit {
-
-  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) { }
+  
+  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService, private sanitizer: DomSanitizer) { }
 
   pageUrl: string = this.router.url;
   urlParts: string[] = this.pageUrl.split('/');
   id: string = this.urlParts[this.urlParts.length - 1];
+  pic: string | null = null;
+  imagePath: SafeResourceUrl[] = [];
 
+  
   ngOnInit(): void {
     this.restaurantService.getRestaurantForView(Number(this.id)).subscribe({
       next: data => {
         this.restaurant = data;
+        this.loadPictures(this.restaurant);
         this.checkTimeFormat();
       },
       error: error => { /*alert("Fehler" + error.message)*/ }
     });
   }
+
+  loadPictures(restaurant: RestaurantViewDto): void{
+    restaurant.pictures.forEach(entry => {
+      this.pic = entry.picture;
+      this.imagePath?.push(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' 
+      + this.pic))
+    });
+
+      
+  }
+
   restaurant: RestaurantViewDto | null = null;
 
   days = [{ day: 'Montag', short: 'MO', id: 0 }, { day: 'Dienstag', short: 'DI', id: 1 }, { day: 'Mittwoch', short: 'MI', id: 2 }
@@ -76,3 +93,4 @@ export class RestaurantViewComponent implements OnInit {
 function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+

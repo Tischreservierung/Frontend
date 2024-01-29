@@ -12,4 +12,5 @@ export interface Restaurant {
     streetNr : string;
     openings : OpeningTime[];
     categories : Category[] | null;
+    pictures : string[] | null;
 }
