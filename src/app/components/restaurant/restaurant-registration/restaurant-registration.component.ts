@@ -219,12 +219,12 @@ export class RestaurantRegistrationComponent implements OnInit {
       , categories: this.categoryControl.value
     };
     console.log(restaurant)
-    /*this.resService.addRestaurant(restaurant).subscribe({
+    this.resService.addRestaurant(restaurant).subscribe({
 
-      next: data => { restaurant.id = data; console.log(data); console.log(restaurant); },
-      error: error => { alert("Email wird bereits verwendet!") }
+      next: data => { restaurant.id = data; console.log(data); console.log(restaurant); 
+        this.resService.employee = {restaurantId: restaurant.id, role: ""};},
+      error: error => { alert("Restaurant konnte nicht angelegt werden!") }
     });
-    this.resService.getRestaurants().subscribe({ next: data => this.restaurants = data });*/
     return restaurant;
   }
 }

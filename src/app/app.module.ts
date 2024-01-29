@@ -80,7 +80,7 @@ import { ManualReservationComponent } from './components/reservation/manual-rese
       },
       httpInterceptor: {
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
-         environment.apiUrl+'Restaurants/employee'],
+         environment.apiUrl+'Restaurants/employee',environment.apiUrl+'Restaurants']
       },
     })
     , MatAutocompleteModule
