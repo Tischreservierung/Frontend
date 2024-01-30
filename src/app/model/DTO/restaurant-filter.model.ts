@@ -10,5 +10,5 @@ export interface RestaurantFilter {
     address: string;
     streetNr: string;
     categories: Category[];
-    profilPicture: Picture;
+    picture: Picture;
 }

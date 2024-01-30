@@ -35,6 +35,7 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 import { ReservationManagementComponent } from './components/reservation/reservation-management/reservation-management.component';
 import { ManualReservationComponent } from './components/reservation/manual-reservation/manual-reservation.component';
+import { RestaurantEditComponent } from './components/restaurant/restaurant-edit/restaurant-edit.component';
 
 @NgModule({
   declarations: [
@@ -49,9 +50,11 @@ import { ManualReservationComponent } from './components/reservation/manual-rese
     SearchBarComponent,
     ReservationListComponent,
     ReservationManagementComponent,
-    ManualReservationComponent
+    ManualReservationComponent,
+    RestaurantEditComponent
   ],
   imports: [
+    ImageCropperModule,
     MatChipsModule,
     MatStepperModule,
     AppRoutingModule,
@@ -71,8 +74,6 @@ import { ManualReservationComponent } from './components/reservation/manual-rese
     MatNativeDateModule,
     MatExpansionModule,
     MatTableModule,
-    ImageCropperModule,
-
     AuthModule.forRoot({
       domain: environment.auth0.domain,
       clientId: environment.auth0.clientId,
