@@ -79,7 +79,7 @@ import { RestaurantEditComponent } from './components/restaurant/restaurant-edit
       clientId: environment.auth0.clientId,
       authorizationParams: {
         redirect_uri: environment.redirectUri,
-        audience: environment.apiUrl
+        audience: 'https://localhost:7259/api/'
       },
       httpInterceptor: {
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
