@@ -98,6 +98,7 @@ export class ReservationComponent implements OnInit {
       duration: form.duration!, numberOfPersons: form.persons!, note: form.note!
     };
 
-    this.reservationService.addReservation(reservation).subscribe(data => this.goToReservations(), error => {});
+    this.reservationService.addReservation(reservation).subscribe({next: data => this.goToReservations(), 
+      error: error => {alert("Kein Tisch verfügbar!")}});
   }
 }
