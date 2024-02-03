@@ -79,5 +79,6 @@ export class ManualReservationComponent implements OnInit{
 
     console.log(reservation);
     this.reservationService.addReservationManually(reservation).subscribe(data => console.log(data));
+    this.router.navigate(['/reservationManagement']);
   }
 }

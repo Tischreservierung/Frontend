@@ -19,12 +19,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
-import { ImageCropperModule, base64ToFile } from 'ngx-image-cropper';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { environment } from 'src/environments/environment';
 import { SearchBarComponent } from './components/restaurant/search-bar/search-bar.component';
@@ -93,7 +93,8 @@ import { RestaurantEditComponent } from './components/restaurant/restaurant-edit
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
       multi: true
-    }
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'de' }
   ],
   bootstrap: [AppComponent]
 })

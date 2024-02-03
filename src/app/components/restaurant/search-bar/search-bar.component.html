@@ -19,7 +19,7 @@
                 <mat-option
                     *ngFor="let e of [].constructor(48)let i = index"
                     [value]="timeSelect(i)">
-                    {{timeSelect(i)|date:'shortTime'}}</mat-option>
+                    {{timeSelect(i)|date:'HH:mm'}}</mat-option>
             </mat-select>
             <mat-icon matSuffix>access_time</mat-icon>
         </mat-form-field>

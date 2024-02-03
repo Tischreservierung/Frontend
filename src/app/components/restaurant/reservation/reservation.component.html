@@ -22,7 +22,7 @@
                     style="padding-right: 10px;">
                     <mat-label>Uhrzeit</mat-label>
                     <mat-select formControlName="time" [disabled]="times.length == 0">
-                        <mat-option *ngFor="let time of times" [value]="time">{{time | date:'shortTime'}}</mat-option>
+                        <mat-option *ngFor="let time of times" [value]="time">{{time | date:'HH:mm'}}</mat-option>
                     </mat-select>
                     <mat-icon matSuffix>access_time</mat-icon> 
                 </mat-form-field>
