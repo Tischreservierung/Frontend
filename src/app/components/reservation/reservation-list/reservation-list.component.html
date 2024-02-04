@@ -12,8 +12,8 @@
             <tr *ngFor="let res of reservations"
                 [ngStyle]="{'background-color': (checkDate(res.day)) ? '#ffffff' : '#e6e6e6'}">
                 <td>{{res.restaurantName}}</td>
-                <td>{{res.day | date:'fullDate'}}</td>
-                <td>{{res.day | date:'shortTime'}}</td>
+                <td>{{res.day | date:'dd.MM.yyyy'}}</td>
+                <td>{{res.day | date:'HH:mm'}}</td>
                 <td>{{res.persons}}</td>
             </tr>
         </tbody>

@@ -232,7 +232,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, pictures: this.imgList
+      , categories: this.categoryControl.value, pictures: this.imgList, tables: []
     };
     console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
