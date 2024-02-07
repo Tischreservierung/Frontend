@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category } from 'src/app/model/category';
+import { BasicRestaurant } from 'src/app/model/DTO/basic-restaurant.model';
 import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
@@ -21,6 +22,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RestaurantService {
+  updateRestaurant(restaurant: BasicRestaurant) {
+    return this.http.put<BasicRestaurant>(this.url, restaurant);
+  }
 
   employee: EmpRestaurant | null = null;
   url = environment.apiUrl + 'Restaurants';
@@ -42,6 +46,8 @@ export class RestaurantService {
   getOpeningTimes(id: number) {
     return this.http.get<OpeningTime[]>(this.url + "/openingTimes/" + id);
   }
+
+  
 
   getRestaurantsByName(name: string, zipCodeId: number, dateTime : Date | null) {
     if(dateTime == null)
@@ -69,5 +75,13 @@ export class RestaurantService {
 
   getReservationView(id: number){
     return this.http.get<ReservationView>(this.url + "/reservationview/" + id);
+  }
+
+  getFullRestaurant() {
+    return this.http.get<Restaurant>(this.url + "/fullrestaurant");
+  }
+
+  getBasicDataRestaurant() {
+    return this.http.get<BasicRestaurant>(this.url + "/basicdata");
   }
 }
