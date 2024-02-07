@@ -38,6 +38,11 @@ $Front-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.main {
+  margin-left: 240px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+  margin-top: 80px;
+}
 
 // Colors for the backgrounds
 .bg-color {

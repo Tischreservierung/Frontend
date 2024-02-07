@@ -35,7 +35,12 @@ import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { ReservationListComponent } from './components/reservation/reservation-list/reservation-list.component';
 import { ReservationManagementComponent } from './components/reservation/reservation-management/reservation-management.component';
 import { ManualReservationComponent } from './components/reservation/manual-reservation/manual-reservation.component';
-import { RestaurantEditComponent } from './components/restaurant/restaurant-edit/restaurant-edit.component';
+import { BasicDataComponent } from './components/restaurant/restaurant-edit/basic-data/basic-data.component';
+import { TablesComponent } from './components/restaurant/restaurant-edit/tables/tables.component';
+import { CategoriesComponent } from './components/restaurant/restaurant-edit/categories/categories.component';
+import { OpeningTimesComponent } from './components/restaurant/restaurant-edit/opening-times/opening-times.component';
+import { PicturesComponent } from './components/restaurant/restaurant-edit/pictures/pictures.component';
+import { SidebarComponent } from './components/restaurant/restaurant-edit/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,12 @@ import { RestaurantEditComponent } from './components/restaurant/restaurant-edit
     ReservationListComponent,
     ReservationManagementComponent,
     ManualReservationComponent,
-    RestaurantEditComponent
+    BasicDataComponent,
+    TablesComponent,
+    CategoriesComponent,
+    OpeningTimesComponent,
+    PicturesComponent,
+    SidebarComponent,
   ],
   imports: [
     ImageCropperModule,
@@ -83,7 +93,8 @@ import { RestaurantEditComponent } from './components/restaurant/restaurant-edit
       },
       httpInterceptor: {
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
-         environment.apiUrl+'Restaurants/employee',environment.apiUrl+'Restaurants']
+         environment.apiUrl+'Restaurants/employee',environment.apiUrl+'Restaurants', 
+         environment.apiUrl+'Restaurants/basicdata']
       },
     })
     , MatAutocompleteModule

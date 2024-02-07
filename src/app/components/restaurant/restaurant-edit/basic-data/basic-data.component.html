@@ -1,0 +1,60 @@
+<app-sidebar></app-sidebar>
+
+<div class="main">
+
+    <h1 style="color: white; font-size: xx-large;">Grunddaten</h1>
+    <hr style="color: white; border-width: 2px;">
+
+    <form [formGroup]="basicDataForm">
+        <div class="row">
+            <div class="col-12  col-xl-7">
+                <mat-form-field style="width: 98%;">
+                    <mat-label>Restaurantname</mat-label>
+                    <input matInput placeholder="" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="col-12  col-xl-7">
+                <mat-form-field style="width: 98%;">
+                    <mat-label>Beschreibung</mat-label>
+                    <textarea cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="2" matInput formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-12  col-xl-7">
+                <mat-form-field style="width: 98%;" appearance="fill">
+                    <mat-label>Ort</mat-label>
+                    <input matInput aria-label="Location" [matAutocomplete]="auto" formControlName="zipCode">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let loc of filteredLocations | async" (click)="location = loc"
+                            [value]="loc.location+' | '+loc.zipCodeNr">
+                            <span>{{loc.location}}</span> |
+                            <small>{{loc.zipCodeNr}}</small>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="row col-12 col-xl-7">
+                <div class="col-12 col-xl-6">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Addresse</mat-label>
+                        <input matInput placeholder="" formControlName="address">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-xl-6">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Straßennummer</mat-label>
+                        <input matInput placeholder="" formControlName="streetNr">
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <div class="col-12 col-xl-7 row">
+        <div class="col-6 row">
+            <button style="margin-left: 5%;" class="col-11 btn btn-primary" (click)="save()">Speichern</button>
+        </div>
+        <div class="col-6 row">
+            <button style="margin-left: 10%;" class="col-11 btn btn-danger" (click)="cancel()">Abbrechen</button>
+        </div>
+    </div>
+</div>
