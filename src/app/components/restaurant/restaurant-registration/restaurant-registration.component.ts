@@ -48,6 +48,8 @@ export class RestaurantRegistrationComponent implements OnInit {
     'streetNr': new FormControl('', [Validators.required]),
     'openFrom': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
     'openTo': new FormControl('', [Validators.pattern("([0-1]?[0-9]|2[0-3]):([0-5][0-9])")]),
+    'tableSize': new FormControl('', [Validators.pattern("[0-9]*")]),
+    'tableNumber': new FormControl('', [Validators.pattern("[0-9]*")]),
   });
 
   location: ZipCode | null = null;
@@ -232,7 +234,7 @@ export class RestaurantRegistrationComponent implements OnInit {
     restaurant = {
       name: temp['name'].value, address: temp['address'].value, description: temp['description'].value,
       streetNr: temp['streetNr'].value, zipCode: this.location, id: 0, openings: this.openings
-      , categories: this.categoryControl.value, pictures: this.imgList, tables: []
+      , categories: this.categoryControl.value, pictures: this.imgList, tables: this.ConvertTablesDictionaryToList()
     };
     console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
@@ -314,4 +316,27 @@ export class RestaurantRegistrationComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + base64String);
   }
 
+  dictionary = new Map<number, number>();
+  tableList : number[] = [];
+
+  AddTable(){
+    let tableSize = this.formGroup.controls['tableSize'].value;
+    let tableNumber = this.formGroup.controls['tableNumber'].value;
+
+    this.dictionary.set(tableSize, tableNumber);
+  }
+
+  RemoveTable(tableKey : number){
+    this.dictionary.delete(tableKey);
+  }
+
+  ConvertTablesDictionaryToList(){
+    for(let element of this.dictionary){
+      for(let i = 0; i < element[1]; i++){
+        this.tableList.push(element[0]);
+      }
+    }
+
+    return this.tableList;
+  }
 }
