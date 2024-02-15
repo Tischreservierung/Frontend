@@ -14,7 +14,7 @@ import { ZipCodeService } from 'src/app/service/zip-code/zip-code.service';
 export class BasicDataComponent implements OnInit {
   basicDataForm: FormGroup = new FormGroup({
     'id': new FormControl(0),
-    'name': new FormControl('', [Validators.required, Validators.minLength(2)]),
+    'name': new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern('.*[A-Za-z]+.*')]),
     'description': new FormControl('', [Validators.maxLength(2000)]),
     'address': new FormControl('', [Validators.required]),
     'streetNr': new FormControl('', [Validators.required]),

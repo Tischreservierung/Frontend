@@ -51,7 +51,7 @@
     </form>
     <div class="col-12 col-xl-7 row">
         <div class="col-6 row">
-            <button style="margin-left: 5%;" class="col-11 btn btn-primary" (click)="save()">Speichern</button>
+            <button [disabled]="!basicDataForm.valid" style="margin-left: 5%;" class="col-11 btn btn-primary" (click)="save()">Speichern</button>
         </div>
         <div class="col-6 row">
             <button style="margin-left: 10%;" class="col-11 btn btn-danger" (click)="cancel()">Abbrechen</button>

@@ -22,6 +22,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RestaurantService {
+  updateCategoriesOfRestaurant(restaurantCategories: Category[]) {
+    return this.http.post<Category[]>(this.url + "/categoriesOfRestaurant", restaurantCategories);
+  }
+
+  getCategoriesOfRestaurant() {
+    return this.http.get<Category[]>(this.url + "/categoriesOfRestaurant");
+  }
   updateRestaurant(restaurant: BasicRestaurant) {
     return this.http.put<BasicRestaurant>(this.url, restaurant);
   }

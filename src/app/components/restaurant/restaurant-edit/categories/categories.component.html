@@ -1,1 +1,24 @@
 <app-sidebar></app-sidebar>
+
+<div class="main">
+
+    <h1 style="color: white; font-size: xx-large;">Kategorien</h1>
+    <hr style="color: white; border-width: 2px;">
+
+    <div class="row">
+        <mat-chip [ngStyle]="{'background-color': containsCategory(category.id) ? '#0275d8' : 'white'}" 
+            [ngClass]="containsCategory(category.id) ? 'chip-selected' : 'chip'" style="margin: 10px;" 
+            class="col-3 chip" *ngFor="let category of categories; let i = index" (click)="select(category)">
+            {{category.name}}
+        </mat-chip>
+    </div>
+
+    <div class="col-12 col-xl-7 row">
+        <div class="col-6 row">
+            <button [disabled]="restaurantCategories.length == 0" style="margin-left: 5%;" class="col-11 btn btn-primary" (click)="save()">Speichern</button>
+        </div>
+        <div class="col-6 row">
+            <button style="margin-left: 10%;" class="col-11 btn btn-danger" (click)="cancel()">Abbrechen</button>
+        </div>
+    </div>
+</div>
