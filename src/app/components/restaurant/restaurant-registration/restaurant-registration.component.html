@@ -108,6 +108,31 @@
                     <button mat-button matStepperNext>Next</button>
                 </div>
             </mat-step>
+            
+            <mat-step [stepControl]="formGroup">
+                <ng-template matStepLabel>Tische anlegen</ng-template>               
+                <table class="table">
+                    <tr>
+                        <td>Anzahl an Plätzen</td>
+                        <td>Anzahl an Tische</td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let t of dictionary | keyvalue; orderBy: 't.key'; let j=index;">
+                        <td>{{t.key}}</td>
+                        <td>{{t.value}}</td>
+                        <td><button class="text-design btn-main btn btn-primary" (click)="RemoveTable(t.key)">delete</button></td>
+                    </tr>
+                    <tr>
+                        <td><input matInput placeholder="" formControlName="tableSize"></td>
+                        <td><input matInput placeholder="" formControlName="tableNumber"></td>
+                        <td><button class="text-design btn-main btn btn-primary" (click)="AddTable()">add</button></td>
+                    </tr>
+                    </table>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
 
             <mat-step>
                 <ng-template matStepLabel>Kategorien</ng-template>
