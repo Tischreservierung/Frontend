@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { read } from '@popperjs/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-registration',
@@ -28,7 +29,7 @@ export class RestaurantRegistrationComponent implements OnInit {
 
   constructor(private resService: RestaurantService, private formBuilder: FormBuilder,
     private zipService: ZipCodeService, private catService: CategoryService, private sanitizer: DomSanitizer
-    , private http : HttpClient) {
+    , private http : HttpClient, private router : Router) {
 
   }
 
@@ -237,7 +238,8 @@ export class RestaurantRegistrationComponent implements OnInit {
     console.log(restaurant)
     this.resService.addRestaurant(restaurant).subscribe({
       next: data => { restaurant.id = data; console.log(data); console.log(restaurant); 
-        this.resService.getRoles();},
+        this.resService.getRoles();
+        this.router.navigate(['/editbasicdata']);},
       error: error => { alert("Restaurant konnte nicht angelegt werden!") }
     });
     return restaurant;

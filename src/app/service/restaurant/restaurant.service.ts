@@ -23,7 +23,7 @@ const httpOptions = {
 })
 export class RestaurantService {
   updateCategoriesOfRestaurant(restaurantCategories: Category[]) {
-    return this.http.put<Category[]>(this.url + "/categoriesOfRestaurant", restaurantCategories);
+    return this.http.post<Category[]>(this.url + "/categoriesOfRestaurant", restaurantCategories);
   }
 
   getCategoriesOfRestaurant() {
