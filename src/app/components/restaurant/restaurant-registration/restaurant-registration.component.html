@@ -120,12 +120,22 @@
                     <tr *ngFor="let t of dictionary | keyvalue; orderBy: 't.key'; let j=index;">
                         <td>{{t.key}}</td>
                         <td>{{t.value}}</td>
-                        <td><button class="text-design btn-main btn btn-primary" (click)="RemoveTable(t.key)">delete</button></td>
+                        <td><button class="text-design btn-main btn btn-primary" (click)="RemoveTable(t.key)">-</button></td>
                     </tr>
                     <tr>
-                        <td><input matInput placeholder="" formControlName="tableSize"></td>
-                        <td><input matInput placeholder="" formControlName="tableNumber"></td>
-                        <td><button class="text-design btn-main btn btn-primary" (click)="AddTable()">add</button></td>
+                        <td>
+                            <mat-form-field style="width: 40%; background-color: #DBE4EE;">
+                                <mat-label>Tischgröße</mat-label>
+                                <input matInput placeholder="" formControlName="tableSize" type="number">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field style="width: 40%; background-color: #DBE4EE;">
+                                <mat-label>Tischanzahl</mat-label>
+                                <input matInput placeholder="" formControlName="tableNumber">
+                            </mat-form-field>
+                        </td>
+                        <td><button class="text-design btn-main btn btn-primary" (click)="AddTable()">+</button></td>
                     </tr>
                     </table>
                 <div>
