@@ -69,17 +69,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .btn-main {
-  height: 55px;
   width: 100%;
   position: relative;
-  border-radius: 4em;
   font-size: 16px;
-  cursor: pointer;
-  user-select: none;
-  text-align: center;
-  text-decoration: none;
-  transition-duration: 0.4s;
-  -webkit-transition-duration: 0.4s;
 }
 
 .btn-main:hover {

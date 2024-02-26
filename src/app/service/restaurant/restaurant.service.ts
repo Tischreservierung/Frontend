@@ -7,6 +7,7 @@ import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
 import { OpeningTime } from 'src/app/model/opening-time';
+import { Picture } from 'src/app/model/picture.model';
 import { Restaurant } from 'src/app/model/restaurant';
 import { environment } from 'src/environments/environment';
 
@@ -22,6 +23,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RestaurantService {
+
+  updatePicturesOfRestaurant(imgList: Picture[]) {
+    return this.http.post<number>(this.url + "/picturesOfRestaurant", imgList);
+  }
+  getPicturesOfRestaurant() {
+    return this.http.get<Picture[]>(this.url + "/picturesOfRestaurant");
+  }
   updateCategoriesOfRestaurant(restaurantCategories: Category[]) {
     return this.http.post<Category[]>(this.url + "/categoriesOfRestaurant", restaurantCategories);
   }
