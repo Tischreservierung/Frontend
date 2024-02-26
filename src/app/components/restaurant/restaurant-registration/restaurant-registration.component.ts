@@ -323,7 +323,26 @@ export class RestaurantRegistrationComponent implements OnInit {
     let tableSize = this.formGroup.controls['tableSize'].value;
     let tableNumber = this.formGroup.controls['tableNumber'].value;
 
-    this.dictionary.set(tableSize, tableNumber);
+    if(tableSize > 0 && tableNumber > 0)
+    {
+      if(this.dictionary.has(tableSize) && !(this.dictionary.get(tableSize) == tableNumber))
+      {
+        var answer = window.confirm("Tisch mit dieser Größe existiert bereits. \nSoll der bereits existierende Tisch überschrieben werden?");
+
+        if(answer)
+        {
+          this.dictionary.set(tableSize, tableNumber);
+        }
+      }
+      else
+      {
+        this.dictionary.set(tableSize, tableNumber);
+      }
+    }
+    else
+    {
+      alert("Beide Eingabefelder müssen mit einer Zahl die größer als 0 ist ausgefüllt werden!");
+    }
   }
 
   RemoveTable(tableKey : number){
