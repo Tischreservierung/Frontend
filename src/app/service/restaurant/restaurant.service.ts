@@ -6,6 +6,7 @@ import { EmpRestaurant } from 'src/app/model/DTO/emp-restaurant';
 import { ReservationView } from 'src/app/model/DTO/reservation-view.model';
 import { RestaurantFilter } from 'src/app/model/DTO/restaurant-filter.model';
 import { RestaurantViewDto } from 'src/app/model/DTO/restaurant-view-dto.model';
+import { Table } from 'src/app/model/DTO/table.model';
 import { OpeningTime } from 'src/app/model/opening-time';
 import { Picture } from 'src/app/model/picture.model';
 import { Restaurant } from 'src/app/model/restaurant';
@@ -23,6 +24,10 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class RestaurantService {
+
+  getTablesOfRestaurant() {
+    return this.http.get<Table[]>(this.url + "/tablesOfRestaurant");
+  }
 
   updatePicturesOfRestaurant(imgList: Picture[]) {
     return this.http.post<number>(this.url + "/picturesOfRestaurant", imgList);

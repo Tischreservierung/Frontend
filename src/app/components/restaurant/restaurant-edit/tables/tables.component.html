@@ -1,1 +1,29 @@
 <app-sidebar></app-sidebar>
+
+<div class="main">
+    <h1 style="color: white; font-size: xx-large;">Tische</h1>
+    <hr style="color: white; border-width: 2px;">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Plätze</th>
+                <th>Letzte Reservierung</th>
+                <th>TIsch geschlossen ab</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let table of tables">
+                <td>{{table.seatPlaces}}</td>
+                <td>{{table.lastReservation| date:'dd.MM.yyyy'}}</td>
+                <td (mouseenter)="test(table.lastReservation)"><mat-form-field class="col-xl-3 col-md-4">
+                    <mat-label>Datum</mat-label>
+                    <input matInput [(ngModel)]="table.closedAt" [matDatepickerFilter]="dateFilter"
+                        [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
