@@ -25,4 +25,10 @@ export class ReservationListComponent {
   checkDate(date: Date){
     return date > new Date();
   }
+
+  deleteEntry(id: number, index : number){
+    this.reservationService.deleteById(id).subscribe((data) => {
+      this.reservations.splice(index, 1);
+    });
+  }
 }
