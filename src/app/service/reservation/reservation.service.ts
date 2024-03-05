@@ -48,4 +48,8 @@ export class ReservationService{
     return this.http.get<ReservationTime[]>(this.url + "/restaurant/"+restaurantId+"/options" 
     + "?day=" + day.getFullYear()+ "-"+ (day.getMonth()+1) + "-" + day.getDate()+"&duration="+duration+"&seatPlaces="+persons, httpOptions);
   }
+
+  deleteById(reservationId:number){
+    return this.http.delete(this.url + "/" + reservationId);
+  }
 }
