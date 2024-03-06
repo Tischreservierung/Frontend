@@ -7,18 +7,31 @@ import { RestaurantService } from 'src/app/service/restaurant/restaurant.service
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.scss']
 })
-export class TablesComponent implements OnInit{
+export class TablesComponent implements OnInit {
 
-  tables : Table[] = [];
+  tables: Table[] = [];
+  previousTables: Table[] = [];
+  newTables: { size: number }[] = [];
+  newSize: number = 2;
   selectedDate: Date | null = null;
   constructor(private restaurantService: RestaurantService) { }
 
   ngOnInit(): void {
-    this.restaurantService.getTablesOfRestaurant().subscribe({next: (data) => { this.tables = data; }});
+    this.restaurantService.getTablesOfRestaurant().subscribe({
+      next: (data) => {
+        this.previousTables = data;
+        Object.assign(this.tables, this.previousTables); 
+      }
+    });
   }
 
-  test(t : Date){
+  test(t: Date) {
     this.selectedDate = new Date(t);
+  }
+
+  removeTable(index: number) {
+    //Remove element by index of newTables
+    this.newTables.splice(index, 1);
   }
 
   dateFilter = (d: Date | null): boolean => {
@@ -26,9 +39,21 @@ export class TablesComponent implements OnInit{
       return false;
 
     let now = new Date();
-    if(this.selectedDate == null)
+    if (this.selectedDate == null)
       return d >= now;
-    else 
+    else
       return d >= now && d >= this.selectedDate;
+  }
+
+  save() {
+  }
+
+  cancel() {
+    this.newTables = [];
+    this.tables = [];
+    console.log(this.tables);
+    Object.assign(this.tables, this.previousTables);
+    console.log(this.previousTables);
+    console.log(this.tables);
   }
 }

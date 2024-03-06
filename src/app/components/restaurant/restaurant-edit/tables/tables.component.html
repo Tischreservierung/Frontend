@@ -9,7 +9,7 @@
             <tr>
                 <th>Plätze</th>
                 <th>Letzte Reservierung</th>
-                <th>TIsch geschlossen ab</th>
+                <th>Tisch geschlossen ab</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +24,25 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field></td>
             </tr>
+            <tr *ngFor="let table of newTables; let i = index">
+                <td><input class="form-control" type="number" oninput="validity.valid||(value='');" min="1" [(ngModel)]="table.size"></td>
+                <td><button class="btn btn-outline-danger" (click)="removeTable(i)">Tisch löschen</button></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input class="form-control" type="number" oninput="validity.valid||(value='');" min="1" [(ngModel)]="newSize"></td>
+                <td><button class="btn btn-outline-primary" (click)="newTables.push({size: newSize})">Tisch hinzufügen</button></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
+    <div class="col-12 col-xl-7 row">
+        <div class="col-6 row">
+            <button style="margin-left: 5%;"
+                class="col-11 btn btn-primary" (click)="save()">Speichern</button>
+        </div>
+        <div class="col-6 row">
+            <button style="margin-left: 10%;" class="col-11 btn btn-danger" (click)="cancel()">Abbrechen</button>
+        </div>
+    </div>
 </div>
