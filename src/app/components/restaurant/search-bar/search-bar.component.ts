@@ -43,7 +43,7 @@ export class SearchBarComponent {
       return false;
 
     let now = new Date();
-    return d.getDate() >= now.getDate();
+    return d >= now;
   }
 
   loadCategories() {

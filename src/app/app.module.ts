@@ -95,7 +95,7 @@ import { SidebarComponent } from './components/restaurant/restaurant-edit/sideba
         allowedList: [environment.apiUrl+'Reservations/restaurant/*', environment.apiUrl+'Reservations*',
          environment.apiUrl+'Restaurants/employee',environment.apiUrl+'Restaurants', 
          environment.apiUrl+'Restaurants/basicdata', environment.apiUrl+'Restaurants/categoriesOfRestaurant',
-        environment.apiUrl+'Restaurants/picturesOfRestaurant']
+        environment.apiUrl+'Restaurants/picturesOfRestaurant', environment.apiUrl+'Restaurants/tablesOfRestaurant',]
       },
     })
     , MatAutocompleteModule
