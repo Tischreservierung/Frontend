@@ -13,7 +13,7 @@ export class ReservationListComponent {
   reservations: ReservationList[] = [];
 
   constructor(private reservationService: ReservationService) {
-    
+
   }
 
   ngOnInit() {
@@ -22,13 +22,17 @@ export class ReservationListComponent {
     });
   }
 
-  checkDate(date: Date){
+  checkDate(date: Date) {
     return date > new Date();
   }
 
-  deleteEntry(id: number, index : number){
-    this.reservationService.deleteById(id).subscribe((data) => {
-      this.reservations.splice(index, 1);
-    });
+  deleteEntry(id: number, index: number) {
+    //Alert the user if they are sure they want to delete the reservation
+    if (confirm("Willst du diese Reservierung wirklich löschen?")){
+
+      this.reservationService.deleteById(id).subscribe((data) => {
+        this.reservations.splice(index, 1);
+      });
+    }
   }
 }
