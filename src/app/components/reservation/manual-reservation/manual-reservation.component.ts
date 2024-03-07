@@ -78,7 +78,7 @@ export class ManualReservationComponent implements OnInit{
     console.log(this.reservateForm.value.time!.getHours());
 
     console.log(reservation);
-    this.reservationService.addReservationManually(reservation).subscribe(data => console.log(data));
-    this.router.navigate(['/reservationManagement']);
+    this.reservationService.addReservationManually(reservation).subscribe(_ => this.router.navigate(['/reservationManagement']));
+    
   }
 }
